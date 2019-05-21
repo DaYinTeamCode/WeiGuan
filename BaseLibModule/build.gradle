@@ -1,0 +1,80 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+
+        versionCode 1
+        versionName "1.0.0"
+
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    sourceSets {
+
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    buildTypes {
+        debug {
+            zipAlignEnabled false
+            minifyEnabled false
+        }
+
+        beta {
+            debuggable true
+            zipAlignEnabled true
+            minifyEnabled false
+        }
+
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.espresso.core
+
+    //Support library
+    compileOnly deps.support.compat
+    compileOnly deps.support.core_ui
+    compileOnly deps.support.core_utils
+    compileOnly deps.support.fragment
+    compileOnly deps.support.recyclerview
+    compileOnly deps.support.cardview
+    compileOnly deps.support.gridlayout
+    api deps.support.design
+    api deps.httptask
+
+    //Fastjson form Alibaba
+    api deps.fastjson
+
+    // 侧滑Back返回组件
+    implementation deps.jzyd.Slideback
+
+    // 沉浸式适配
+    api deps.immersionbar
+}

@@ -109,6 +109,7 @@ versions.snappy_android = "1.1.7"
 versions.jzyd_umeng = "1.0.0"
 versions.httptask = "1.0.6"
 versions.ExRouter = "1.0"
+versions.slideback = "1.0.2"
 /* jzyd end */
 
 versions.okhttp = "3.11.0"
@@ -264,6 +265,7 @@ deps.httptask = "com.ex.sdk.android:httptask:$versions.httptask"
 def jzyd = [:]
 jzyd.umeng = "com.ex.sdk.android:umeng:$versions.jzyd_umeng"
 jzyd.ExRouter = "com.ex.sdk.android:ExRouter:$versions.ExRouter"
+jzyd.Slideback="com.ex.sdk.android:ExSlidebackLibrary:$versions.slideback"
 deps.jzyd = jzyd
 /* jzyd end */
 
@@ -271,7 +273,7 @@ deps.okhttp = "com.squareup.okhttp3:okhttp:$versions.okhttp"
 ext.deps = deps
 
 def build_versions = [:]
-build_versions.min_sdk = 14
+build_versions.min_sdk = 16
 build_versions.target_sdk = 27
 build_versions.compileSdkVersion = 27
 build_versions.build_tools = "27.0.3"

@@ -1,0 +1,78 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- activity style -->
+    <style name="ex_theme_noTitle">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppCompat_theme_noTitle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="ex_theme_fullscreen" parent="@style/ex_theme_noTitle">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- dialog style -->
+    <style name="ex_theme_dialog" parent="@style/ex_theme_noTitle">
+        <item name="android:windowFrame">@null</item><!-- 边框 -->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="ex_theme_dialog_float_title" parent="@style/ex_theme_noTitle">
+        <item name="android:windowFrame">@null</item><!-- 边框 -->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="exTitleFloat">true</item>
+    </style>
+
+    <style name="ex_theme_dark_dialog" parent="@style/ex_theme_dialog">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.85</item>
+    </style>
+
+    <style name="ex_theme_no_anim_dialog" parent="ex_theme_dialog">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="ex_theme_dialog_bg_transparent" parent="ex_theme_dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="ex_style_view_split_hori">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
+    <style name="ex_style_view_split_verti">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <!-- 大印加的card view -->
+
+    <style name="Base.CardView" parent="android:Widget">
+        <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
+        <item name="cardElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardMaxElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="cardPreventCornerOverlap">true</item>
+    </style>
+
+    <style name="CardView" parent="Base.CardView" />
+
+    <style name="CardView.Dark">
+        <item name="cardBackgroundColor">@color/cardview_dark_background</item>
+    </style>
+
+    <style name="CardView.Light">
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
+    </style>
+
+</resources>

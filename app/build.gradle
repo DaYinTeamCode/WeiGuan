@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
 
@@ -7,8 +9,8 @@ android {
         applicationId "com.sjteam.weiguan"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
+        versionCode 10000
+        versionName "1.00.00"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -70,6 +72,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         abortOnError false
     }
@@ -78,6 +85,12 @@ android {
         cruncherEnabled = false
         useNewCruncher = false
     }
+}
+
+greendao {
+    schemaVersion 1
+    daoPackage 'com.sjteam.weiguan.model.gen'
+    targetGenDir 'src/main/java'
 }
 
 dependencies {
@@ -94,10 +107,17 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.support.multidex
 
+    implementation project(':FrescoLibModule')
+    implementation project(':BaseLibModule')
+
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.espresso.core
 
-    implementation project(':FrescoLibModule')
+    //eventbus
+    implementation deps.eventbus
+    //黄油刀
+    implementation deps.butterknife.butterknife
+    annotationProcessor deps.butterknife.butterknife_compiler
 
 }

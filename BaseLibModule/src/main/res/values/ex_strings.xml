@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="toast_share_weixin_version_lower">您要升级到微信4.2才能分享到朋友圈哦</string>
+    <string name="toast_share_weixin_not_install">您还没有安装微信哦</string>    
+    
+    <string name="xlistview_header_hint_normal">下拉进行刷新</string>
+    <string name="xlistview_header_hint_ready">松开立即刷新</string>
+    <string name="xlistview_header_hint_loading">正在刷新&#8230;</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">正在加载&#8230;</string>
+    <string name="xlistview_footer_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="add_tag">添加标签</string>
+    
+</resources>

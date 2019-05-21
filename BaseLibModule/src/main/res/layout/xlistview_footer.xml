@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/xlistview_footer_content"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <!--
+        android:background="@drawable/ex_ic_xlv_selector_bg_loadmore" -->
+    <TextView
+        android:id="@+id/btnReLoadMore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="加载失败，点击重试"
+        android:textSize="14dp"
+        android:visibility="invisible"
+        android:textColor="#FF999999" />
+
+    <FrameLayout
+        android:id="@+id/flLoadingContent"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/xlistview_footer_hint_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="正在加载..."
+                android:textSize="14dp"
+                android:textColor="#FF999999"
+                android:background="@null"/>
+
+            <ImageView
+                android:id="@+id/xlistview_footer_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/xlistview_footer_hint_textview"
+                android:src="@drawable/ex_ic_xlv_pull_refresh_arrow"
+                android:background="@null"/>
+
+            <com.androidex.view.progress.ProgressWheel
+                android:id="@+id/xlistview_footer_progressbar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:visibility="gone"
+                android:layout_toLeftOf="@+id/xlistview_footer_hint_textview"
+                wheel:matProg_progressIndeterminate="true"
+                wheel:matProg_barWidth="2dp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</FrameLayout>

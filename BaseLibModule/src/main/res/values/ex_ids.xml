@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="ex_decor_view_root"/>
+    <item type="id" name="ex_decor_view_title"/>
+    <item type="id" name="ex_decor_view_fragment_container_act"/>
+    <item type="id" name="ex_decor_view_fragment_container_fra"/>
+    <item type="id" name="container_view"/>
+    <item type="id" name="container"/>
+    <item type="id" name="ex_custom_view_id"/>
+
+    <item type="id" name="tvTitleLeft"/>
+    <item type="id" name="tvTitleMiddle"/>
+    <item type="id" name="tvTitleRight"/>
+
+    <item type="id" name="ivTitleLeft"/>
+    <item type="id" name="ivTitleMiddle"/>
+    <item type="id" name="ivTitleRight"/>
+
+    <item type="id" name="erv"/>
+    <item type="id" name="lv"/>
+    <item type="id" name="elv"/>
+    <item type="id" name="xlv"/>
+    <item type="id" name="vp"/>
+</resources>

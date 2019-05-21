@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ExDecorView">
+        <attr name="exBackground" format="reference|color" />
+        <attr name="exTitleFloat" format="boolean" />
+        <attr name="exTitleAndroidStyle" format="boolean" />
+        <attr name="exTitleFloatContentTopMargin" format="dimension" />
+        <attr name="exTitleHeight" format="dimension" />
+        <attr name="exTitleBackground" format="reference|color" />
+        <attr name="exTitleTextColor" format="reference|color" />
+        <!-- 文字颜色支持@color/xxx和#argb, 不支持@color/colorStateList，可通过代码来支持 -->
+        <attr name="exTitleTextSize" format="dimension" />
+        <attr name="exTitleTextBold" format="boolean" />
+        <attr name="exTitleMainTextSize" format="dimension" />
+        <attr name="exTitleSubTextSize" format="dimension" />
+        <attr name="exTitleClickerBackground" format="reference|color" />
+        <attr name="exTitleClickerTextSize" format="dimension" />
+        <attr name="exTitleClickerTextColor" format="reference|color" />
+        <attr name="exTitleBackIcon" format="reference" />
+        <attr name="exTitleClickerHoriPadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="AsyncImageView">
+        <attr name="asyncBackground" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView">
+        <attr name="progress_src" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="android:gravity" />
+    </declare-styleable>
+    <declare-styleable name="FlowLayout_Layout">
+        <attr name="android:layout_gravity" />
+    </declare-styleable>
+
+
+    <declare-styleable name="SwipeFlingAdapterView">
+        <attr name="SwipeFlingStyle" format="reference" />
+        <attr name="rotation_degrees" format="float" />
+        <attr name="min_adapter_stack" format="integer" />
+        <attr name="max_visible" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="tagGroupStyle" format="reference" />
+    </declare-styleable>
+
+    <!--日历-->
+    <declare-styleable name="CompactCalendarView">
+        <attr name="compactCalendarDayTextSize" format="dimension" />
+        <attr name="compactCalendarTitleTextSize" format="dimension" />
+        <attr name="compactCalendarWeekTitleTextSize" format="dimension" />
+        <attr name="compactCalendarBackgroundColor" format="color" />
+        <attr name="compactCalendarCurrentDayBackgroundColor" format="color" />
+        <attr name="compactCalendarCurrentDayTextColor" format="color" />
+        <attr name="compactCalendarCurrentSelectedDayBackgroundColor" format="color" />
+        <attr name="compactCalendarTextTitleColor" format="color" />
+        <attr name="compactCalendarWeekTitleColor" format="color" />
+        <attr name="compactCalendarTextDateColor" format="color" />
+    </declare-styleable>
+
+
+
+    <!-- view/progress/ProgressWheel -->
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+    </declare-styleable>
+
+    <!-- 大印加的cardview -->
+    <attr name="cardViewStyle" format="reference" />
+
+    <declare-styleable name="CardView">
+        <attr name="cardBackgroundColor" format="color" />
+        <attr name="cardCornerRadius" format="dimension" />
+        <attr name="cardElevation" format="dimension" />
+        <attr name="cardMaxElevation" format="dimension" />
+        <attr name="cardUseCompatPadding" format="boolean" />
+        <attr name="cardPreventCornerOverlap" format="boolean" />
+        <attr name="contentPadding" format="dimension" />
+        <attr name="contentPaddingLeft" format="dimension" />
+        <attr name="contentPaddingRight" format="dimension" />
+        <attr name="contentPaddingTop" format="dimension" />
+        <attr name="contentPaddingBottom" format="dimension" />
+
+        <attr name="cardShadowColorStart" format="color" />
+        <attr name="cardShadowColorEnd" format="color" />
+
+        <attr name="android:minWidth" />
+        <attr name="android:minHeight" />
+    </declare-styleable>
+</resources>
