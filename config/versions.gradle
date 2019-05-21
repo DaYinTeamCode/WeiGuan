@@ -1,0 +1,318 @@
+ext.deps = [:]
+def versions = [:]
+/*Android 开发组件*/
+versions.arch_core = "1.1.1"
+versions.room = "1.1.0-beta2"
+versions.lifecycle = "1.1.1"
+
+/*Base*/
+versions.constraint_layout = "1.1.3"
+versions.espresso = "3.0.2"
+versions.support = "27.1.1"
+versions.multidex = "1.0.0"
+versions.junit = "4.12"
+
+versions.android_gradle_plugin = "3.0.1"
+versions.android_apt = "1.8"
+versions.atsl_runner = "1.0.1"
+versions.atsl_rules = "1.0.1"
+versions.hamcrest = "1.3"
+versions.kotlin = "1.2.20"
+versions.paging = "1.0.0-beta1"
+
+/*RxJava*/
+versions.rxjava2 = "2.2.3"
+versions.rx_android = "2.1.0"
+
+/*butterknife*/
+versions.butter_knife = "8.8.1"
+versions.butter_knife_compiler = "8.8.1"
+versions.butterknife_gradle_plugin = "8.5.1"
+
+versions.topsnackbar = "1.1.1"
+
+versions.animated_vector_drawable = "25.3.1"
+
+versions.gson = "2.8.0"
+
+/*OkHttp*/
+versions.okhttp = "3.10.0"
+
+/*Retrofit*/
+versions.retrofit = "2.5.0"
+
+versions.alibabaarouter = "1.2.1.1"
+versions.alibabaarouter_compiler = "1.1.2.1"
+versions.dagger = "2.11"
+versions.mvp = "3.0.4"
+
+versions.meituan_plugin_walle = "1.1.5"
+versions.carbswang_number_picker_view = "1.1.0"
+
+versions.facebook_fresco = "1.7.1"
+versions.facebook_fresco_animated_gif = "1.7.1"
+versions.facebook_fresco_webpsupport = "1.7.1"
+
+versions.fastjson = "1.2.9"
+
+versions.umeng_common = "2.0.0"
+versions.umeng_push = "4.2.0"
+
+versions.realm_android = "0.87.5"
+versions.eventbus = "3.0.0"
+
+versions.flyco_tablayout = "2.1.0@aar"
+versions.logger = "1.15"
+versions.gaoyin_svprogress_hud_android = "1.0"
+
+versions.leakcanary = "1.6.1"
+
+versions.snappy_java = "1.1.7.2"
+
+versions.alibaba_alipaySingle = "20160825@jar"
+versions.alibabauth_core = "1.4.3@jar"
+versions.alibaba_alibabauth_ui = "1.4.3@aar"
+versions.alibabauth_ext = "1.4.3@jar"
+versions.alibabauth_accountlink = "1.1.4@jar"
+versions.securityguardaar3 = "5.1.81@aar"
+versions.securitybodyaar3 = "5.1.25@aar"
+versions.mtopsdk_allinone_open = "1.2.2.4@jar"
+versions.alibc_link_partner = "1.1.0.6"
+versions.taobao_utdid4all = "1.1.5.3_proguard@jar"
+versions.alibaba_app_monitor_sdk = "2.5.1.3_for_bc_proguard@jar"
+versions.tuniontradesdk = "0.3.2@aar"
+versions.alibc_trade_common = "3.1.1.219"
+versions.alibc_trade_biz = "3.1.1.219"
+versions.alibc_trade_sdk = "3.1.1.219"
+
+versions.bugly_crashreport = "2.6.6.1"
+versions.nativecrashreport = "3.3.1"
+
+versions.huawei_push = "2.6.1.301"
+versions.meizu_push = "3.8.1@aar"
+versions.j_push = "3.1.8"
+versions.j_push_core = "1.2.6"
+
+versions.exoplayer_core = "2.7.3"
+versions.exoplayer_ui = "2.7.3"
+
+versions.react_native = "+"
+
+versions.circleimageview = "2.2.0"
+
+versions.immersionbar = "3.0.0-beta03"
+versions.fragment_immersionbar = "3.0.0-beta03"
+
+versions.snappy_android = "1.1.7"
+
+/* jzyd start */
+versions.jzyd_umeng = "1.0.0"
+versions.httptask = "1.0.6"
+versions.ExRouter = "1.0"
+/* jzyd end */
+
+versions.okhttp = "3.11.0"
+
+def deps = [:]
+
+def support = [:]
+support.annotations = "com.android.support:support-annotations:$versions.support"
+support.app_compat_v7 = "com.android.support:appcompat-v7:$versions.support"
+support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
+support.gridlayout = "com.android.support:gridlayout-v7:$versions.support"
+support.cardview = "com.android.support:cardview-v7:$versions.support"
+support.design = "com.android.support:design:$versions.support"
+support.v4 = "com.android.support:support-v4:$versions.support"
+support.core_utils = "com.android.support:support-core-utils:$versions.support"
+support.animated_vector_drawable = "com.android.support:animated-vector-drawable:$versions.support"
+support.multidex = "com.android.support:multidex:$versions.multidex"
+support.compat = "com.android.support:support-compat:$versions.support"
+support.core_ui = "com.android.support:support-core-ui:$versions.support"
+support.fragment = "com.android.support:support-fragment:$versions.support"
+support.design = "com.android.support:design:$versions.support"
+deps.support = support
+
+def room = [:]
+room.runtime = "android.arch.persistence.room:runtime:$versions.room"
+room.compiler = "android.arch.persistence.room:compiler:$versions.room"
+room.rxjava2 = "android.arch.persistence.room:rxjava2:$versions.room"
+room.testing = "android.arch.persistence.room:testing:$versions.room"
+deps.room = room
+
+def lifecycle = [:]
+lifecycle.runtime = "android.arch.lifecycle:runtime:$versions.lifecycle"
+lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.java8 = "android.arch.lifecycle:common-java8:$versions.lifecycle"
+lifecycle.compiler = "android.arch.lifecycle:compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def arch_core = [:]
+arch_core.testing = "android.arch.core:core-testing:$versions.arch_core"
+deps.arch_core = arch_core
+
+def espresso = [:]
+espresso.core = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+def atsl = [:]
+atsl.runner = "com.android.support.test:runner:$versions.atsl_runner"
+atsl.rules = "com.android.support.test:rules:$versions.atsl_runner"
+deps.atsl = atsl
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+def butterknife = [:]
+butterknife.butterknife = "com.jakewharton:butterknife:$versions.butter_knife"
+butterknife.butterknife_compiler = "com.jakewharton:butterknife-compiler:$versions.butter_knife"
+deps.butterknife = butterknife
+
+def alibaba = [:]
+alibaba.alipay_alipaySingle = "com.alibaba.alipay:alipaySingle:$versions.alibaba_alipaySingle"
+alibaba.alibabauth_core = "com.ali.auth.sdk:alibabauth_core:$versions.alibabauth_core"
+alibaba.alibaba_alibabauth_ui = "com.ali.auth.sdk:alibabauth_ui:$versions.alibaba_alibabauth_ui"
+alibaba.alibabauth_ext = "com.ali.auth.sdk:alibabauth_ext:$versions.alibabauth_ext"
+alibaba.alibabauth_accountlink = "com.ali.auth.sdk:alibabauth_accountlink:$versions.alibabauth_accountlink"
+alibaba.securityguardaar3 = "com.taobao.android:securityguardaar3:$versions.securityguardaar3"
+alibaba.securitybodyaar3 = "com.taobao.android:securitybodyaar3:$versions.securitybodyaar3"
+alibaba.mtopsdk_allinone_open = "com.taobao.android:mtopsdk_allinone_open:$versions.mtopsdk_allinone_open"
+alibaba.alibc_link_partner = "com.alibaba.sdk.android:alibc_link_partner:$versions.alibc_link_partner"
+alibaba.taobao_utdid4all = "com.taobao.android:utdid4all:$versions.taobao_utdid4all"
+alibaba.alibaba_app_monitor_sdk = "com.alibaba.mtl:app-monitor-sdk:$versions.alibaba_app_monitor_sdk"
+alibaba.tuniontradesdk = "com.alimama.tunion.sdk:tuniontradesdk:$versions.tuniontradesdk"
+alibaba.alibc_trade_common = "com.alibaba.sdk.android:alibc_trade_common:$versions.alibc_trade_common"
+alibaba.alibc_trade_biz = "com.alibaba.sdk.android:alibc_trade_biz:$versions.alibc_trade_biz"
+alibaba.alibc_trade_sdk = "com.alibaba.sdk.android:alibc_trade_sdk:$versions.alibc_trade_sdk"
+deps.alibaba = alibaba
+
+def push = [:]
+push.umeng = "com.umeng.sdk:push:$versions.umeng_push"
+push.huawei = "com.huawei.android.hms:push:$versions.huawei_push"
+push.meizu = "com.meizu.flyme.internet:push-internal:$versions.meizu_push"
+push.jpush = "cn.jiguang.sdk:jpush:$versions.j_push"
+push.jpush_core = "cn.jiguang.sdk:jcore:$versions.j_push_core"
+deps.push = push
+
+deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+deps.junit = "junit:junit:$versions.junit"
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.android_apt = "com.neenbedankt.gradle.plugins:android-apt:$versions.android_apt"
+deps.topsnackbar = "com.androidadvance:topsnackbar:$versions.topsnackbar"
+deps.gson = "com.google.code.gson:gson:$versions.gson"
+deps.okhttp = "com.squareup.okhttp3:okhttp:$versions.okhttp"
+
+deps.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+
+deps.antfortune_freeline = "com.antfortune.freeline:gradle:$versions.antfortune_freeline"
+deps.alibabaarouter = "com.alibaba:arouter-api:$versions.alibabaarouter"
+deps.alibabaarouter_compiler = "com.alibaba:arouter-compiler:$versions.alibabaarouter_compiler"
+deps.dagger = "com.google.dagger:dagger:$versions.dagger"
+deps.dagger_compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+deps.mvp = "com.hannesdorfmann.mosby3:mvp:$versions.mvp"
+
+deps.meituan_plugin_walle = "com.meituan.android.walle:plugin:$versions.meituan_plugin_walle"
+deps.meituan_library_walle = "com.meituan.android.walle:library:$versions.meituan_plugin_walle"
+deps.butterknife_gradle_plugin = "com.jakewharton:butterknife-gradle-plugin:$versions.butterknife_gradle_plugin"
+deps.carbswang_number_picker_view = "cn.carbswang.android:NumberPickerView:$versions.carbswang_number_picker_view"
+
+deps.facebook_fresco = "com.facebook.fresco:fresco:$versions.facebook_fresco"
+deps.facebook_fresco_animated_gif = "com.facebook.fresco:animated-gif:$versions.facebook_fresco_animated_gif"
+deps.facebook_fresco_webpsupport = "com.facebook.fresco:webpsupport:$versions.facebook_fresco_webpsupport"
+
+deps.fastjson = "com.alibaba:fastjson:$versions.fastjson"
+
+deps.umeng_common = "com.umeng.umsdk:common:$versions.umeng_common"
+
+deps.realm_android = "io.realm:realm-android:$versions.realm_android"
+deps.eventbus = "org.greenrobot:eventbus:$versions.eventbus"
+deps.flyco_tablayout = "com.flyco.tablayout:FlycoTabLayout_Lib:$versions.flyco_tablayout"
+deps.logger = "com.orhanobut:logger:$versions.logger"
+deps.gaoyin_svprogress_hud_android = "com.github.GaoYin2016:Android-SVProgressHUD:$versions.gaoyin_svprogress_hud_android"
+
+deps.debug_leakcanary = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
+
+deps.release_leakcanary = "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakcanary"
+
+deps.snappy_java = "org.xerial.snappy:snappy-java:$versions.snappy_java"
+
+deps.bugly_crashreport = "com.tencent.bugly:crashreport:$versions.bugly_crashreport"
+deps.nativecrashreport = "com.tencent.bugly:nativecrashreport:$versions.nativecrashreport"
+
+deps.exoplayer_core = "com.google.android.exoplayer:exoplayer-core:$versions.exoplayer_core"
+deps.exoplayer_ui = "com.google.android.exoplayer:exoplayer-ui:$versions.exoplayer_ui"
+
+deps.react_native = "com.facebook.react:react-native:$versions.react_native"
+
+deps.circleimageview = "de.hdodenhof:circleimageview:$versions.circleimageview"
+/* 沉淀式状态栏 适配版本 */
+deps.immersionbar = "com.gyf.immersionbar:immersionbar:$versions.immersionbar"
+/* Fragment 快速适配版本 */
+deps.fragment_immersionbar = "com.gyf.immersionbar:immersionbar-components:$versions.fragment_immersionbar"
+
+deps.snappy_android = "com.jiechic.android.library:snappy-android:$versions.snappy_android"
+
+deps.httptask = "com.ex.sdk.android:httptask:$versions.httptask"
+
+/* jzyd start */
+def jzyd = [:]
+jzyd.umeng = "com.ex.sdk.android:umeng:$versions.jzyd_umeng"
+jzyd.ExRouter = "com.ex.sdk.android:ExRouter:$versions.ExRouter"
+deps.jzyd = jzyd
+/* jzyd end */
+
+deps.okhttp = "com.squareup.okhttp3:okhttp:$versions.okhttp"
+ext.deps = deps
+
+def build_versions = [:]
+build_versions.min_sdk = 14
+build_versions.target_sdk = 27
+build_versions.compileSdkVersion = 27
+build_versions.build_tools = "27.0.3"
+ext.build_versions = build_versions
+
+def addRepos(RepositoryHandler handler) {
+    handler.maven {
+        url 'http://maven.17gwx.com/repository/maven-releases/'
+    }
+
+    handler.maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+    }
+    handler.maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public'
+    }
+    handler.mavenLocal()
+    handler.mavenCentral()
+    handler.google()
+    handler.jcenter()
+    handler.maven {
+        url "https://dl.bintray.com/thelasterstar/maven/"
+    }
+    handler.maven {
+        url "https://jitpack.io"
+    }
+    handler.maven {//百川
+        url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
+    }
+    handler.maven {
+        url 'https://dl.bintray.com/umsdk/release'
+    }
+    handler.maven {
+        url 'http://developer.huawei.com/repo/'
+    }
+    handler.maven {
+        url 'https://dl.bintray.com/qichuan/maven/'
+    }
+    handler.flatDir {
+        dirs 'libs'
+    }
+}
+
+ext.addRepos = this.&addRepos

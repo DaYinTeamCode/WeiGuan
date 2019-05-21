@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion build_versions.compileSdkVersion
+    defaultConfig {
+        applicationId "com.sjteam.weiguan"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+    }
+    sourceSets {
+
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    signingConfigs {
+        wg {
+            storeFile file("../config/weiguan.keystore")
+            storePassword "weiguan"
+            keyAlias "wg"
+            keyPassword "weiguan"
+            v2SigningEnabled false
+        }
+    }
+    buildTypes {
+
+        debug {
+            zipAlignEnabled false
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.wg
+            buildConfigField "String", "PKG_TIME", '"debug_${versionReleaseTime()}"'
+        }
+
+        beta {
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            debuggable true
+            signingConfig signingConfigs.wg
+            buildConfigField "String", "PKG_TIME", '"debug_${versionReleaseTime()}"'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            signingConfig signingConfigs.wg
+            buildConfigField "String", "PKG_TIME", '"debug_${versionReleaseTime()}"'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //build release apk
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    if (outputFileName && outputFileName.endsWith('.apk')) {
+                        outputFileName = "wg_v${defaultConfig.versionName}.apk"
+                    }
+                }
+            }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.support.compat
+    implementation deps.support.app_compat_v7
+    implementation deps.support.core_ui
+    implementation deps.support.core_utils
+    implementation deps.support.fragment
+    implementation deps.support.recyclerview
+    implementation deps.support.gridlayout
+    implementation deps.support.cardview
+    implementation deps.constraint_layout
+    implementation deps.support.multidex
+
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.espresso.core
+
+    implementation project(':FrescoLibModule')
+
+}

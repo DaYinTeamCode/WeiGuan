@@ -1,0 +1,9 @@
+//sqkb组件化配置
+
+ext {
+
+    //个人中心组件
+    componentPersonalIsAlone = true
+    //小猪记账组件
+    componentPigIsAlone = false
+}

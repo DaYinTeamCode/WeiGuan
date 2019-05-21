@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.compileSdkVersion
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+
+        debug {
+            zipAlignEnabled false
+            minifyEnabled false
+        }
+        beta {
+            zipAlignEnabled true
+            minifyEnabled true
+            debuggable true
+        }
+        release {
+
+            zipAlignEnabled true
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.espresso.core
+
+    implementation 'com.ex.sdk.java:ExJavaLibrary:1.0.0'
+    api 'com.facebook.fresco:fresco:1.7.1'
+    api 'com.facebook.fresco:animated-gif:1.7.1'
+    api 'com.facebook.fresco:webpsupport:1.7.1'
+}
