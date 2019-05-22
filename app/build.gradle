@@ -95,7 +95,7 @@ greendao {
 
 dependencies {
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.support.compat
     implementation deps.support.app_compat_v7
     implementation deps.support.core_ui
@@ -108,7 +108,7 @@ dependencies {
     implementation deps.support.multidex
 
     implementation project(':FrescoLibModule')
-    implementation project(':BaseLibModule')
+    implementation project(':CommonLibModule')
 
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner

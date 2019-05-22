@@ -1,0 +1,79 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.compileSdkVersion
+//    buildToolsVersion build_versions.build_tools
+
+    // 用 api23 编译时要打开这行代码，因为在api23，
+    // google已经移除了httpclient组件，运行环境并没有移除，可以继续使用。
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            zipAlignEnabled false
+            minifyEnabled false
+        }
+
+        beta {
+            debuggable true
+            zipAlignEnabled true
+            minifyEnabled false
+        }
+
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.espresso.core
+    api project(':BaseLibModule')
+    api project(':FrescoLibModule')
+
+    api deps.jzyd.umeng
+
+    //Support library
+    compileOnly deps.support.compat
+    compileOnly deps.support.core_ui
+    compileOnly deps.support.core_utils
+    compileOnly deps.support.fragment
+    compileOnly deps.support.recyclerview
+    compileOnly deps.support.cardview
+    compileOnly deps.support.gridlayout
+
+    implementation deps.fastjson
+}

@@ -1,1 +1,1 @@
-include ':app', ':FrescoLibModule', ':BaseLibModule'
+include ':app', ':FrescoLibModule', ':BaseLibModule', ':CommonLibModule'
