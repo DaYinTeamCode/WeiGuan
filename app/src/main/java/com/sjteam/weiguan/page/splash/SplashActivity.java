@@ -10,7 +10,7 @@ import com.sjteam.weiguan.MainActivity;
 import com.sjteam.weiguan.page.splash.fragment.SplashFragment;
 
 /**
- *  启动也
+ * 启动也
  * Create By DaYin(gaoyin_vip@126.com) on 2019/5/30 7:33 PM
  */
 public class SplashActivity extends JzydFragmentActivity implements
@@ -48,26 +48,14 @@ public class SplashActivity extends JzydFragmentActivity implements
 
     }
 
-    /**
-     * 显示修改设备号弹窗
-     */
-    private void showDeviceIdDialog() {
-
-        // 修复 BadToken 异常，当Activity正在Finishing时，不再弹出Dialog
-        if (isFinishing()) {
-            return;
-        }
-    }
-
     private void setContentFragmentAndLaunchTask() {
 
         setContentFragmentByLaunchTime();
-        startLaunchTask();
     }
 
     private void onBeforeSetContentFragment() {
 
-        hideNavitionBar();
+//        hideNavitionBar();
     }
 
     /**
@@ -87,14 +75,6 @@ public class SplashActivity extends JzydFragmentActivity implements
         SplashFragment fra = SplashFragment.newInstance(this, !mFirstLaunch);
         fra.setSplashPageListener(this);
         setContentFragment(fra);
-    }
-
-    /**
-     * 开始执行启动相关任务
-     */
-    private void startLaunchTask() {
-
-
     }
 
     /**
