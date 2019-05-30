@@ -6,4 +6,9 @@
         <item name="android:windowBackground">@android:color/white</item>
     </style>
 
+    <style name="SplashAppTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_logo_welcome</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
