@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.app;
+package com.sjteam.weiguan.base;
 
 import android.app.Application;
 import android.content.ContentResolver;

@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidex.R;
+import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.CollectionUtil;
 import com.androidex.util.DeviceUtil;
 import com.androidex.util.LogMgr;
@@ -46,6 +48,8 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
     // 默认当前页面支持横划Back返回
     private boolean mIsCurPageSlidebackSupport = true;
 
+    private View mStatusBarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,6 +66,7 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
                 }
             });
         }
+
     }
 
     @Override
@@ -95,6 +100,54 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
         //fragmentActivity 靠该方法保存状态:fragment的复用等，取消状态的保存
     }
 
+
+    /**
+     * 是否可以使用沉浸式
+     * Is immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    protected boolean isStatusbarEnabled() {
+
+        return true;
+    }
+
+    /***
+     *  初始化沉淀式状态栏
+     */
+    protected void initStatusBar() {
+
+        if (isStatusbarEnabled()) {
+
+            StatusBarManager.getInstance()
+                    .initStatusbar(this, getStatusbarView());
+        }
+    }
+
+    /***
+     *  设置Statusbar View
+     *
+     * @param view
+     */
+    protected void setStatusbarView(@Nullable View view) {
+
+        if (view == null) {
+
+            return;
+        }
+        mStatusBarView = view;
+    }
+
+    /***
+     *  获取状态栏资源Id
+     *
+     * @return
+     */
+    protected View getStatusbarView() {
+
+        return mStatusBarView;
+    }
+
     private void initAndSetExDecorView() {
 
         mExDecorView = new ExDecorView(this);
@@ -114,6 +167,7 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
         initData();
         initTitleView();
         initContentView();
+        initStatusBar();
     }
 
     protected Fragment setContentFragment(Class<?> clazz) {
@@ -143,6 +197,7 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
         initData();
         initTitleView();
         initContentView();
+        initStatusBar();
 
         return fragment;
     }

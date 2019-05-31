@@ -1,0 +1,25 @@
+<resources>
+
+    <dimen name="cp_title_text_size">16dp</dimen>
+
+    <dimen name="cp_title_bar_height">48dp</dimen>
+    <dimen name="cp_page_main_act_menu_bar_height">49dp</dimen>
+    <dimen name="cp_page_main_act_menu_bar_height_more">85dp</dimen>
+    <dimen name="cp_tab_bar_height">42dp</dimen>
+    <dimen name="cp_nn_tab_bar_height">29dp</dimen>
+
+
+    <dimen name="ksw_md_thumb_ripple_size">42dp</dimen>
+    <dimen name="ksw_md_thumb_solid_inset">11dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_inset">11dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_inset_top">11dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_inset_bottom">10dp</dimen>
+
+    <dimen name="ksw_md_thumb_solid_size">20dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_size">21dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_offset">2dp</dimen>
+
+    <dimen name="cp_sc_rank_desc_text_size">11dp</dimen>
+    <dimen name="cp_user_sc_title_text_size">13dp</dimen>
+
+</resources>

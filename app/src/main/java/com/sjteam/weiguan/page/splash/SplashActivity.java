@@ -3,10 +3,11 @@ package com.sjteam.weiguan.page.splash;
 import android.os.Bundle;
 import android.view.View;
 
+import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.CompatUtil;
 import com.gyf.immersionbar.ImmersionBar;
 import com.jzyd.lib.activity.JzydFragmentActivity;
-import com.sjteam.weiguan.MainActivity;
+import com.sjteam.weiguan.page.main.MainActivity;
 import com.sjteam.weiguan.page.splash.fragment.SplashFragment;
 
 /**
@@ -23,14 +24,13 @@ public class SplashActivity extends JzydFragmentActivity implements
 
         setCurPageSlidebackSupport(false);
         super.onCreate(savedInstanceState);
+        onBeforeSetContentFragment();
+        setContentFragmentAndLaunchTask();
         ImmersionBar.with(this)
                 .statusBarDarkFont(true, 0.2f)
                 .autoDarkModeEnable(true)
-                .fitsSystemWindows(true)
                 .keyboardEnable(false)
                 .init();
-        onBeforeSetContentFragment();
-        setContentFragmentAndLaunchTask();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class SplashActivity extends JzydFragmentActivity implements
 
     private void onBeforeSetContentFragment() {
 
-//        hideNavitionBar();
+        hideNavitionBar();
     }
 
     /**
@@ -67,6 +67,8 @@ public class SplashActivity extends JzydFragmentActivity implements
 
             int uiFlag = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
             getWindow().getDecorView().setSystemUiVisibility(uiFlag);
+
+
         }
     }
 
@@ -83,6 +85,7 @@ public class SplashActivity extends JzydFragmentActivity implements
     @Override
     public void onForwardMainActivity(String adUrl, boolean isAd) {
 
+        StatusBarManager.getInstance().setStatusbarEnable(true);
         MainActivity.startActivityForIndex(this);
         finish();
     }

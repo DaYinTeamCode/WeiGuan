@@ -265,7 +265,7 @@ deps.httptask = "com.ex.sdk.android:httptask:$versions.httptask"
 def jzyd = [:]
 jzyd.umeng = "com.ex.sdk.android:umeng:$versions.jzyd_umeng"
 jzyd.ExRouter = "com.ex.sdk.android:ExRouter:$versions.ExRouter"
-jzyd.Slideback="com.ex.sdk.android:ExSlidebackLibrary:$versions.slideback"
+jzyd.Slideback = "com.ex.sdk.android:ExSlidebackLibrary:$versions.slideback"
 deps.jzyd = jzyd
 /* jzyd end */
 
@@ -311,6 +311,9 @@ def addRepos(RepositoryHandler handler) {
     }
     handler.maven {
         url 'https://dl.bintray.com/qichuan/maven/'
+    }
+    handler.maven {
+        url 'http://dl.bintray.com/gigamole/maven/'
     }
     handler.flatDir {
         dirs 'libs'
