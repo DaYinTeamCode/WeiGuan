@@ -1,0 +1,108 @@
+{
+    "project_type": "gradle",
+    "android_gradle_plugin_version": "3.0.1",
+    "freeline_gradle_plugin_version": "0.8.8",
+    "java_home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home",
+    "freeline_cache_dir": "/Users/gaoyin/work/GitHub/WeiGuan",
+    "auto_dependency": true,
+    "product_flavor": "",
+    "build_script": "./gradlew :app:assembleDebug",
+    "build_script_work_directory": "",
+    "root_dir": "/Users/gaoyin/work/GitHub/WeiGuan",
+    "main_project_name": "app",
+    "main_project_dir": "app",
+    "build_directory": "/Users/gaoyin/work/GitHub/WeiGuan/app/build",
+    "build_cache_dir": "/Users/gaoyin/work/GitHub/WeiGuan/app/build/freeline",
+    "build_tools_version": "26.0.2",
+    "sdk_directory": "/Users/gaoyin/Developer/androidstudio_sdk/android-sdk-macosx",
+    "build_tools_directory": "/Users/gaoyin/Developer/androidstudio_sdk/android-sdk-macosx/build-tools/26.0.2",
+    "compile_sdk_version": "android-27",
+    "compile_sdk_directory": "/Users/gaoyin/Developer/androidstudio_sdk/android-sdk-macosx/platforms/android-27",
+    "package": "com.sjteam.weiguan",
+    "debug_package": "com.sjteam.weiguan",
+    "main_manifest_path": "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/AndroidManifest.xml",
+    "launcher": "com.sjteam.weiguan.page.splash.SplashActivity",
+    "apk_path": "/Users/gaoyin/work/GitHub/WeiGuan/app/build/outputs/apk/debug/wg_v1.00.00.apk",
+    "extra_dep_res_paths": [
+        
+    ],
+    "exclude_dep_res_paths": [
+        
+    ],
+    "main_r_path": "/Users/gaoyin/work/GitHub/WeiGuan/app/build/generated/source/r/debug/R.java",
+    "use_jdk8": true,
+    "ignore_resource_ids": [
+        "avd_hide_password_1",
+        "avd_hide_password_2",
+        "avd_hide_password_3",
+        "avd_show_password_1",
+        "avd_show_password_2",
+        "avd_show_password_3"
+    ],
+    "use_system_gradle": false,
+    "check_sources_md5": [
+        
+    ],
+    "main_src_directory": [
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/java",
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/java"
+    ],
+    "main_res_directory": [
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/res",
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/res"
+    ],
+    "main_assets_directory": [
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/assets",
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/assets"
+    ],
+    "main_jni_directory": [
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/jni",
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/jni"
+    ],
+    "main_jniLibs_directory": [
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/jniLibs",
+        "/Users/gaoyin/work/GitHub/WeiGuan/app/libs"
+    ],
+    "project_source_sets": {
+        "app": {
+            "main_src_directory": [
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/java",
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/java"
+            ],
+            "main_res_directory": [
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/res",
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/res"
+            ],
+            "main_assets_directory": [
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/assets",
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/assets"
+            ],
+            "main_jni_directory": [
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/jni",
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/jni"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/src/debug/jniLibs",
+                "/Users/gaoyin/work/GitHub/WeiGuan/app/libs"
+            ],
+            "main_manifest_path": "/Users/gaoyin/work/GitHub/WeiGuan/app/src/main/AndroidManifest.xml"
+        }
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "/Users/gaoyin/work/GitHub/WeiGuan/app"
+        }
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "databinding": [
+        
+    ],
+    "databinding_modules": [
+        
+    ]
+}
