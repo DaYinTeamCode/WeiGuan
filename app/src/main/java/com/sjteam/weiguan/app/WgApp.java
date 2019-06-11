@@ -1,9 +1,14 @@
 package com.sjteam.weiguan.app;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.multidex.MultiDex;
 
 import com.androidex.context.ExApplication;
+import com.ex.android.http.task.HttpTask;
+import com.ex.android.http.task.HttpTaskClient;
+import com.jzyd.lib.httptask.JzydJsonListener;
+import com.sjteam.weiguan.BuildConfig;
 import com.sjteam.weiguan.utils.FrescoInitUtil;
 
 /**
@@ -34,6 +39,7 @@ public class WgApp extends ExApplication {
     private void initAppFrame() {
 
         initAsyncImageLoader();
+        initHttpTask();
     }
 
     /***
@@ -42,5 +48,16 @@ public class WgApp extends ExApplication {
     private void initAsyncImageLoader() {
 
         FrescoInitUtil.initFrescoConfig(this);
+    }
+
+    /**
+     * 初始化网络框架、图片框架
+     */
+    private void initHttpTask() {
+
+        //设置网络请求框架 最大连接数10, 超时时间10s) 去除https
+        HttpTask.setHttpTaskClient(HttpTaskClient.newHttpTaskClient(10,
+                10 * 1000, null));
+        HttpTask.setCacheDir(getAppCacheSubDir("httptask"));
     }
 }

@@ -4,6 +4,7 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.antfortune.freeline'
 
 android {
+    useLibrary 'org.apache.http.legacy'
 
     compileSdkVersion build_versions.compileSdkVersion
     defaultConfig {
@@ -97,6 +98,7 @@ greendao {
 dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     implementation deps.support.compat
     implementation deps.support.app_compat_v7
     implementation deps.support.core_ui
@@ -107,7 +109,6 @@ dependencies {
     implementation deps.support.cardview
     implementation deps.constraint_layout
     implementation deps.support.multidex
-
     implementation project(':FrescoLibModule')
     implementation project(':CommonLibModule')
 
@@ -122,5 +123,4 @@ dependencies {
     annotationProcessor deps.butterknife.butterknife_compiler
 
     implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:+'
-
 }

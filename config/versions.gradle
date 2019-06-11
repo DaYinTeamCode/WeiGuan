@@ -259,13 +259,12 @@ deps.fragment_immersionbar = "com.gyf.immersionbar:immersionbar-components:$vers
 
 deps.snappy_android = "com.jiechic.android.library:snappy-android:$versions.snappy_android"
 
-deps.httptask = "com.ex.sdk.android:httptask:$versions.httptask"
-
 /* jzyd start */
 def jzyd = [:]
 jzyd.umeng = "com.ex.sdk.android:umeng:$versions.jzyd_umeng"
 jzyd.ExRouter = "com.ex.sdk.android:ExRouter:$versions.ExRouter"
 jzyd.Slideback = "com.ex.sdk.android:ExSlidebackLibrary:$versions.slideback"
+jzyd.httptask = "com.ex.sdk.android:httptask:$versions.httptask"
 deps.jzyd = jzyd
 /* jzyd end */
 

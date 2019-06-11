@@ -22,14 +22,14 @@ public class SplashFragment extends JzydFragment implements ISplashPage {
     private MainLauncherRunnable mMainActivityLaunchRunnable;
     private Handler mHandler = new Handler();
     private SplashPageListener mLisn;
-    private ImageView mIvChannel;
+//    private ImageView mIvChannel;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.page_launcher_splash_fra);
-        mIvChannel = (ImageView) findViewById(R.id.ivChannel);
+//        mIvChannel = (ImageView) findViewById(R.id.ivChannel);
         startWaitRunnable();
     }
 

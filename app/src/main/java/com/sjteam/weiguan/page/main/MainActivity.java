@@ -4,22 +4,28 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.androidex.activity.ExFragmentActivity;
 import com.androidex.plugin.DelayBackHandler;
-import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.ToastUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.sjteam.weiguan.R;
+import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
+import com.sjteam.weiguan.page.home.MainHomeFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends ExFragmentActivity implements DelayBackHandler.OnDelayBackListener {
+/**
+ * 首页主框架
+ * <p>
+ * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 10:01 PM
+ */
+public class MainActivity extends CpFragmentActivity implements DelayBackHandler.OnDelayBackListener {
 
     public static final int EXTRA_VALUE_LAUNCHER_TAB_INDEX = 1;
 
@@ -40,6 +46,7 @@ public class MainActivity extends ExFragmentActivity implements DelayBackHandler
 
     private Unbinder unbinder;
     private DelayBackHandler mDelayBackHandler;
+    boolean isAdd = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,7 @@ public class MainActivity extends ExFragmentActivity implements DelayBackHandler
 
         unbinder = ButterKnife.bind(this, getExDecorView());
         initTabView();
+
     }
 
     /***
@@ -83,6 +91,19 @@ public class MainActivity extends ExFragmentActivity implements DelayBackHandler
             @Override
             public void onEndTabSelected(String title, int index) {
 
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                if (isAdd) {
+
+                    isAdd = false;
+                    transaction.add(R.id.flMainFraContainer, MainHomeFragment.newInstance(MainActivity.this));
+                } else {
+                    transaction.show(MainHomeFragment.newInstance(MainActivity.this));
+                }
+
+//                if (mSelectedFra != null)
+//                    transaction.hide(mSelectedFra);
+
+                transaction.commitAllowingStateLoss();
 //                Toast.makeText(MainActivity.this, "onEndTabSelected标题" + title, Toast.LENGTH_LONG).show();
             }
         });

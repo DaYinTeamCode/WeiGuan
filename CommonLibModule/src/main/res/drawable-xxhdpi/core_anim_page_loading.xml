@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:drawable="@drawable/core_ic_page_loading_frame1" android:duration="47" />
+    <item android:drawable="@drawable/core_ic_page_loading_frame2" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame3" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame4" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame5" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame6" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame7" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame8" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame9" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame10" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame11" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame12" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame13" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame14" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame15" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame16" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame17" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame18" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame19" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame20" android:duration="47"/>
+    <item android:drawable="@drawable/core_ic_page_loading_frame21" android:duration="47"/>
+</animation-list>

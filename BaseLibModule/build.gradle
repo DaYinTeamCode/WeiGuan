@@ -58,7 +58,6 @@ dependencies {
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.espresso.core
 
-    //Support library
     compileOnly deps.support.compat
     compileOnly deps.support.core_ui
     compileOnly deps.support.core_utils
@@ -67,7 +66,9 @@ dependencies {
     compileOnly deps.support.cardview
     compileOnly deps.support.gridlayout
     api deps.support.design
-    api deps.httptask
+    //Support library
+
+    api deps.jzyd.httptask
 
     //Fastjson form Alibaba
     api deps.fastjson
