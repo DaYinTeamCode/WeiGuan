@@ -4,16 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.androidex.plugin.DelayBackHandler;
+import com.androidex.util.TextUtil;
 import com.androidex.util.ToastUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.jzyd.lib.util.MD5Util;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
 import com.sjteam.weiguan.page.home.MainHomeFragment;
+import com.sjteam.weiguan.page.me.MainUserFragment;
+import com.sjteam.weiguan.page.news.MainMessageFragment;
+import com.sjteam.weiguan.page.video.MainVideoFragment;
+
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +54,11 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
     private Unbinder unbinder;
     private DelayBackHandler mDelayBackHandler;
-    boolean isAdd = true;
+
+    private Fragment mSelectedFra;
+    private int mCurIndex;
+
+    private LinkedHashMap<String, Fragment> mTabFragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,7 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         mDelayBackHandler = new DelayBackHandler();
         mDelayBackHandler.setOnDelayBackListener(this);
+        mTabFragments = new LinkedHashMap<>();
     }
 
     @Override
@@ -72,7 +85,6 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         unbinder = ButterKnife.bind(this, getExDecorView());
         initTabView();
-
     }
 
     /***
@@ -80,39 +92,130 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
      */
     private void initTabView() {
 
-        ntTab.setTabIndex(0, true);
+        mCurIndex = 0;
+        ntTab.setTabIndex(mCurIndex, true);
+        switchFragmentTab(mCurIndex);
         ntTab.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
 
-//                Toast.makeText(MainActivity.this, "onStartTabSelected标题" + title, Toast.LENGTH_LONG).show();
+                if (mCurIndex != index) {
+
+                    switchFragmentTab(index);
+                    mCurIndex = index;
+                }
             }
 
             @Override
             public void onEndTabSelected(String title, int index) {
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                if (isAdd) {
-
-                    isAdd = false;
-                    transaction.add(R.id.flMainFraContainer, MainHomeFragment.newInstance(MainActivity.this));
-                } else {
-                    transaction.show(MainHomeFragment.newInstance(MainActivity.this));
-                }
-
-//                if (mSelectedFra != null)
-//                    transaction.hide(mSelectedFra);
-
-                transaction.commitAllowingStateLoss();
-//                Toast.makeText(MainActivity.this, "onEndTabSelected标题" + title, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void switchFragmentTab(int index) {
+
+        boolean isAddFragment = false;
+        Fragment fragment = getFragmentFromTag(MD5Util.md5(String.valueOf(index)));
+
+        if (fragment == null) {
+
+            fragment = newFragmentInstance(this, index);
+            isAddFragment = true;
+        }
+
+        if (fragment != null) {
+
+            switchFragment(fragment, isAddFragment);
+            if (isAddFragment) {
+
+                setFragmentToTag(MD5Util.md5(String.valueOf(index)), fragment);
+            }
+        }
+    }
+
+    public static Fragment newFragmentInstance(Context context, int index) {
+
+        if (context == null) {
+
+            return null;
+        }
+        switch (index) {
+
+            case 0:
+                return MainHomeFragment.newInstance(context);
+            case 1:
+                return MainVideoFragment.newInstance(context);
+            case 3:
+                return MainMessageFragment.newInstance(context);
+            case 4:
+                return MainUserFragment.newInstance(context);
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * 从HasMap 中获取 fragment
+     *
+     * @param keyView
+     * @return
+     */
+    public Fragment getFragmentFromTag(String keyView) {
+
+        return TextUtil.isEmpty(keyView) ? null : mTabFragments.get(keyView);
+    }
+
+    /**
+     * 将Fragment设置进HasMap
+     *
+     * @param keyView
+     * @param fragment
+     */
+    public void setFragmentToTag(String keyView, Fragment fragment) {
+
+        if (!TextUtil.isEmpty(keyView)) {
+
+            mTabFragments.put(keyView, fragment);
+        }
+    }
+
+    /**
+     * 切换fragment事务
+     *
+     * @param fragment
+     * @param isAdd
+     */
+    private void switchFragment(Fragment fragment, boolean isAdd) {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (isAdd) {
+
+            transaction.add(R.id.flMainFraContainer, fragment);
+        } else {
+
+            transaction.show(fragment);
+        }
+
+        if (mSelectedFra != null) {
+
+            transaction.hide(mSelectedFra);
+        }
+
+        transaction.commitAllowingStateLoss();
+        mSelectedFra = fragment;
     }
 
     @Override
     protected void onDestroy() {
 
         super.onDestroy();
+
+        if (mTabFragments != null) {
+
+            mTabFragments = null;
+        }
         if (unbinder != null) {
 
             unbinder.unbind();
@@ -168,9 +271,10 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         Intent intent = new Intent();
 
-        if (newActivityTask)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (newActivityTask) {
 
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         intent.setClass(context, MainActivity.class);
         context.startActivity(intent);
     }

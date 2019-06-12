@@ -6,12 +6,14 @@ import android.view.View;
 import com.androidex.plugin.ExViewWidget;
 
 /**
- *
+ * 主框架Tab组件
+ * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:26 PM
  */
-public class MainActivityTabWidget extends ExViewWidget {
+public class MainTabWidget extends ExViewWidget {
 
-    public MainActivityTabWidget(Activity activity, View contentView) {
+    public MainTabWidget(Activity activity, View contentView) {
+
         super(activity, contentView);
     }
 

@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- 主界面底部tab的id -->
+    <item name="mtav_tag_attr" type="id" />
+    <item name="mtav_tag_fragment" type="id" />
+
+    <item name="bt_title_bar_left_view" type="id" />
+    <item name="bt_title_bar_middle_view" type="id" />
+    <item name="bt_title_bar_right_view" type="id" />
+    <item name="bt_title_left_back" type="id" />
+    <item name="ivBack" type="id" />
+
+    <item name="tag_obj" type="id" />
+    <item name="tag_url" type="id" />
+    <item name="tag_type" type="id" />
+    <item name="tag_pos" type="id" />
+
+    <item name="fra_id" type="id" />
+
+    <item name="nn_index_cate_fra_frame" type="id" />
+    <item name="main_home_tab_fra_frame" type="id" />
+
+    <!--排行榜 自定义控件 id-->
+    <item name="llStickyNavHeaderView" type="id" />
+    <item name="llStickyNavTab" type="id" />
+    <item name="vpCate" type="id" />
+
+    <item name="view_show_state" type="id" />
+
+    <item name="id_new_home_header_oper_obj" type="id" />
+
+    <item name="id_cover" type="id" />
+    <item name="id_flag" type="id" />
+    <item name="id_text" type="id" />
+
+    <item name="id_tag_view_show" type="id"/>
+</resources>

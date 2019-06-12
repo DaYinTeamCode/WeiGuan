@@ -5,9 +5,9 @@
         <color android:color="@android:color/white" />
     </item>
 
-    <item android:bottom="50.5dp">
+    <item android:bottom="24.5dp">
         <bitmap
             android:gravity="center_horizontal|bottom"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher_logo" />
     </item>
 </layer-list>

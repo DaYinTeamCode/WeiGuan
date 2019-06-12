@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.home;
+package com.sjteam.weiguan.page.news;
 
 
 import android.content.Context;
@@ -11,18 +11,17 @@ import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
 
 /**
- * 首页Fragment
+ * 消息中心Fragment
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
-public class MainHomeFragment extends HttpFrameFragment {
+public class MainMessageFragment extends HttpFrameFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setContentView(R.layout.fragment_main_home);
-//        executeFrameRefresh();
+        setContentView(R.layout.fragment_main_message);
     }
 
     @Override
@@ -53,9 +52,9 @@ public class MainHomeFragment extends HttpFrameFragment {
 
     }
 
-    public static MainHomeFragment newInstance(Context context) {
+    public static MainMessageFragment newInstance(Context context) {
 
-        return (MainHomeFragment) Fragment.instantiate(context, MainHomeFragment.class.getName());
+        return (MainMessageFragment) Fragment.instantiate(context, MainMessageFragment.class.getName());
     }
 
 }

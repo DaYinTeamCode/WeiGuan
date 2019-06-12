@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.home;
+package com.sjteam.weiguan.page.video;
 
 
 import android.content.Context;
@@ -11,18 +11,17 @@ import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
 
 /**
- * 首页Fragment
+ * 视频Fragment
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
-public class MainHomeFragment extends HttpFrameFragment {
+public class MainVideoFragment extends HttpFrameFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setContentView(R.layout.fragment_main_home);
-//        executeFrameRefresh();
+        setContentView(R.layout.fragment_main_video);
     }
 
     @Override
@@ -53,9 +52,8 @@ public class MainHomeFragment extends HttpFrameFragment {
 
     }
 
-    public static MainHomeFragment newInstance(Context context) {
+    public static MainVideoFragment newInstance(Context context) {
 
-        return (MainHomeFragment) Fragment.instantiate(context, MainHomeFragment.class.getName());
+        return (MainVideoFragment) Fragment.instantiate(context, MainVideoFragment.class.getName());
     }
-
 }
