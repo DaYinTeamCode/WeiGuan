@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.androidex.plugin.DelayBackHandler;
+import com.androidex.util.DensityUtil;
 import com.androidex.util.TextUtil;
 import com.androidex.util.ToastUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -20,6 +22,7 @@ import com.sjteam.weiguan.page.home.MainHomeFragment;
 import com.sjteam.weiguan.page.me.MainUserFragment;
 import com.sjteam.weiguan.page.news.MainMessageFragment;
 import com.sjteam.weiguan.page.video.MainVideoFragment;
+import com.sjteam.weiguan.view.toast.ExToast;
 
 import java.util.LinkedHashMap;
 
@@ -52,9 +55,9 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
     @BindView(R.id.flTabDiv)
     FrameLayout flTabDiv;
 
-    private Unbinder unbinder;
     private DelayBackHandler mDelayBackHandler;
 
+    /*** 当前选中Fragment */
     private Fragment mSelectedFra;
     private int mCurIndex;
 
@@ -83,18 +86,16 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
     @Override
     protected void initContentView() {
 
-        unbinder = ButterKnife.bind(this, getExDecorView());
-        initTabView();
+        initTabWidget();
     }
 
     /***
      *  初始化TabView
      */
-    private void initTabView() {
+    private void initTabWidget() {
 
         mCurIndex = 0;
-        ntTab.setTabIndex(mCurIndex, true);
-        switchFragmentTab(mCurIndex);
+        initDefaultTabWidget();
         ntTab.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
@@ -108,11 +109,65 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
             @Override
             public void onEndTabSelected(String title, int index) {
-
             }
         });
     }
 
+    @OnClick(R.id.ivPushlish)
+    public void ivPushClick() {
+
+        ToastUtil.showToast("点击发布视频");
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+        if (mTabFragments != null) {
+
+            mTabFragments = null;
+        }
+    }
+
+    /**
+     * back键点击
+     */
+    @Override
+    public void onBackPressed() {
+
+        if (mDelayBackHandler != null) {
+
+            mDelayBackHandler.triggerPreBack();
+        }
+    }
+
+    /***
+     *  退出回调
+     * @param preBack
+     */
+    @Override
+    public void onDelayBack(boolean preBack) {
+
+        perBackOrFinish(preBack);
+    }
+
+    /*---------------------------------------- 辅助函数 -------------------------------------------*/
+
+    /***
+     *   初始化默认Tab组件
+     */
+    private void initDefaultTabWidget() {
+
+        ntTab.setTabIndex(mCurIndex, true);
+        switchFragmentTab(mCurIndex);
+    }
+
+    /***
+     *  切换Fragment
+     *
+     * @param index
+     */
     private void switchFragmentTab(int index) {
 
         boolean isAddFragment = false;
@@ -184,13 +239,13 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
      * 切换fragment事务
      *
      * @param fragment
-     * @param isAdd
+     * @param isFragmentAdd
      */
-    private void switchFragment(Fragment fragment, boolean isAdd) {
+    private void switchFragment(Fragment fragment, boolean isFragmentAdd) {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (isAdd) {
+        if (isFragmentAdd) {
 
             transaction.add(R.id.flMainFraContainer, fragment);
         } else {
@@ -207,66 +262,40 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
         mSelectedFra = fragment;
     }
 
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
-
-        if (mTabFragments != null) {
-
-            mTabFragments = null;
-        }
-        if (unbinder != null) {
-
-            unbinder.unbind();
-        }
-    }
-
-    /**
-     * back键点击
-     */
-    @Override
-    public void onBackPressed() {
-
-        if (mDelayBackHandler != null) {
-
-            mDelayBackHandler.triggerPreBack();
-        }
-    }
-
     /***
-     *  退出回调
+     *
      * @param preBack
      */
-    @Override
-    public void onDelayBack(boolean preBack) {
-
-        perBackOrFinish(preBack);
-    }
-
     private void perBackOrFinish(boolean preBack) {
 
         if (preBack) {
 
-            showToast("再按一次退出应用");
+            ExToast.makeText("再按一次退出应用", Gravity.BOTTOM, DensityUtil.dip2px(60f)).show();
         } else {
 
             finish();
         }
     }
 
-    @OnClick(R.id.ivPushlish)
-    public void ivPushClick() {
-
-        ToastUtil.showToast("点击发布视频");
-    }
-
+    /***
+     * 打开主界面
+     *
+     * @param activity
+     */
     public static void startActivityForIndex(Activity activity) {
 
         startActivity(activity, EXTRA_VALUE_LAUNCHER_TAB_INDEX, false, 0);
         activity.overridePendingTransition(R.anim.alpha_in, R.anim.push_exit_stop);
     }
 
+    /***
+     *  打开主界面
+     *
+     * @param context
+     * @param launcherTab
+     * @param newActivityTask
+     * @param tabIndex
+     */
     private static void startActivity(Context context, int launcherTab, boolean newActivityTask, int tabIndex) {
 
         Intent intent = new Intent();

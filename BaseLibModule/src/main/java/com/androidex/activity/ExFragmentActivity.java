@@ -35,6 +35,9 @@ import com.ex.sdk.android.slideback.impl.SlideBackCallBack;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * 根据Ex框架，扩展的基类Activity，提供titlebar、toast、view，httptask 相关常用的api(拷贝的ExActivity1)
  *
@@ -49,6 +52,7 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
     private boolean mIsCurPageSlidebackSupport = true;
 
     private View mStatusBarView;
+    protected Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,10 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
         if (mIsCurPageSlidebackSupport)
             SlideBack.unregister(this);
 
+        if (unbinder != null) {
+
+            unbinder.unbind();
+        }
         super.onDestroy();
     }
 
@@ -164,6 +172,8 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
     public void setContentView(View view) {
 
         mExDecorView.setContentView(view);
+        //            注解绑定
+        unbinder = ButterKnife.bind(this, mExDecorView);
         initData();
         initTitleView();
         initContentView();
@@ -194,6 +204,8 @@ public abstract class ExFragmentActivity extends FragmentActivity implements Htt
         addFragment(R.id.ex_decor_view_fragment_container_act, fragment);
         mContentFragment = fragment;
 
+        //            注解绑定
+        unbinder = ButterKnife.bind(this, mExDecorView);
         initData();
         initTitleView();
         initContentView();

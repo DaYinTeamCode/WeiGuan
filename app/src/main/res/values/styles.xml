@@ -7,6 +7,74 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="cp_theme_ex_base" parent="@style/ex_theme_noTitle">
+        <item name="exBackground">@color/cp_page_bg</item>
+        <item name="exTitleAndroidStyle">false</item>
+        <item name="exTitleHeight">48dp</item>
+        <item name="exTitleFloat">false</item>
+        <item name="exTitleFloatContentTopMargin">0dp</item>
+        <item name="exTitleTextSize">@dimen/cp_title_text_size</item>
+        <item name="exTitleTextBold">false</item>
+        <item name="exTitleMainTextSize">16dp</item>
+        <item name="exTitleSubTextSize">12dp</item>
+        <item name="exTitleClickerBackground">@null</item>
+        <item name="exTitleClickerTextSize">14dp</item>
+        <item name="exTitleClickerHoriPadding">15dp</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@android:color/black</item>
+    </style>
+
+    <style name="AppCompat_theme_ex_base" parent="@style/AppCompat_theme_noTitle">
+        <item name="exBackground">@color/cp_page_bg</item>
+        <item name="exTitleAndroidStyle">false</item>
+        <item name="exTitleHeight">48dp</item>
+        <item name="exTitleFloat">false</item>
+        <item name="exTitleFloatContentTopMargin">0dp</item>
+        <item name="exTitleTextSize">@dimen/cp_title_text_size</item>
+        <item name="exTitleTextBold">false</item>
+        <item name="exTitleMainTextSize">16dp</item>
+        <item name="exTitleSubTextSize">12dp</item>
+        <item name="exTitleClickerBackground">@null</item>
+        <item name="exTitleClickerTextSize">14dp</item>
+        <item name="exTitleClickerHoriPadding">15dp</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@android:color/black</item>
+    </style>
+
+    <!-- 主要标题栏样式(白色) 日间模式 -->
+    <style name="cp_theme_title_main" parent="cp_theme_ex_base">
+        <item name="exTitleBackground">@drawable/bg_title_bar</item>
+        <item name="exTitleTextColor">@color/cp_title_bar_title_text</item>
+        <item name="exTitleClickerTextColor">@color/cp_title_bar_clicker_text</item>
+        <item name="exTitleBackIcon">@mipmap/ic_title_bar_back_gray</item>
+    </style>
+
+    <style name="AppCompat_theme_title_main" parent="AppCompat_theme_ex_base">
+        <item name="exTitleBackground">@drawable/bg_title_bar</item>
+        <item name="exTitleTextColor">@color/cp_title_bar_title_text</item>
+        <item name="exTitleClickerTextColor">@color/cp_title_bar_clicker_text</item>
+        <item name="exTitleBackIcon">@mipmap/ic_title_bar_back_gray</item>
+    </style>
+
+    <!-- 浮动titlebar和statusbar-->
+    <style name="cp_theme_title_main_float" parent="@style/cp_theme_title_main">
+        <item name="exTitleFloat">true</item>
+        <!-- 标题文字颜色支持@color/xxx和#argb, 不支持@color/colorStateList，可通过代码来支持 -->
+    </style>
+
+    <style name="AppCompat_theme_title_main_float" parent="@style/AppCompat_theme_title_main">
+        <item name="exTitleFloat">true</item>
+        <item name="exTitleBackground">@null</item>
+        <!-- 标题文字颜色支持@color/xxx和#argb, 不支持@color/colorStateList，可通过代码来支持 -->
+    </style>
+
+    <!-- 浮动透明titlebar和statusbar-->
+    <style name="cp_theme_title_main_float_trans" parent="@style/cp_theme_title_main_float">
+        <item name="exTitleFloat">true</item>
+        <item name="exTitleBackground">@null</item>
+        <!-- 标题文字颜色支持@color/xxx和#argb, 不支持@color/colorStateList，可通过代码来支持 -->
+    </style>
+
     <style name="SplashAppTheme" parent="AppTheme">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowBackground">@drawable/splash_logo_welcome</item>

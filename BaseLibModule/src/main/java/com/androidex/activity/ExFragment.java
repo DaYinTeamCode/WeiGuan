@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidex.R;
+import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.CollectionUtil;
 import com.androidex.util.LogMgr;
 import com.androidex.util.TextUtil;
@@ -33,6 +34,9 @@ import com.ex.android.http.task.listener.HttpTaskStringListener;
 import java.io.Serializable;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * 根据Ex框架，扩展的基类Activity，提供toast、view，httptask 相关常用的api
  * #这里暂时将ExDecorView去掉，因为其实没啥用
@@ -44,6 +48,8 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
     private ExDecorView mExDecorView;
     private Fragment mContentFragment;
     private HttpTaskExecuter mHttpTaskExecuter;
+    private View mStatusBarView;
+    protected Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,6 +106,10 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
 
         super.onDestroy();
         abortAllHttpTask();
+        if (unbinder != null) {
+
+            unbinder.unbind();
+        }
     }
 
     protected void setContentView(int layoutResId) {
@@ -151,9 +161,12 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
 
     private void callbackInit() {
 
+        //            注解绑定
+        unbinder = ButterKnife.bind(this, mExDecorView);
         initData();
         initTitleView();
         initContentView();
+        initStatusBar();
     }
 
     protected abstract void initData();
@@ -161,6 +174,54 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
     protected abstract void initTitleView();
 
     protected abstract void initContentView();
+
+
+    /**
+     * 是否可以使用沉浸式
+     * Is immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    protected boolean isStatusbarEnabled() {
+
+        return true;
+    }
+
+    /***
+     *  初始化沉淀式状态栏
+     */
+    protected void initStatusBar() {
+
+        if (isStatusbarEnabled()) {
+
+            StatusBarManager.getInstance()
+                    .initStatusbar(this, getStatusBarView());
+        }
+    }
+
+    /***
+     *  设置Statusbar View
+     *
+     * @param view
+     */
+    protected void setStatusbarView(@Nullable View view) {
+
+        if (view == null) {
+
+            return;
+        }
+        mStatusBarView = view;
+    }
+
+    /***
+     *  获取状态栏资源Id
+     *
+     * @return
+     */
+    protected View getStatusBarView() {
+
+        return mStatusBarView;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

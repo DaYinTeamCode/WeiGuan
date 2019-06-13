@@ -1,30 +1,27 @@
-package com.sjteam.weiguan.page.news;
+package com.sjteam.weiguan.page.video.discover;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.widget.TextView;
 
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
 
 /**
- * 消息中心Fragment
+ * 发现视频Fragment
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
-public class MainMessageFragment extends HttpFrameFragment {
+public class DiscoverVideoFragment extends HttpFrameFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setContentView(R.layout.fragment_main_message);
+        setContentView(R.layout.fragment_main_user);
     }
 
     @Override
@@ -47,11 +44,6 @@ public class MainMessageFragment extends HttpFrameFragment {
     @Override
     protected void initTitleView() {
 
-        TextView textView = addTitleMiddleTextView("全部消息");
-        textView.setTextColor(0XFF0C87F5);
-        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        getTitleView().setBackgroundResource(R.color.app_white);
-        setStatusbarView(getTitleView());
     }
 
     @Override
@@ -59,9 +51,8 @@ public class MainMessageFragment extends HttpFrameFragment {
 
     }
 
-    public static MainMessageFragment newInstance(Context context) {
+    public static DiscoverVideoFragment newInstance(Context context) {
 
-        return (MainMessageFragment) Fragment.instantiate(context, MainMessageFragment.class.getName());
+        return (DiscoverVideoFragment) Fragment.instantiate(context, DiscoverVideoFragment.class.getName());
     }
-
 }

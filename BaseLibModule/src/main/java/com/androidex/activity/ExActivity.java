@@ -24,475 +24,487 @@ import com.ex.android.http.executer.HttpTaskExecuterHost;
 import com.ex.android.http.params.HttpTaskParams;
 import com.ex.android.http.task.listener.HttpTaskStringListener;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * 根据Ex框架，扩展的基类Activity，提供titlebar、toast、view，httptask 相关常用的api
+ *
  * @author yhb
  */
 public abstract class ExActivity extends Activity implements HttpTaskExecuterHost {
 
-	private ExDecorView mExDecorView;
-	private HttpTaskExecuter mHttpTaskExecuter;
+    private ExDecorView mExDecorView;
+    private HttpTaskExecuter mHttpTaskExecuter;
+    protected Unbinder unbinder;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
-		initAndSetExDecorView();
-	}
+        super.onCreate(savedInstanceState);
+        initAndSetExDecorView();
+    }
 
-	@Override
-	protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 
-		super.onDestroy();
-		abortAllHttpTask();
-	}
+        super.onDestroy();
+        if (unbinder != null) {
 
-	@Override
-	public void onBackPressed() {
+            unbinder.unbind();
+        }
+        abortAllHttpTask();
+    }
 
-		try{
-			super.onBackPressed();
-		}catch(Exception e){
-			if(LogMgr.isDebug())
-				e.printStackTrace();
-		}
-	}
+    @Override
+    public void onBackPressed() {
 
-	private void initAndSetExDecorView() {
+        try {
+            super.onBackPressed();
+        } catch (Exception e) {
+            if (LogMgr.isDebug())
+                e.printStackTrace();
+        }
+    }
 
-		mExDecorView = new ExDecorView(this);
-		super.setContentView(mExDecorView, VglpUtil.getVglpMM());
-	}
+    private void initAndSetExDecorView() {
 
-	@Override
-	public void setContentView(int layoutResId) {
+        mExDecorView = new ExDecorView(this);
+        super.setContentView(mExDecorView, VglpUtil.getVglpMM());
+    }
 
-		this.setContentView(getLayoutInflater().inflate(layoutResId, null));
-	}
+    @Override
+    public void setContentView(int layoutResId) {
 
-	@Override
-	public void setContentView(View view) {
+        this.setContentView(getLayoutInflater().inflate(layoutResId, null));
+    }
 
-		mExDecorView.setContentView(view);
-		initData();
-		initTitleView();
-		initContentView();
-	}
+    @Override
+    public void setContentView(View view) {
 
-	protected abstract void initData();
+        mExDecorView.setContentView(view);
+        //            注解绑定
+        unbinder = ButterKnife.bind(this, view);
+        initData();
+        initTitleView();
+        initContentView();
+    }
 
-	protected abstract void initTitleView();
+    protected abstract void initData();
 
-	protected abstract void initContentView();
+    protected abstract void initTitleView();
 
-	/**
-	 * http task api
-	 */
+    protected abstract void initContentView();
 
-	protected boolean executeHttpTask(int what, HttpTaskParams params, HttpTaskStringListener<?> lisn){
-
-		return executeHttpTask(what, params, false, lisn);
-	}
-
-	protected boolean executeHttpTaskCache(int what, HttpTaskParams params, HttpTaskStringListener<?> lisn){
-
-		return executeHttpTask(what, params, true, lisn);
-	}
-
-	private boolean executeHttpTask(int what, HttpTaskParams params, boolean cacheOnly, HttpTaskStringListener<?> lisn){
-
-		return getHttpTaskExecuter().executeHttpTask(what, params, cacheOnly, lisn);
-	}
-
-	protected boolean isHttpTaskRunning(int what) {
-
-		return mHttpTaskExecuter == null ? false : mHttpTaskExecuter.isHttpTaskRunning(what);
-	}
-
-	protected void abortHttpTask(int what) {
-
-		if (mHttpTaskExecuter != null)
-			mHttpTaskExecuter.abortHttpTask(what);
-	}
-
-	protected void abortAllHttpTask() {
-
-		if (mHttpTaskExecuter != null)
-			mHttpTaskExecuter.abortAllHttpTask();
-	}
-
-	protected HttpTaskExecuter getHttpTaskExecuter(){
-
-		if (mHttpTaskExecuter == null)
-			mHttpTaskExecuter = new HttpTaskExecuter(this);
-
-		return mHttpTaskExecuter;
-	}
-
-	/**
-	 * HttpTaskExecuter的宿主接口也有该方法
-	 * 这里重载来标识一下
-	 * @return
-	 */
-	@Override
-	public boolean isFinishing() {
-
-		return super.isFinishing();
-	}
-
-	/**
-     *  status bar api
+    /**
+     * http task api
      */
 
-	public void setStatusBarColor(int color) {
+    protected boolean executeHttpTask(int what, HttpTaskParams params, HttpTaskStringListener<?> lisn) {
 
-		DeviceUtil.setStatusBarColor(this, color);
-	}
+        return executeHttpTask(what, params, false, lisn);
+    }
 
-	public void setStatusBarColorResource(int colorResId){
+    protected boolean executeHttpTaskCache(int what, HttpTaskParams params, HttpTaskStringListener<?> lisn) {
 
-		DeviceUtil.setStatusBarColorResource(this, colorResId);
-	}
+        return executeHttpTask(what, params, true, lisn);
+    }
 
-	public boolean setStatusBarTranslucent(boolean translucent, boolean kitkatEnable){
+    private boolean executeHttpTask(int what, HttpTaskParams params, boolean cacheOnly, HttpTaskStringListener<?> lisn) {
 
-		if(DeviceUtil.setStatusBarTranslucent(this, translucent, kitkatEnable)){
+        return getHttpTaskExecuter().executeHttpTask(what, params, cacheOnly, lisn);
+    }
 
-			return mExDecorView.setTitleViewSupportStatusBarTrans(translucent, kitkatEnable);
-		}else{
+    protected boolean isHttpTaskRunning(int what) {
 
-			return false;
-		}
-	}
+        return mHttpTaskExecuter == null ? false : mHttpTaskExecuter.isHttpTaskRunning(what);
+    }
 
-	public int getStatusBarHeight(){
+    protected void abortHttpTask(int what) {
 
-		return DeviceUtil.STATUS_BAR_HEIGHT;
-	}
+        if (mHttpTaskExecuter != null)
+            mHttpTaskExecuter.abortHttpTask(what);
+    }
 
+    protected void abortAllHttpTask() {
 
-	/**
-	 * get decor view part
-	 */
+        if (mHttpTaskExecuter != null)
+            mHttpTaskExecuter.abortAllHttpTask();
+    }
 
-	public ExDecorView getExDecorView() {
+    protected HttpTaskExecuter getHttpTaskExecuter() {
 
-		return mExDecorView;
-	}
+        if (mHttpTaskExecuter == null)
+            mHttpTaskExecuter = new HttpTaskExecuter(this);
 
-	public FrameLayout getTitleView() {
+        return mHttpTaskExecuter;
+    }
 
-		return mExDecorView.getTitleView();
-	}
+    /**
+     * HttpTaskExecuter的宿主接口也有该方法
+     * 这里重载来标识一下
+     *
+     * @return
+     */
+    @Override
+    public boolean isFinishing() {
 
-	public LinearLayout getTitleLeftView() {
+        return super.isFinishing();
+    }
 
-		return mExDecorView.getTitleLeftView();
-	}
+    /**
+     * status bar api
+     */
 
-	public LinearLayout getTitleMiddleView() {
+    public void setStatusBarColor(int color) {
 
-		return mExDecorView.getTitleMiddleView();
-	}
+        DeviceUtil.setStatusBarColor(this, color);
+    }
 
-	public LinearLayout getTitleRightView() {
+    public void setStatusBarColorResource(int colorResId) {
 
-		return mExDecorView.getTitleRightView();
-	}
+        DeviceUtil.setStatusBarColorResource(this, colorResId);
+    }
 
-	protected void goneTitleView(){
+    public boolean setStatusBarTranslucent(boolean translucent, boolean kitkatEnable) {
 
-		mExDecorView.goneTitleView();
-	}
+        if (DeviceUtil.setStatusBarTranslucent(this, translucent, kitkatEnable)) {
 
-	protected void showTitleView(){
+            return mExDecorView.setTitleViewSupportStatusBarTrans(translucent, kitkatEnable);
+        } else {
 
-		mExDecorView.showTitleView();
-	}
+            return false;
+        }
+    }
 
-	protected int getTitleViewHeight(){
+    public int getStatusBarHeight() {
 
-		return mExDecorView.getTitleHeight();
-	}
+        return DeviceUtil.STATUS_BAR_HEIGHT;
+    }
 
-	protected boolean isTitleViewSupportStatusBarTrans(){
 
-		return mExDecorView.isTitleViewSupportStatusBarTrans();
-	}
+    /**
+     * get decor view part
+     */
 
-	/**
-	 * add title view left part
-	 */
+    public ExDecorView getExDecorView() {
 
-	public ImageView addTitleLeftImageView(int icResId, OnClickListener lisn) {
+        return mExDecorView;
+    }
 
-		return mExDecorView.addTitleLeftImageView(icResId, lisn);
-	}
+    public FrameLayout getTitleView() {
 
-	public ImageView addTitleLeftImageViewHoriWrap(int icResId, OnClickListener lisn) {
+        return mExDecorView.getTitleView();
+    }
 
-		return mExDecorView.addTitleLeftImageViewHoriWrap(icResId, lisn);
-	}
+    public LinearLayout getTitleLeftView() {
 
-	public TextView addTitleLeftTextView(int textRid, OnClickListener lisn) {
+        return mExDecorView.getTitleLeftView();
+    }
 
-		return mExDecorView.addTitleLeftTextView(textRid, lisn);
-	}
+    public LinearLayout getTitleMiddleView() {
 
-	public TextView addTitleLeftTextView(CharSequence text, OnClickListener lisn) {
+        return mExDecorView.getTitleMiddleView();
+    }
 
-		return mExDecorView.addTitleLeftTextView(text, lisn);
-	}
+    public LinearLayout getTitleRightView() {
 
-	public void addTitleLeftView(View v) {
+        return mExDecorView.getTitleRightView();
+    }
 
-		mExDecorView.addTitleLeftView(v);
-	}
+    protected void goneTitleView() {
 
-	public void addTitleLeftView(View v, LinearLayout.LayoutParams lllp) {
+        mExDecorView.goneTitleView();
+    }
 
-		mExDecorView.addTitleLeftView(v, lllp);
-	}
+    protected void showTitleView() {
 
-	public ImageView addTitleLeftBackView() {
+        mExDecorView.showTitleView();
+    }
 
-		return mExDecorView.addTitleLeftImageViewBack(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+    protected int getTitleViewHeight() {
 
-				finish();
-			}
-		});
-	}
+        return mExDecorView.getTitleHeight();
+    }
 
-	public ImageView addTitleLeftBackView(OnClickListener clickLisn) {
+    protected boolean isTitleViewSupportStatusBarTrans() {
 
-		return mExDecorView.addTitleLeftImageViewBack(clickLisn);
-	}
+        return mExDecorView.isTitleViewSupportStatusBarTrans();
+    }
 
-	/**
-	 * add title view middle part
-	 */
+    /**
+     * add title view left part
+     */
 
-	public ImageView addTitleMiddleImageViewWithBack(int icResId) {
+    public ImageView addTitleLeftImageView(int icResId, OnClickListener lisn) {
 
-		addTitleLeftBackView();
-		return addTitleMiddleImageView(icResId);
-	}
+        return mExDecorView.addTitleLeftImageView(icResId, lisn);
+    }
 
-	public ImageView addTitleMiddleImageView(int icResId) {
+    public ImageView addTitleLeftImageViewHoriWrap(int icResId, OnClickListener lisn) {
 
-		return mExDecorView.addTitleMiddleImageView(icResId);
-	}
+        return mExDecorView.addTitleLeftImageViewHoriWrap(icResId, lisn);
+    }
 
-	public ImageView addTitleMiddleImageViewHoriWrapWithBack(int icResId) {
+    public TextView addTitleLeftTextView(int textRid, OnClickListener lisn) {
 
-		addTitleLeftBackView();
-		return addTitleMiddleImageViewHoriWrap(icResId);
-	}
+        return mExDecorView.addTitleLeftTextView(textRid, lisn);
+    }
 
-	public ImageView addTitleMiddleImageViewHoriWrap(int icResId) {
+    public TextView addTitleLeftTextView(CharSequence text, OnClickListener lisn) {
 
-		return mExDecorView.addTitleMiddleImageViewHoriWrap(icResId);
-	}
+        return mExDecorView.addTitleLeftTextView(text, lisn);
+    }
 
-	public TextView addTitleMiddleTextViewWithBack(int textRid) {
+    public void addTitleLeftView(View v) {
 
-		return addTitleMiddleTextViewWithBack(getResources().getText(textRid));
-	}
+        mExDecorView.addTitleLeftView(v);
+    }
 
-	public TextView addTitleMiddleTextView(int textRid) {
+    public void addTitleLeftView(View v, LinearLayout.LayoutParams lllp) {
 
-		return mExDecorView.addTitleMiddleTextView(textRid);
-	}
+        mExDecorView.addTitleLeftView(v, lllp);
+    }
 
-	public TextView addTitleMiddleTextView(CharSequence text) {
+    public ImageView addTitleLeftBackView() {
 
-		return mExDecorView.addTitleMiddleTextView(text);
-	}
+        return mExDecorView.addTitleLeftImageViewBack(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-	public TextView addTitleMiddleTextViewWithBack(CharSequence text) {
+                finish();
+            }
+        });
+    }
 
-		addTitleLeftBackView();
-		return mExDecorView.addTitleMiddleTextView(text);
-	}
+    public ImageView addTitleLeftBackView(OnClickListener clickLisn) {
 
-	public TextView addTitleMiddleTextViewMainStyle(int textResId) {
+        return mExDecorView.addTitleLeftImageViewBack(clickLisn);
+    }
 
-		return mExDecorView.addTitleMiddleTextViewMainStyle(textResId);
-	}
+    /**
+     * add title view middle part
+     */
 
-	public TextView addTitleMiddleTextViewMainStyle(CharSequence text) {
+    public ImageView addTitleMiddleImageViewWithBack(int icResId) {
 
-		return mExDecorView.addTitleMiddleTextViewMainStyle(text);
-	}
+        addTitleLeftBackView();
+        return addTitleMiddleImageView(icResId);
+    }
 
-	public TextView addTitleMiddleTextViewSubStyle(int textResId) {
+    public ImageView addTitleMiddleImageView(int icResId) {
 
-		return mExDecorView.addTitleMiddleTextViewSubStyle(textResId);
-	}
+        return mExDecorView.addTitleMiddleImageView(icResId);
+    }
 
-	public TextView addTitleMiddleTextViewSubStyle(CharSequence text) {
+    public ImageView addTitleMiddleImageViewHoriWrapWithBack(int icResId) {
 
-		return mExDecorView.addTitleMiddleTextViewSubStyle(text);
-	}
+        addTitleLeftBackView();
+        return addTitleMiddleImageViewHoriWrap(icResId);
+    }
 
-	public void addTitleMiddleViewWithBack(View v) {
+    public ImageView addTitleMiddleImageViewHoriWrap(int icResId) {
 
-		addTitleLeftBackView();
-		addTitleMiddleView(v);
-	}
+        return mExDecorView.addTitleMiddleImageViewHoriWrap(icResId);
+    }
 
-	public void addTitleMiddleView(View v) {
+    public TextView addTitleMiddleTextViewWithBack(int textRid) {
 
-		mExDecorView.addTitleMiddleView(v);
-	}
+        return addTitleMiddleTextViewWithBack(getResources().getText(textRid));
+    }
 
-	public void addTitleMiddleView(View v, LinearLayout.LayoutParams lllp) {
+    public TextView addTitleMiddleTextView(int textRid) {
 
-		mExDecorView.addTitleMiddleView(v, lllp);
-	}
+        return mExDecorView.addTitleMiddleTextView(textRid);
+    }
 
-	protected void addTitleMiddleView(View v, LinearLayout.LayoutParams lllp, boolean horiCenter) {
+    public TextView addTitleMiddleTextView(CharSequence text) {
 
-		mExDecorView.addTitleMiddleView(v, lllp, horiCenter);
-	}
+        return mExDecorView.addTitleMiddleTextView(text);
+    }
 
-	/**
-	 * add title view right part
-	 */
+    public TextView addTitleMiddleTextViewWithBack(CharSequence text) {
 
-	public ImageView addTitleRightImageView(int icResId, OnClickListener lisn) {
+        addTitleLeftBackView();
+        return mExDecorView.addTitleMiddleTextView(text);
+    }
 
-		return mExDecorView.addTitleRightImageView(icResId, lisn);
-	}
+    public TextView addTitleMiddleTextViewMainStyle(int textResId) {
 
-	public ImageView addTitleRightImageViewHoriWrap(int icResId, OnClickListener lisn) {
+        return mExDecorView.addTitleMiddleTextViewMainStyle(textResId);
+    }
 
-		return mExDecorView.addTitleRightImageViewHoriWrap(icResId, lisn);
-	}
+    public TextView addTitleMiddleTextViewMainStyle(CharSequence text) {
 
-	public TextView addTitleRightTextView(int textRid, OnClickListener lisn) {
+        return mExDecorView.addTitleMiddleTextViewMainStyle(text);
+    }
 
-		return mExDecorView.addTitleRightTextView(textRid, lisn);
-	}
+    public TextView addTitleMiddleTextViewSubStyle(int textResId) {
 
-	public TextView addTitleRightTextView(CharSequence text, OnClickListener lisn) {
+        return mExDecorView.addTitleMiddleTextViewSubStyle(textResId);
+    }
 
-		return mExDecorView.addTitleRightTextView(text, lisn);
-	}
+    public TextView addTitleMiddleTextViewSubStyle(CharSequence text) {
 
-	public void addTitleRightView(View v) {
+        return mExDecorView.addTitleMiddleTextViewSubStyle(text);
+    }
 
-		mExDecorView.addTitleRightView(v);
-	}
+    public void addTitleMiddleViewWithBack(View v) {
 
-	public void addTitleRightView(View v, LinearLayout.LayoutParams lllp) {
+        addTitleLeftBackView();
+        addTitleMiddleView(v);
+    }
 
-		mExDecorView.addTitleRightView(v, lllp);
-	}
+    public void addTitleMiddleView(View v) {
 
-	/**
-	 * receiver
-	 */
+        mExDecorView.addTitleMiddleView(v);
+    }
 
-	@Override
-	public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+    public void addTitleMiddleView(View v, LinearLayout.LayoutParams lllp) {
 
-		try {
-			return super.registerReceiver(receiver, filter);
-		} catch (Exception e) {
+        mExDecorView.addTitleMiddleView(v, lllp);
+    }
 
-			if (LogMgr.isDebug())
-				LogMgr.e(simpleTag(), "registerReceiver error, msg=" + e.getMessage());
-		}
-		return null;
-	}
+    protected void addTitleMiddleView(View v, LinearLayout.LayoutParams lllp, boolean horiCenter) {
 
-	@Override
-	public void unregisterReceiver(BroadcastReceiver receiver) {
+        mExDecorView.addTitleMiddleView(v, lllp, horiCenter);
+    }
 
-		try {
-			super.unregisterReceiver(receiver);
-		} catch (Exception e) {
+    /**
+     * add title view right part
+     */
 
-			if (LogMgr.isDebug())
-				LogMgr.e(simpleTag(), "unregisterReceiver error, msg=" + e.getMessage());
-		}
-	}
+    public ImageView addTitleRightImageView(int icResId, OnClickListener lisn) {
 
-	/**
-	 * toast part
-	 */
+        return mExDecorView.addTitleRightImageView(icResId, lisn);
+    }
 
-	public void showToast(int rid) {
+    public ImageView addTitleRightImageViewHoriWrap(int icResId, OnClickListener lisn) {
+
+        return mExDecorView.addTitleRightImageViewHoriWrap(icResId, lisn);
+    }
+
+    public TextView addTitleRightTextView(int textRid, OnClickListener lisn) {
+
+        return mExDecorView.addTitleRightTextView(textRid, lisn);
+    }
+
+    public TextView addTitleRightTextView(CharSequence text, OnClickListener lisn) {
+
+        return mExDecorView.addTitleRightTextView(text, lisn);
+    }
+
+    public void addTitleRightView(View v) {
+
+        mExDecorView.addTitleRightView(v);
+    }
+
+    public void addTitleRightView(View v, LinearLayout.LayoutParams lllp) {
+
+        mExDecorView.addTitleRightView(v, lllp);
+    }
+
+    /**
+     * receiver
+     */
+
+    @Override
+    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+
+        try {
+            return super.registerReceiver(receiver, filter);
+        } catch (Exception e) {
+
+            if (LogMgr.isDebug())
+                LogMgr.e(simpleTag(), "registerReceiver error, msg=" + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public void unregisterReceiver(BroadcastReceiver receiver) {
+
+        try {
+            super.unregisterReceiver(receiver);
+        } catch (Exception e) {
+
+            if (LogMgr.isDebug())
+                LogMgr.e(simpleTag(), "unregisterReceiver error, msg=" + e.getMessage());
+        }
+    }
+
+    /**
+     * toast part
+     */
+
+    public void showToast(int rid) {
 
         ToastUtil.showToast(rid);
-	}
+    }
 
-	public void showToast(String text) {
+    public void showToast(String text) {
 
-	    ToastUtil.showToast(text);
-	}
+        ToastUtil.showToast(text);
+    }
 
-	/**
-	 * view util part
-	 */
+    /**
+     * view util part
+     */
 
-	public void showView(View v) {
+    public void showView(View v) {
 
-		ViewUtil.showView(v);
-	}
+        ViewUtil.showView(v);
+    }
 
-	public void hideView(View v) {
+    public void hideView(View v) {
 
-		ViewUtil.hideView(v);
-	}
+        ViewUtil.hideView(v);
+    }
 
-	public void goneView(View v) {
+    public void goneView(View v) {
 
-		ViewUtil.goneView(v);
-	}
+        ViewUtil.goneView(v);
+    }
 
-	public void showImageView(ImageView v, int imageResId) {
+    public void showImageView(ImageView v, int imageResId) {
 
-		ViewUtil.showImageView(v, imageResId);
-	}
+        ViewUtil.showImageView(v, imageResId);
+    }
 
-	public void showImageView(ImageView v, Drawable drawable) {
+    public void showImageView(ImageView v, Drawable drawable) {
 
-		ViewUtil.showImageView(v, drawable);
-	}
+        ViewUtil.showImageView(v, drawable);
+    }
 
-	public void hideImageView(ImageView v) {
+    public void hideImageView(ImageView v) {
 
-		ViewUtil.hideImageView(v);
-	}
+        ViewUtil.hideImageView(v);
+    }
 
-	public void goneImageView(ImageView v) {
+    public void goneImageView(ImageView v) {
 
-		ViewUtil.goneImageView(v);
-	}
+        ViewUtil.goneImageView(v);
+    }
 
-	/**
-	 * tag part
-	 */
+    /**
+     * tag part
+     */
 
-	public String simpleTag() {
+    public String simpleTag() {
 
-		return getClass().getSimpleName();
-	}
+        return getClass().getSimpleName();
+    }
 
-	public String tag() {
+    public String tag() {
 
-		return getClass().getName();
-	}
+        return getClass().getName();
+    }
 
-	@Override
-	protected void finalize() throws Throwable {
+    @Override
+    protected void finalize() throws Throwable {
 
-		super.finalize();
-		if(LogMgr.isDebug())
-			LogMgr.d(simpleTag(), simpleTag()+" finalize()");
-	}
+        super.finalize();
+        if (LogMgr.isDebug())
+            LogMgr.d(simpleTag(), simpleTag() + " finalize()");
+    }
 }

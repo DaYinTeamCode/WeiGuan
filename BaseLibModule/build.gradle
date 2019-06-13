@@ -78,4 +78,6 @@ dependencies {
 
     // 沉浸式适配
     api deps.immersionbar
+
+    implementation deps.butterknife.butterknife
 }

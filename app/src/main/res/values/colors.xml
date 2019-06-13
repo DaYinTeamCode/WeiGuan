@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="app_white">#FFFFFF</color>
+    <color name="app_white">#FFFFFFFF</color>
+    <color name="cp_tab_indicator">#FF0C87F5</color>
+    <color name="cp_tab_text_def">#FFAAAAAA</color>
+    <color name="cp_tab_text_selected">#FF0C87F5</color>
+
+    <color name="cp_page_bg">#FFF2F2F2</color>
+    <color name="cp_title_bar_title_text">#FF444444</color>
+    <color name="cp_title_bar_clicker_text">#FF444444</color>
 </resources>

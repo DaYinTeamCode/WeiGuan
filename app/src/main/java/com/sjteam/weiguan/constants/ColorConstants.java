@@ -5,7 +5,7 @@ package com.sjteam.weiguan.constants;
  */
 public interface ColorConstants {
 
-    int PROGRESS_MAIN = 0XFFEC5252;
+    int PROGRESS_MAIN = 0XFF0C87F5;
     int TEXT_SUB_TITLE = 0XFF999999;
     int TEXT_RED = 0XFFFD6363;
     int TEXT_BLOD_RED = 0XFFEF422D;

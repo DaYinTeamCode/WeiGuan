@@ -54,7 +54,9 @@ public class StatusBarManager {
      */
     public boolean isIsStatusbarEnable() {
 
-        return isStatusbarEnable;
+        return isStatusbarEnable
+                && ImmersionBar.isSupportStatusBarDarkFont()
+                && ImmersionBar.isSupportNavigationIconDark();
     }
 
     /***

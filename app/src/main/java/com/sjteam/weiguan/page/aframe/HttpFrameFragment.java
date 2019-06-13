@@ -65,6 +65,7 @@ public abstract class HttpFrameFragment<T> extends JzydHttpFrameFragment<T> {
         initData();
         initTitleView();
         initContentView();
+        initStatusBar();
     }
 
     protected void initDataPre() {
