@@ -22,7 +22,6 @@ public class MainHomeFragment extends HttpFrameFragment {
 
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.fragment_main_home);
-//        executeFrameRefresh();
     }
 
     @Override
@@ -46,6 +45,8 @@ public class MainHomeFragment extends HttpFrameFragment {
     protected void initTitleView() {
 
         addTitleMiddleTextView("首页");
+        getTitleView().setBackgroundResource(R.color.app_white);
+        setStatusbarView(getTitleView());
     }
 
     @Override

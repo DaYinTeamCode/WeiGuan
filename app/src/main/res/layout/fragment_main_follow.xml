@@ -10,7 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="暂无关注"
+        android:drawableTop="@mipmap/ic_page_tip_data_empty"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:text="暂无关注,快去添加关注吧！"
         android:textColor="#FF666666"
         android:textSize="14dp" />
 </FrameLayout>

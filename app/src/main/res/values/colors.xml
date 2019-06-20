@@ -9,4 +9,7 @@
     <color name="cp_page_bg">#FFF2F2F2</color>
     <color name="cp_title_bar_title_text">#FF444444</color>
     <color name="cp_title_bar_clicker_text">#FF444444</color>
+
+    <drawable name="cp_white">#FFFFFF</drawable>
+    <color name="cp_cover_placeholder">#FFE6E6E6</color>
 </resources>

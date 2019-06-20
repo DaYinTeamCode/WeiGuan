@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <com.androidex.imageloader.fresco.FrescoImageView
+        android:id="@+id/aivBgPic"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="#FFFFFF"
+        fresco:actualImageScaleType="centerCrop"
+        tool:ignore="MissingConstraints" />
+
+    <com.androidex.imageloader.fresco.FrescoImageView
+        android:id="@+id/aivAvater"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="26dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginLeft="14dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/cp_cover_placeholder" />
+
+    <com.sjteam.weiguan.view.CpTextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:text="点击登录"
+        android:textColor="#333333"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/aivAvater"
+        app:layout_constraintLeft_toRightOf="@+id/aivAvater"
+        app:layout_constraintTop_toTopOf="@+id/aivAvater" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clCashInfo"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_main_header_bg"
+            android:elevation="1.8px"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/clLeftCash"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:baselineAligned="true"
+                    android:gravity="center">
+
+                    <com.sjteam.weiguan.view.CpTextView
+                        android:id="@+id/tvTiezi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableTop="@mipmap/ic_main_user_tiezi_icon"
+                        android:drawablePadding="14dp"
+                        android:gravity="center"
+                        android:text="帖子"
+                        android:textColor="#333333"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:baselineAligned="true"
+                    android:gravity="center">
+
+                    <com.sjteam.weiguan.view.CpTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableTop="@mipmap/ic_main_user_header_comment_icon"
+                        android:drawablePadding="14dp"
+                        android:gravity="center"
+                        android:text="评论"
+                        android:textColor="#333333"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:baselineAligned="true"
+                    android:gravity="center">
+
+                    <com.sjteam.weiguan.view.CpTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableTop="@mipmap/ic_main_user_header_give_up_icon"
+                        android:drawablePadding="14dp"
+                        android:gravity="center"
+                        android:text="点赞"
+                        android:textColor="#333333"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:baselineAligned="true"
+                    android:gravity="center">
+
+                    <com.sjteam.weiguan.view.CpTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableTop="@mipmap/ic_main_user_header_records_icon"
+                        android:drawablePadding="14dp"
+                        android:gravity="center"
+                        android:text="浏览记录"
+                        android:textColor="#333333"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

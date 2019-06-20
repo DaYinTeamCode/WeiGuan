@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flUserSetting"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/flTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <com.sjteam.weiguan.view.CpTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="19dp"
+            android:layout_marginRight="19dp"
+            android:drawableRight="@mipmap/page_setting_main_right_arrow"
+            android:gravity="center_vertical"
+            android:textColor="#333333"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="19dp"
+        android:background="#f5f5f5" />
+</LinearLayout>
