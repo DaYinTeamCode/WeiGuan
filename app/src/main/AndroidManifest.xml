@@ -36,6 +36,17 @@
 
     <!-- 监听开锁屏 -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!-- 系统相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
+    <uses-permission android:name="com.sjteam.weiguan.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.sjteam.weiguan.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <!-- 查看应用使用情况 -->
     <uses-permission
@@ -47,9 +58,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- 适配全面屏 -->
@@ -63,11 +74,11 @@
             android:name="notch.config"
             android:value="portrait|landscape" />
 
-        <activity android:name=".page.splash.SplashActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".page.splash.SplashActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
-            android:theme="@style/SplashAppTheme"
-            >
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,11 +87,26 @@
         </activity>
         <activity
             android:name=".page.main.MainActivity"
-            android:theme="@style/cp_theme_title_main_float_trans"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:theme="@style/cp_theme_title_main_float_trans"
             android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".page.web.activity.BrowserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/cp_theme_title_main_float" />
+
+        <!-- 定义FileProvider  针对7.0手机权限问题 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/filepath"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider" />
+        </provider>
     </application>
 
 </manifest>

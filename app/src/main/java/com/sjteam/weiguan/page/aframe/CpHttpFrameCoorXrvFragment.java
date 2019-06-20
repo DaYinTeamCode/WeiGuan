@@ -19,7 +19,7 @@ import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRecyclerViewScrollUpCallback;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.constants.ColorConstants;
-import com.sjteam.weiguan.utils.SqkbFontUtil;
+import com.sjteam.weiguan.utils.CpFontUtil;
 
 import java.util.List;
 
@@ -70,8 +70,8 @@ public abstract class CpHttpFrameCoorXrvFragment<T>
 
         //创建 load more view
         ExRvLoadMoreView loadMoreView = new ExRvLoadMoreView(getContext());
-        SqkbFontUtil.setFont(loadMoreView.getLoadTextView());
-        SqkbFontUtil.setFont(loadMoreView.getNoDataTextView());
+        CpFontUtil.setFont(loadMoreView.getLoadTextView());
+        CpFontUtil.setFont(loadMoreView.getNoDataTextView());
         loadMoreView.getProgressView().setBarColor(ColorConstants.PROGRESS_MAIN);
 
         ExRecyclerView erv = onCreateRecyclerView();

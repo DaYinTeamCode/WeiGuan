@@ -12,4 +12,10 @@
 
     <drawable name="cp_white">#FFFFFF</drawable>
     <color name="cp_cover_placeholder">#FFE6E6E6</color>
+
+    <color name="cp_progress_color">#FFEC5252</color>
+
+    <color name="cp_text_edit_hint">#FFBFBFBF</color>
+
+    <color name="cp_text_title">#FF555555</color>
 </resources>

@@ -17,11 +17,9 @@ import com.sjteam.weiguan.view.CpTextView;
 
 /**
  * 自定义toast
- *
- * @author : pzwwei
- * @crate : 2016 - 11 - 18 上午11:04
+ * <p>
+ * Create By DaYin(gaoyin_vip@126.com) on 2019/6/20 6:58 PM
  */
-
 public class ExToast extends Toast {
 
     private static ExToast mToast;

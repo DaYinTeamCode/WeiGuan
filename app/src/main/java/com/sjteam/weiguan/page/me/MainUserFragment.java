@@ -23,7 +23,8 @@ import com.sjteam.weiguan.page.me.adapter.MainUserAdapter;
 import com.sjteam.weiguan.page.me.decoration.MainUserItemDecoration;
 import com.sjteam.weiguan.page.me.utils.MainUserDataUtil;
 import com.sjteam.weiguan.page.me.widget.MainUserHeaderWidget;
-import com.sjteam.weiguan.utils.SqkbFontUtil;
+import com.sjteam.weiguan.page.web.activity.BrowserActivity;
+import com.sjteam.weiguan.utils.CpFontUtil;
 import com.sjteam.weiguan.widget.TitleTransWidget;
 
 import java.util.List;
@@ -77,7 +78,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
 
         TextView tvTitle = addTitleMiddleTextView("我的");
         getTitleView().setBackgroundResource(R.color.app_white);
-        SqkbFontUtil.setFont(tvTitle);
+        CpFontUtil.setFont(tvTitle);
         getTitleView().setClickable(false);
         setStatusbarView(getTitleView());
     }
@@ -146,6 +147,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     @Override
     public void onExRvItemViewClick(View view, int dataPos) {
 
+        BrowserActivity.startActivity(getActivity(), "https://www.apicloud.com/");
     }
 
     private void onRecyclerViewScroll() {

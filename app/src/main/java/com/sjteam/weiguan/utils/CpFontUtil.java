@@ -8,7 +8,7 @@ import android.widget.TextView;
 /**
  * 省钱快报app字体工具类
  */
-public class SqkbFontUtil {
+public class CpFontUtil {
 
     private static Typeface mFont;
     private static Typeface mDinFont;

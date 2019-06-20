@@ -144,5 +144,5 @@
 }
 
 #webview
--keep class com.jzyd.coupon.page.web.** {*;}
--keep class com.jzyd.coupon.page.web.BrowserActivity$* {*;}
+-keep class com.sjteam.weiguan.page.web.** {*;}
+-keep class com.sjteam.weiguan.page.web.activity.BrowserActivity$* {*;}

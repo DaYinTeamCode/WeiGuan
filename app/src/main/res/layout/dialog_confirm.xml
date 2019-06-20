@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_dialog_day">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivTip"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="18dp"
+            android:scaleType="fitXY"/>
+
+        <com.sjteam.weiguan.view.CpTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/cp_text_title"
+            android:textSize="18dp" />
+
+        <com.sjteam.weiguan.view.CpTextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/cp_text_title"
+            android:textSize="15dp" />
+
+        <View
+            style="@style/ex_style_view_split_hori"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="26dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <com.sjteam.weiguan.view.CpTextView
+                android:id="@+id/tvBtnLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:textColor="@color/cp_text_edit_hint"
+                android:textSize="14dp" />
+
+            <View
+                style="@style/ex_style_view_split_hori"
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="0" />
+
+            <com.sjteam.weiguan.view.CpTextView
+                android:id="@+id/tvBtnRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#FFEC5252"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
