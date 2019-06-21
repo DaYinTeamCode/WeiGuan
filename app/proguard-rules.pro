@@ -146,3 +146,83 @@
 #webview
 -keep class com.sjteam.weiguan.page.web.** {*;}
 -keep class com.sjteam.weiguan.page.web.activity.BrowserActivity$* {*;}
+
+#微信回调
+-keep class com.sjteam.weiguan.page.sns.**{*;}
+-keep class com.sjteam.weiguan.wxapi.**{*;}
+
+# butterknife start
+# Retain generated class which implement Unbinder.
+-keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
+
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinding.
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+# butterknife end
+
+
+# event bus start -------------------------
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+# event bus end -------------------------
+
+# bugly start -----------
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+#bugly end ---------------
+
+-keep public class android.webkit.**
+
+-keepattributes SetJavaScriptEnabled
+-keepattributes JavascriptInterface
+
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# okhttp
+
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+
+# okio
+
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**
+
+#头条广告sdk
+-keep class com.bytedance.sdk.openadsdk.** { *; }
+-keep class com.androidquery.callback.** {*;}
+-keep public interface com.bytedance.sdk.openadsdk.downloadnew.** {*;}
+#头条广告sdk
+
+#umeng analysis
+-keep class com.umeng.** {*;}
+#新版友盟
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+#umeng analysis
+
+#GreenDao
+-keep class org.greenrobot.greendao.**{*;}
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+#GreenDao

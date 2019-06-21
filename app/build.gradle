@@ -123,4 +123,8 @@ dependencies {
     annotationProcessor deps.butterknife.butterknife_compiler
 
     implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:+'
+
+    // Bugly 日志上报
+    implementation deps.bugly_crashreport
+    implementation deps.nativecrashreport
 }

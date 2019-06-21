@@ -1,15 +1,13 @@
 package com.sjteam.weiguan.app;
 
 import android.content.Context;
-import android.os.SystemClock;
 import android.support.multidex.MultiDex;
 
 import com.androidex.context.ExApplication;
 import com.ex.android.http.task.HttpTask;
 import com.ex.android.http.task.HttpTaskClient;
-import com.jzyd.lib.httptask.JzydJsonListener;
-import com.sjteam.weiguan.BuildConfig;
 import com.sjteam.weiguan.utils.FrescoInitUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * 应用程序入口
@@ -40,6 +38,7 @@ public class WgApp extends ExApplication {
 
         initAsyncImageLoader();
         initHttpTask();
+        initBugly();
     }
 
     /***
@@ -59,5 +58,19 @@ public class WgApp extends ExApplication {
         HttpTask.setHttpTaskClient(HttpTaskClient.newHttpTaskClient(10,
                 10 * 1000, null));
         HttpTask.setCacheDir(getAppCacheSubDir("httptask"));
+    }
+
+    /**
+     * 初始化BugLy 上报日志
+     */
+    private void initBugly() {
+
+        /*** 设置是否为上报进程 */
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
+        strategy.setUploadProcess(true);
+        /*** 只记录apk channel */
+//        strategy.setAppChannel(getApkChannelName());//
+        // 初始化Bugly
+        CrashReport.initCrashReport(this, AppConfig.buglyKey, false, strategy);
     }
 }
