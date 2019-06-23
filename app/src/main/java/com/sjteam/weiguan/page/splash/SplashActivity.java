@@ -11,7 +11,7 @@ import com.sjteam.weiguan.page.main.MainActivity;
 import com.sjteam.weiguan.page.splash.fragment.SplashFragment;
 
 /**
- * 启动也
+ * 启动页
  * Create By DaYin(gaoyin_vip@126.com) on 2019/5/30 7:33 PM
  */
 public class SplashActivity extends JzydFragmentActivity implements
@@ -67,8 +67,6 @@ public class SplashActivity extends JzydFragmentActivity implements
 
             int uiFlag = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
             getWindow().getDecorView().setSystemUiVisibility(uiFlag);
-
-
         }
     }
 

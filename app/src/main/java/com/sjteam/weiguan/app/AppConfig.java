@@ -7,4 +7,5 @@ package com.sjteam.weiguan.app;
 public class AppConfig {
 
     public static final String buglyKey="1d30dc80ba";
+
 }
