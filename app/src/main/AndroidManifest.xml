@@ -21,7 +21,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.READ_LOGS"
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
 
     <!-- 读写系统日历 -->
@@ -99,6 +100,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/cp_theme_title_main_float" />
 
+        <!--App关于-->
+        <activity
+            android:name=".page.setting.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/cp_theme_title_main_float" />
+
+        <!-- user start -->
+        <activity
+            android:name=".page.login.UserLoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Login" />
+
         <!-- 定义FileProvider  针对7.0手机权限问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -109,6 +123,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider" />
         </provider>
+
     </application>
 
 </manifest>

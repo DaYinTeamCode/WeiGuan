@@ -18,26 +18,32 @@ public class MainUserDataUtil {
 
         UserItemSet userItemSet = new UserItemSet();
         userItemSet.setTitle("分享App给好友");
+        userItemSet.setItemType(UserItemSet.SHREAD_APP_TYPE);
         objects.add(userItemSet);
 
         userItemSet = new UserItemSet();
         userItemSet.setTitle("小游戏");
+        userItemSet.setItemType(UserItemSet.SMALL_GAME_TYPE);
         objects.add(userItemSet);
 
         userItemSet = new UserItemSet();
         userItemSet.setTitle("五星好评");
+        userItemSet.setItemType(UserItemSet.PRAISE_TYPE);
         objects.add(userItemSet);
 
         userItemSet = new UserItemSet();
         userItemSet.setTitle("帮助与反馈");
+        userItemSet.setItemType(UserItemSet.HELP_FEED_BACK_TYPE);
         objects.add(userItemSet);
 
         userItemSet = new UserItemSet();
         userItemSet.setTitle("关于微观短视频");
+        userItemSet.setItemType(UserItemSet.ABOUT_APP_TYPE);
         objects.add(userItemSet);
 
         userItemSet = new UserItemSet();
         userItemSet.setTitle("设置");
+        userItemSet.setItemType(UserItemSet.SETTING_APP_TYPE);
         objects.add(userItemSet);
         return objects;
     }

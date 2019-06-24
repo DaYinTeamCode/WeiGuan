@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.sjteam.weiguan.view.CpTextView
+        android:id="@+id/tvLauncher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="240dp"
+        android:drawableTop="@mipmap/ic_launcher_logo"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:text="Android版本"
+        android:textColor="@color/cp_text_title"
+        android:textSize="13dp" />
+
+    <com.sjteam.weiguan.view.CpTextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="V2.5.9"
+        android:textColor="@color/cp_text_subtitle"
+        android:textSize="12dp" />
+
+</LinearLayout>

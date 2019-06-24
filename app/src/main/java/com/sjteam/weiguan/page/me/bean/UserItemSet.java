@@ -6,6 +6,19 @@ package com.sjteam.weiguan.page.me.bean;
  */
 public class UserItemSet {
 
+    /*** 分享App给好友 */
+    public static final int SHREAD_APP_TYPE = 1;
+    /*** 小游戏 */
+    public static final int SMALL_GAME_TYPE = 2;
+    /*** 五星好评 */
+    public static final int PRAISE_TYPE = 3;
+    /*** 帮助与反馈 */
+    public static final int HELP_FEED_BACK_TYPE = 4;
+    /*** 关于微观短视频 */
+    public static final int ABOUT_APP_TYPE = 5;
+    /*** 设置 */
+    public static final int SETTING_APP_TYPE = 6;
+
     private int itemType;
 
     private String title;

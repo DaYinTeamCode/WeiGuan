@@ -18,4 +18,6 @@
     <color name="cp_text_edit_hint">#FFBFBFBF</color>
 
     <color name="cp_text_title">#FF555555</color>
+
+    <color name="cp_text_subtitle">#FF999999</color>
 </resources>

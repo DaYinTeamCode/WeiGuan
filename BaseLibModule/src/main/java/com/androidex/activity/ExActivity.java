@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.DeviceUtil;
 import com.androidex.util.LogMgr;
 import com.androidex.util.ToastUtil;
@@ -23,6 +25,8 @@ import com.ex.android.http.executer.HttpTaskExecuter;
 import com.ex.android.http.executer.HttpTaskExecuterHost;
 import com.ex.android.http.params.HttpTaskParams;
 import com.ex.android.http.task.listener.HttpTaskStringListener;
+import com.ex.sdk.android.slideback.SlideBack;
+import com.ex.sdk.android.slideback.impl.SlideBackCallBack;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -37,12 +41,22 @@ public abstract class ExActivity extends Activity implements HttpTaskExecuterHos
     private ExDecorView mExDecorView;
     private HttpTaskExecuter mHttpTaskExecuter;
     protected Unbinder unbinder;
+    private View mStatusBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         initAndSetExDecorView();
+
+        /*** 侧滑删除 默认为页面有滑动 */
+        SlideBack.register(this, true, new SlideBackCallBack() {
+            @Override
+            public void onSlideBack() {
+
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -54,6 +68,8 @@ public abstract class ExActivity extends Activity implements HttpTaskExecuterHos
             unbinder.unbind();
         }
         abortAllHttpTask();
+
+        SlideBack.unregister(this);
     }
 
     @Override
@@ -88,6 +104,7 @@ public abstract class ExActivity extends Activity implements HttpTaskExecuterHos
         initData();
         initTitleView();
         initContentView();
+        initStatusBar();
     }
 
     protected abstract void initData();
@@ -95,6 +112,54 @@ public abstract class ExActivity extends Activity implements HttpTaskExecuterHos
     protected abstract void initTitleView();
 
     protected abstract void initContentView();
+
+    /**
+     * 是否可以使用沉浸式
+     * Is immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    protected boolean isStatusbarEnabled() {
+
+        return true;
+    }
+
+    /***
+     *  初始化沉淀式状态栏
+     */
+    protected void initStatusBar() {
+
+        if (isStatusbarEnabled()) {
+
+            StatusBarManager.getInstance()
+                    .initStatusbar(this, getStatusbarView());
+        }
+    }
+
+    /***
+     *  设置Statusbar View
+     *
+     * @param view
+     */
+    protected void setStatusbarView(@Nullable View view) {
+
+        if (view == null) {
+
+            return;
+        }
+        mStatusBarView = view;
+    }
+
+    /***
+     *  获取状态栏资源Id
+     *
+     * @return
+     */
+    protected View getStatusbarView() {
+
+        return mStatusBarView;
+    }
+
 
     /**
      * http task api

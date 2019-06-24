@@ -20,10 +20,11 @@ import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.viewer.CpHttpFrameXrvFragmentViewer;
 import com.sjteam.weiguan.page.me.adapter.MainUserAdapter;
+import com.sjteam.weiguan.page.me.bean.UserItemSet;
 import com.sjteam.weiguan.page.me.decoration.MainUserItemDecoration;
 import com.sjteam.weiguan.page.me.utils.MainUserDataUtil;
 import com.sjteam.weiguan.page.me.widget.MainUserHeaderWidget;
-import com.sjteam.weiguan.page.web.activity.BrowserActivity;
+import com.sjteam.weiguan.page.setting.AboutActivity;
 import com.sjteam.weiguan.utils.CpFontUtil;
 import com.sjteam.weiguan.widget.TitleTransWidget;
 
@@ -147,7 +148,42 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     @Override
     public void onExRvItemViewClick(View view, int dataPos) {
 
-        BrowserActivity.startActivity(getActivity(), "https://www.apicloud.com/");
+        Object object = mAdapter.getDataItem(dataPos);
+
+        if (object instanceof UserItemSet) {
+
+            switch (((UserItemSet) object).getItemType()) {
+
+                case UserItemSet.ABOUT_APP_TYPE:
+                    AboutActivity.startActivity(getActivity());
+                    break;
+                case UserItemSet.SHREAD_APP_TYPE:
+                    shreadAppClick();
+                    break;
+                case UserItemSet.SMALL_GAME_TYPE:
+                    smallGameClick();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /***
+     *  分享微信好友
+     */
+    private void shreadAppClick() {
+
+        showToast("分享app给好友");
+    }
+
+    /***
+     * 小游戏
+     */
+    private void smallGameClick() {
+
+
+        showToast("小游戏");
     }
 
     private void onRecyclerViewScroll() {
