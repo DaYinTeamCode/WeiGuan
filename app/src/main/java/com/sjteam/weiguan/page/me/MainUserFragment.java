@@ -19,6 +19,7 @@ import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.viewer.CpHttpFrameXrvFragmentViewer;
+import com.sjteam.weiguan.page.login.UserLoginActivity;
 import com.sjteam.weiguan.page.me.adapter.MainUserAdapter;
 import com.sjteam.weiguan.page.me.bean.UserItemSet;
 import com.sjteam.weiguan.page.me.decoration.MainUserItemDecoration;
@@ -182,8 +183,8 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
      */
     private void smallGameClick() {
 
-
-        showToast("小游戏");
+        UserLoginActivity.startActivity(getActivity());
+//        showToast("小游戏");
     }
 
     private void onRecyclerViewScroll() {

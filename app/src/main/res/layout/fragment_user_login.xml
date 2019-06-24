@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/ic_page_title_bar_black_arrow" />
+
+    <com.sjteam.weiguan.view.CpTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="73dp"
+        android:drawablePadding="3dp"
+        android:drawableTop="@mipmap/ic_page_lacunher_logo"
+        android:gravity="center"
+        android:text="微观短视频"
+        android:textColor="#FF333333"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <com.sjteam.weiguan.view.CpTextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="196dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:background="@drawable/bg_user_login"
+        android:gravity="center"
+        android:text="微信登陆"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <com.sjteam.weiguan.view.CpTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="91dp"
+        android:text="我已阅读并同意微观短视频用户协议"
+        android:textColor="#333333"
+        android:textSize="12dp" />
+
+</FrameLayout>
