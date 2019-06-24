@@ -127,4 +127,10 @@ dependencies {
     // Bugly 日志上报
     implementation deps.bugly_crashreport
     implementation deps.nativecrashreport
+
+    //微信 支付，登录，分享
+    implementation 'com.ex.sdk.android:wxalipayclient:1.0.1'
+
+    //美团打包工具
+    implementation deps.meituan_library_walle
 }

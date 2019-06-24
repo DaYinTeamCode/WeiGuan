@@ -6,6 +6,9 @@ import android.support.multidex.MultiDex;
 import com.androidex.context.ExApplication;
 import com.ex.android.http.task.HttpTask;
 import com.ex.android.http.task.HttpTaskClient;
+import com.ex.umeng.UmengAgent;
+import com.meituan.android.walle.WalleChannelReader;
+import com.sjteam.weiguan.BuildConfig;
 import com.sjteam.weiguan.utils.FrescoInitUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -39,6 +42,7 @@ public class WgApp extends ExApplication {
         initAsyncImageLoader();
         initHttpTask();
         initBugly();
+        initUmengSdk();
     }
 
     /***
@@ -69,8 +73,29 @@ public class WgApp extends ExApplication {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
         strategy.setUploadProcess(true);
         /*** 只记录apk channel */
-//        strategy.setAppChannel(getApkChannelName());//
+        strategy.setAppChannel(getApkChannelName());
         // 初始化Bugly
         CrashReport.initCrashReport(this, AppConfig.buglyKey, false, strategy);
+    }
+
+    /***
+     *  初始化Umeng SDK
+     */
+    private void initUmengSdk() {
+
+        UmengAgent.turnOn(!BuildConfig.DEBUG);
+        UmengAgent.setIsDeubg(BuildConfig.DEBUG);
+        UmengAgent.startWithConfigure(this
+                , AppConfig.umengKey, getApkChannelName());
+    }
+
+    /**
+     * 获取apk渠道
+     *
+     * @return
+     */
+    public static String getApkChannelName() {
+
+        return WalleChannelReader.getChannel(WgApp.getContext(), "dev");
     }
 }

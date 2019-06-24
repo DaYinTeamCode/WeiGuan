@@ -9,6 +9,7 @@ buildscript {
     dependencies {
 
         classpath deps.android_gradle_plugin
+        classpath deps.meituan_plugin_walle
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
         classpath 'me.tatarka:gradle-retrolambda:3.6.0'
         classpath deps.butterknife_gradle_plugin

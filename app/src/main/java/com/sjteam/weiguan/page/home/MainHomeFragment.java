@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
+import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * 首页Fragment
