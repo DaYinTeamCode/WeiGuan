@@ -155,7 +155,7 @@ public class CpWebWidget extends ExLayoutWidget implements View.OnKeyListener {
     private void initLoadingView(FrameLayout content) {
 
         mLogingView = new SqkbPageLoadingView(getActivity());
-        content.addView(mLogingView, VglpUtil.getFllpSS(DensityUtil.dip2px(46), DensityUtil.dip2px(8), Gravity.CENTER));
+        content.addView(mLogingView, VglpUtil.getFllpSS(DensityUtil.dip2px(24), DensityUtil.dip2px(24), Gravity.CENTER));
     }
 
     public void setWebViewListener(WebViewListener lisn) {

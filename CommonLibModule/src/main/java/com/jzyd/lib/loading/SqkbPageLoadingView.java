@@ -42,7 +42,7 @@ public class SqkbPageLoadingView extends View {
         AnimationDrawable drawable = (AnimationDrawable) getBackground();
         if (drawable == null) {
 
-            drawable = (AnimationDrawable) getContext().getResources().getDrawable(R.drawable.core_anim_page_loading);
+            drawable = (AnimationDrawable) getContext().getResources().getDrawable(R.drawable.anim_page_loading);
             ViewUtil.setViewBackground(this, drawable);
             drawable.start();
         } else {

@@ -97,7 +97,7 @@ public abstract class HttpFrameFragment<T> extends JzydHttpFrameFragment<T> {
 
         //add progress bar
         mPbLoading = new SqkbPageLoadingView(getActivity());
-        getExDecorView().addContentView(mPbLoading, VglpUtil.getFllpSS(DensityUtil.dip2px(46), DensityUtil.dip2px(8), Gravity.CENTER));
+        getExDecorView().addContentView(mPbLoading, VglpUtil.getFllpSS(DensityUtil.dip2px(24), DensityUtil.dip2px(24), Gravity.CENTER));
 
         //设置无网提示
         mFailedNetworkImageResId = R.drawable.core_ic_page_tip_network_none;

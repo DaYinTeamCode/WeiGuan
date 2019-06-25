@@ -23,6 +23,8 @@ public class MainHomeFragment extends HttpFrameFragment {
 
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.fragment_main_home);
+        hideContent();
+        showLoading();
     }
 
     @Override
