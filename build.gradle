@@ -1,10 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from:"./config/android.gradle"
-apply from:"./config/component.gradle"
+apply from: "./config/android.gradle"
+apply from: "./config/component.gradle"
 
 buildscript {
 
-    apply from:"./config/versions.gradle"
+    apply from: "./config/versions.gradle"
     addRepos(repositories)
     dependencies {
 
@@ -31,7 +31,6 @@ allprojects {
             }
         }
     }
-
     ext {
         supportlib_version = '26.1.0'
     }

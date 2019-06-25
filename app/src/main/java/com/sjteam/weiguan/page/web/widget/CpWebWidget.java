@@ -39,7 +39,7 @@ import com.androidex.util.TextUtil;
 import com.androidex.util.VglpUtil;
 import com.androidex.util.WebViewUtil;
 import com.androidex.view.ExWebView;
-import com.jzyd.lib.loading.SqkbPageLoadingView;
+import com.jzyd.lib.loading.PageLoadingView;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.dialog.ActionListDialog;
 import com.sjteam.weiguan.dialog.CpBaseDialog;
@@ -64,7 +64,7 @@ public class CpWebWidget extends ExLayoutWidget implements View.OnKeyListener {
     private WebChromeClient mWebChromeClient;
     private WebViewClient mWebViewClient;
     private WebViewDownListener mDonloadlistener;
-    private SqkbPageLoadingView mLogingView;
+    private PageLoadingView mLogingView;
     private WebViewListener mLisn;
     private OnWebGoBackListener mGoBackListener;
 
@@ -154,7 +154,7 @@ public class CpWebWidget extends ExLayoutWidget implements View.OnKeyListener {
 
     private void initLoadingView(FrameLayout content) {
 
-        mLogingView = new SqkbPageLoadingView(getActivity());
+        mLogingView = new PageLoadingView(getActivity());
         content.addView(mLogingView, VglpUtil.getFllpSS(DensityUtil.dip2px(24), DensityUtil.dip2px(24), Gravity.CENTER));
     }
 

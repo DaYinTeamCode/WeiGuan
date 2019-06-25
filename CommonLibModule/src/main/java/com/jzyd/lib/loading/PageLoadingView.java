@@ -13,14 +13,14 @@ import com.jzyd.lib.R;
  * 页面loadingview
  * Created by yihaibin on 15/11/11.
  */
-public class SqkbPageLoadingView extends View {
+public class PageLoadingView extends View {
 
-    public SqkbPageLoadingView(Context context) {
+    public PageLoadingView(Context context) {
 
         super(context);
     }
 
-    public SqkbPageLoadingView(Context context, AttributeSet attrs) {
+    public PageLoadingView(Context context, AttributeSet attrs) {
 
         super(context, attrs);
     }

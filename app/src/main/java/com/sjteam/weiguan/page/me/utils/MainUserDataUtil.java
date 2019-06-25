@@ -37,14 +37,15 @@ public class MainUserDataUtil {
         objects.add(userItemSet);
 
         userItemSet = new UserItemSet();
+        userItemSet.setTitle("检测更新");
+        userItemSet.setItemType(UserItemSet.CHECK_UPDATE_APP);
+        objects.add(userItemSet);
+
+        userItemSet = new UserItemSet();
         userItemSet.setTitle("关于微观短视频");
         userItemSet.setItemType(UserItemSet.ABOUT_APP_TYPE);
         objects.add(userItemSet);
 
-        userItemSet = new UserItemSet();
-        userItemSet.setTitle("设置");
-        userItemSet.setItemType(UserItemSet.SETTING_APP_TYPE);
-        objects.add(userItemSet);
         return objects;
     }
 

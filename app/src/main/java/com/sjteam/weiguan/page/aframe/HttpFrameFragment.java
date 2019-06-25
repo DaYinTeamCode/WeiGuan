@@ -19,7 +19,7 @@ import com.androidex.util.VglpUtil;
 import com.androidex.util.ViewUtil;
 import com.ex.android.http.task.HttpTaskStatus;
 import com.jzyd.lib.activity.JzydHttpFrameFragment;
-import com.jzyd.lib.loading.SqkbPageLoadingView;
+import com.jzyd.lib.loading.PageLoadingView;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.view.CpTextView;
 
@@ -41,7 +41,7 @@ public abstract class HttpFrameFragment<T> extends JzydHttpFrameFragment<T> {
     private Handler mMainHandler;
     private View mContentView;
     private CpTextView mTvTip;
-    private SqkbPageLoadingView mPbLoading;
+    private PageLoadingView mPbLoading;
     private int mTipResId;
     private int mFailedNetworkImageResId, mFailedNetworkTextResId;
     private int mFailedDataErrorTextResId, mFailedDataErrorImageResId;
@@ -96,7 +96,7 @@ public abstract class HttpFrameFragment<T> extends JzydHttpFrameFragment<T> {
         getExDecorView().addContentView(mTvTip, VglpUtil.getFllpSS(VglpUtil.W, VglpUtil.W, Gravity.CENTER));
 
         //add progress bar
-        mPbLoading = new SqkbPageLoadingView(getActivity());
+        mPbLoading = new PageLoadingView(getActivity());
         getExDecorView().addContentView(mPbLoading, VglpUtil.getFllpSS(DensityUtil.dip2px(24), DensityUtil.dip2px(24), Gravity.CENTER));
 
         //设置无网提示

@@ -19,6 +19,12 @@ public class UserItemSet {
     /*** 设置 */
     public static final int SETTING_APP_TYPE = 6;
 
+    /*** 检测更新 */
+    public static final int CHECK_UPDATE_APP = 7;
+
+//    /*** 清理缓存 */
+//    public static final int
+
     private int itemType;
 
     private String title;

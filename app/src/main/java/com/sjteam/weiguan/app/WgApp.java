@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.androidex.context.ExApplication;
+import com.androidex.imageloader.fresco.FrescoHelper;
+import com.androidex.util.StorageUtil;
 import com.ex.android.http.task.HttpTask;
 import com.ex.android.http.task.HttpTaskClient;
 import com.ex.umeng.UmengAgent;
@@ -34,15 +36,42 @@ public class WgApp extends ExApplication {
     }
 
     /***
+     *  低内存针对内存图片进行回收
+     */
+    @Override
+    public void onLowMemory() {
+
+        super.onLowMemory();
+        FrescoHelper.clearMemoryCache();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+
+        super.onTrimMemory(level);
+        if (level == TRIM_MEMORY_RUNNING_LOW
+                || level == TRIM_MEMORY_UI_HIDDEN) {
+
+            FrescoHelper.clearMemoryCache();
+        }
+    }
+
+    /***
      *
      *初始化应用程序
      */
     private void initAppFrame() {
 
+        /*** 初始化图片库 */
         initAsyncImageLoader();
+        /*** 初始化网络请求 */
         initHttpTask();
+        /*** 初始化Bugly */
         initBugly();
+        /*** 初始化Umeng */
         initUmengSdk();
+        /*** 初始化存储数据 */
+        initStorage();
     }
 
     /***
@@ -87,6 +116,14 @@ public class WgApp extends ExApplication {
         UmengAgent.setIsDeubg(BuildConfig.DEBUG);
         UmengAgent.startWithConfigure(this
                 , AppConfig.umengKey, getApkChannelName());
+    }
+
+    /**
+     * 初始化存储框架
+     */
+    private void initStorage() {
+
+        StorageUtil.initAppHomeDir(this);
     }
 
     /**
