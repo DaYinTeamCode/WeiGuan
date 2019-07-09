@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import com.androidex.plugin.DelayBackHandler;
 import com.androidex.util.DensityUtil;
 import com.androidex.util.TextUtil;
-import com.androidex.util.ToastUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.jzyd.lib.util.MD5Util;
 import com.sjteam.weiguan.R;
+import com.sjteam.weiguan.dialog.PusblishDialog;
 import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
 import com.sjteam.weiguan.page.home.MainHomeFragment;
 import com.sjteam.weiguan.page.me.MainUserFragment;
@@ -27,9 +27,7 @@ import com.sjteam.weiguan.view.toast.ExToast;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 首页主框架
@@ -116,7 +114,9 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
     @OnClick(R.id.ivPushlish)
     public void ivPushClick() {
 
-        ToastUtil.showToast("点击发布视频");
+        PusblishDialog pusblishDialog = new PusblishDialog(this);
+        pusblishDialog.setCanceledOnTouchOutside(true);
+        pusblishDialog.show();
     }
 
     @Override

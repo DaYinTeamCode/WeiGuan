@@ -19,8 +19,8 @@ public class StatusBarManager {
     /*** 单列实例对象 */
     private volatile static StatusBarManager mInstance;
 
-    /*** 沉淀式状态栏是否可用 ，全局控制 默认为false */
-    private boolean isStatusbarEnable;
+    /*** 沉淀式状态栏是否可用 ，全局控制 默认为true */
+    private boolean isStatusbarEnable = true;
 
     /***
      *  获取沉淀式状态栏单例
@@ -226,6 +226,7 @@ public class StatusBarManager {
             if (view != null) {
 
                 immersionBar
+                        .reset()
                         .statusBarDarkFont(true, 0.2f)
                         .titleBar(view)
                         .fitsSystemWindows(true)

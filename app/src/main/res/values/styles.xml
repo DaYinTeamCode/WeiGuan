@@ -109,5 +109,14 @@
         <item name="exBackground">@android:color/transparent</item><!-- 背景透明 -->
     </style>
 
+    <style name="cp_theme_dialog_push_btm" parent="@style/ex_theme_dialog">
+        <item name="android:windowAnimationStyle">@style/cp_style_anim_push_btm</item>
+    </style>
+
+    <!-- 动画样式 -->
+    <style name="cp_style_anim_push_btm">
+        <item name="android:windowEnterAnimation">@anim/push_enter_up_short_time</item>
+        <item name="android:windowExitAnimation">@anim/push_exit_down_short_time</item>
+    </style>
 
 </resources>
