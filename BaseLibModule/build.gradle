@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion build_versions.compileSdkVersion
@@ -57,7 +58,6 @@ dependencies {
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.espresso.core
-
     compileOnly deps.support.compat
     compileOnly deps.support.core_ui
     compileOnly deps.support.core_utils
@@ -78,6 +78,7 @@ dependencies {
 
     // 沉浸式适配
     api deps.immersionbar
-
+//
     implementation deps.butterknife.butterknife
+    annotationProcessor deps.butterknife.butterknife_compiler
 }

@@ -843,9 +843,9 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
         return getArguments() == null ? null : getArguments().getIntArray(key);
     }
 
-	/*
+    /*
      * 空实现，供子类覆盖 part
-	 */
+     */
 
     /**
      * fragment内容滚动至顶部
@@ -892,7 +892,7 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
     private boolean mIsSupportShowToUser;
     private boolean mIsSupportParentShow = true;
 
-    private boolean isSupportParentShow(){
+    private boolean isSupportParentShow() {
 
         return mIsSupportParentShow;
     }
@@ -902,7 +902,7 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
         return mIsSupportOnCreateLifecycle;
     }
 
-    public boolean isSupportStarted(){
+    public boolean isSupportStarted() {
 
         return mIsSupportStarted;
     }
@@ -964,32 +964,32 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
         return isSupportViewPagerMode() && isSupportVisibleToUser();
     }
 
-    public boolean isSupportShowToUser(){
+    public boolean isSupportShowToUser() {
 
         return isSupportParentShow() && isAdded() && isSupportStarted() && !isHidden()
                 && (!isSupportViewPagerMode() || isSupportPageSelected());
     }
 
-    private void callbackSupportShowToUserChanged(boolean isShowToUser, int from){
+    private void callbackSupportShowToUserChanged(boolean isShowToUser, int from) {
 
-        if(mIsSupportShowToUser != isShowToUser){
+        if (mIsSupportShowToUser != isShowToUser) {
             mIsSupportShowToUser = isShowToUser;
             onSupportShowToUserChanged(isShowToUser, from);
             onSupportShowToUserChangedAfter(isShowToUser, from);
         }
     }
 
-    public void performSupportParentShowChanged(boolean parentShow){
+    public void performSupportParentShowChanged(boolean parentShow) {
 
         mIsSupportParentShow = parentShow;
         callbackSupportShowToUserChanged(isSupportShowToUser(), SHOW_TO_USER_FROM_PARENT);
     }
 
-    protected void onSupportShowToUserChanged(boolean isShowToUser, int from){
+    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
         //nothing
     }
 
-    protected void onSupportShowToUserChangedAfter(boolean isShowToUser, int from){
+    protected void onSupportShowToUserChangedAfter(boolean isShowToUser, int from) {
         //nothing
     }
 

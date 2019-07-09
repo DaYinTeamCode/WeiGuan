@@ -1,1 +1,1 @@
-include ':app', ':FrescoLibModule', ':BaseLibModule', ':CommonLibModule'
+include ':app', ':FrescoLibModule', ':BaseLibModule', ':CommonLibModule', ':WGPlayerArmv7a', ':WGPlayerCore', ':WGPlayerUi', ':dkplayer-java'

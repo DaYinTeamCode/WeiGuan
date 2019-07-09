@@ -110,7 +110,11 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.support.multidex
     implementation project(':FrescoLibModule')
+//
     implementation project(':CommonLibModule')
+//    implementation project(':WGPlayerCore')
+//    implementation project(':WGPlayerArmv7a')
+//    implementation project(':WGPlayerUi')
 
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner
@@ -122,6 +126,7 @@ dependencies {
     implementation deps.butterknife.butterknife
     annotationProcessor deps.butterknife.butterknife_compiler
 
+    // 底部Tab Bar
     implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:+'
 
     // Bugly 日志上报

@@ -10,7 +10,7 @@ public class AppConfig {
     /*** bugly key */
     public static final String buglyKey = "1d30dc80ba";
 
-    public static final String wxKey = "";
+    public static final String wxKey = "wx15a16ece07261b18";
 
     //Umeng Key
     public static String umengKey = "5d10736f570df36a160011c4";

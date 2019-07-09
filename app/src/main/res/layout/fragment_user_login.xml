@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="73dp"
-        android:drawablePadding="3dp"
         android:drawableTop="@mipmap/ic_page_lacunher_logo"
+        android:drawablePadding="3dp"
         android:gravity="center"
         android:text="微观短视频"
         android:textColor="#FF333333"
@@ -27,12 +27,13 @@
         android:textStyle="bold" />
 
     <com.sjteam.weiguan.view.CpTextView
+        android:id="@+id/tvLogin"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="196dp"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
+        android:layout_marginBottom="196dp"
         android:background="@drawable/bg_user_login"
         android:gravity="center"
         android:text="微信登陆"

@@ -14,7 +14,6 @@ import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/24 7:31 PM
  */
-
 public class UserLoginActivity extends CpFragmentActivity {
 
     private Fragment mFragment;
@@ -22,7 +21,6 @@ public class UserLoginActivity extends CpFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setCurPageSlidebackSupport(false);
         super.onCreate(savedInstanceState);
         setContentLoginFragment();
     }

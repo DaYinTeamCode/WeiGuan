@@ -124,6 +124,22 @@
                 android:resource="@xml/file_provider" />
         </provider>
 
+        <!-- 微信 WeChat start -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.sjteam.weiguan"
+            android:theme="@style/cp_theme_trans">
+            <intent-filter>
+                <action android:name="com.sjteam.weiguan.action.wx.login.authorize" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

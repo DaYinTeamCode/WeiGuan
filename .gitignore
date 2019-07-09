@@ -16,3 +16,7 @@
 /app/src/main/res/**/node_modules_*
 /app/src/main/res/**/app_img_*
 
+.gitignore
+libs/armeabi-v7a/
+proguard-rules.pro
+src/

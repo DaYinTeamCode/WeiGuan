@@ -102,4 +102,12 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <!-- 更新activity样式 -->
+    <style name="cp_theme_trans" parent="cp_theme_ex_base">
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->
+        <item name="exBackground">@android:color/transparent</item><!-- 背景透明 -->
+    </style>
+
+
 </resources>
