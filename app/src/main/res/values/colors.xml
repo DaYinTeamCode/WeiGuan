@@ -20,4 +20,6 @@
     <color name="cp_text_title">#FF555555</color>
 
     <color name="cp_text_subtitle">#FF999999</color>
+
+    <color name="cp_text_transparent">@android:color/transparent</color>
 </resources>

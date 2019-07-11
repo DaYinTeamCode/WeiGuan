@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -22,7 +23,11 @@ import com.sjteam.weiguan.page.home.MainHomeFragment;
 import com.sjteam.weiguan.page.me.MainUserFragment;
 import com.sjteam.weiguan.page.news.MainMessageFragment;
 import com.sjteam.weiguan.page.video.MainVideoFragment;
+import com.sjteam.weiguan.syncer.EventBusUtils;
 import com.sjteam.weiguan.view.toast.ExToast;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.LinkedHashMap;
 
@@ -53,6 +58,9 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
     @BindView(R.id.flTabDiv)
     FrameLayout flTabDiv;
 
+    @BindView(R.id.viewTabBg)
+    View mTabViewBg;
+
     private DelayBackHandler mDelayBackHandler;
 
     /*** 当前选中Fragment */
@@ -74,6 +82,8 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
         mDelayBackHandler = new DelayBackHandler();
         mDelayBackHandler.setOnDelayBackListener(this);
         mTabFragments = new LinkedHashMap<>();
+
+        EventBusUtils.register(this);
     }
 
     @Override
@@ -128,6 +138,7 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
             mTabFragments = null;
         }
+        EventBusUtils.unregister(this);
     }
 
     /**
@@ -181,11 +192,38 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         if (fragment != null) {
 
+            setMainTabBackground(fragment);
             switchFragment(fragment, isAddFragment);
             if (isAddFragment) {
 
                 setFragmentToTag(MD5Util.md5(String.valueOf(index)), fragment);
             }
+        }
+    }
+
+    /***
+     *  设置主框架Tab背景颜色
+     * @param fragment
+     */
+    private void setMainTabBackground(Fragment fragment) {
+
+        if (fragment == null) {
+
+            return;
+        }
+        if (fragment instanceof MainVideoFragment) {
+
+            MainVideoFragment mainVideoFragment = (MainVideoFragment) fragment;
+            if (mainVideoFragment.getCurPostion() == 0) {
+
+                mTabViewBg.setBackgroundResource(R.color.cp_text_transparent);
+            } else {
+
+                mTabViewBg.setBackgroundResource(R.drawable.bg_page_main_act_menu);
+            }
+        } else {
+
+            mTabViewBg.setBackgroundResource(R.drawable.bg_page_main_act_menu);
         }
     }
 
@@ -260,6 +298,24 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         transaction.commitAllowingStateLoss();
         mSelectedFra = fragment;
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onVideoCateChangedStatus(VideoCateChangedEvent videoCateChangedEvent) {
+
+        if (videoCateChangedEvent == null) {
+
+            return;
+        }
+
+        if (videoCateChangedEvent.getPostion() == 0) {
+
+            mTabViewBg.setBackgroundResource(R.color.cp_text_transparent);
+        } else {
+
+            mTabViewBg.setBackgroundResource(R.drawable.bg_page_main_act_menu);
+        }
     }
 
     /***

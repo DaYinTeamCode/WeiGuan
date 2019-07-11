@@ -12,7 +12,7 @@ import com.androidex.widget.rv.view.ExRecyclerView;
 import com.androidex.widget.rv.view.ExRvLoadMoreView;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.httptask.JzydJsonListener;
-import com.jzyd.lib.httptask.JzydResponse;
+import com.jzyd.lib.httptask.ExResponse;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRecyclerViewScrollUpCallback;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
@@ -36,7 +36,7 @@ public abstract class CpHttpFrameXrvFragment<T> extends CpHttpFrameRvFragment<T>
 
     private HttpTask mPullRefreshHttpTask;
     private HttpTask mLoadMoreHttpTask;
-    private int mPageLimit = 10;
+    private int mPageLimit = 20;
     private boolean mPullRefreshEnable = true;
     private boolean mLoadMoreEnable = true;
     private boolean mLoadMoreIsStrictMode = true; //是否是严格的loadmore:加载更多返回0条数据的时候，才表示没有加载更多
@@ -430,7 +430,7 @@ public abstract class CpHttpFrameXrvFragment<T> extends CpHttpFrameRvFragment<T>
         }
 
         @Override
-        public void onTaskSuccess(JzydResponse<T> resp) {
+        public void onTaskSuccess(ExResponse<T> resp) {
 
             onPullRefreshTaskSuccess(resp);
 //            super.onTaskSuccess(resp);
@@ -452,7 +452,7 @@ public abstract class CpHttpFrameXrvFragment<T> extends CpHttpFrameRvFragment<T>
         }
 
         @Override
-        public boolean onTaskSaveCache(JzydResponse<T> resp) {
+        public boolean onTaskSaveCache(ExResponse<T> resp) {
 
             if (isFinishing())
                 return false;
@@ -505,7 +505,7 @@ public abstract class CpHttpFrameXrvFragment<T> extends CpHttpFrameRvFragment<T>
 
     }
 
-    protected void onPullRefreshTaskSuccess(JzydResponse<T> resp) {
+    protected void onPullRefreshTaskSuccess(ExResponse<T> resp) {
 
     }
 
@@ -621,7 +621,7 @@ public abstract class CpHttpFrameXrvFragment<T> extends CpHttpFrameRvFragment<T>
         }
 
         @Override
-        public void onTaskSuccess(JzydResponse<T> resp) {
+        public void onTaskSuccess(ExResponse<T> resp) {
 
             onLoadMoreTaskSuccess(resp);
             super.onTaskSuccess(resp);
@@ -658,7 +658,7 @@ public abstract class CpHttpFrameXrvFragment<T> extends CpHttpFrameRvFragment<T>
 
     }
 
-    protected void onLoadMoreTaskSuccess(JzydResponse<T> resp) {
+    protected void onLoadMoreTaskSuccess(ExResponse<T> resp) {
 
     }
 

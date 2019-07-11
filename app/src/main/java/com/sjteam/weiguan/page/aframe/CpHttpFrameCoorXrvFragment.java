@@ -14,7 +14,7 @@ import com.androidex.widget.rv.view.ExRvLoadMoreView;
 import com.ex.android.http.task.HttpTask;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.httptask.JzydJsonListener;
-import com.jzyd.lib.httptask.JzydResponse;
+import com.jzyd.lib.httptask.ExResponse;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRecyclerViewScrollUpCallback;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
@@ -394,7 +394,7 @@ public abstract class CpHttpFrameCoorXrvFragment<T>
         }
 
         @Override
-        public void onTaskSuccess(JzydResponse<T> resp) {
+        public void onTaskSuccess(ExResponse<T> resp) {
 
             onPullRefreshTaskSuccess(resp);
             super.onTaskSuccess(resp);
@@ -416,7 +416,7 @@ public abstract class CpHttpFrameCoorXrvFragment<T>
         }
 
         @Override
-        public boolean onTaskSaveCache(JzydResponse<T> resp) {
+        public boolean onTaskSaveCache(ExResponse<T> resp) {
 
             if (isFinishing())
                 return false;
@@ -468,7 +468,7 @@ public abstract class CpHttpFrameCoorXrvFragment<T>
 
     }
 
-    protected void onPullRefreshTaskSuccess(JzydResponse<T> resp) {
+    protected void onPullRefreshTaskSuccess(ExResponse<T> resp) {
 
     }
 
@@ -584,7 +584,7 @@ public abstract class CpHttpFrameCoorXrvFragment<T>
         }
 
         @Override
-        public void onTaskSuccess(JzydResponse<T> resp) {
+        public void onTaskSuccess(ExResponse<T> resp) {
 
             onLoadMoreTaskSuccess(resp);
             super.onTaskSuccess(resp);
@@ -621,7 +621,7 @@ public abstract class CpHttpFrameCoorXrvFragment<T>
 
     }
 
-    protected void onLoadMoreTaskSuccess(JzydResponse<T> resp) {
+    protected void onLoadMoreTaskSuccess(ExResponse<T> resp) {
 
     }
 

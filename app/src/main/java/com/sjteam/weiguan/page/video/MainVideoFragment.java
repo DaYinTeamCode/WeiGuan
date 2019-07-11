@@ -13,6 +13,9 @@ import com.androidex.view.pager.indicator.TabStripIndicator;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
+import com.sjteam.weiguan.page.main.VideoCateChangedEvent;
+import com.sjteam.weiguan.page.video.adapter.VideoPageAdapter;
+import com.sjteam.weiguan.syncer.EventBusUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +31,19 @@ public class MainVideoFragment extends HttpFrameFragment implements ViewPager.On
     private TabStripIndicator mTabTipStripIndicator;
     private ViewPager mViewPager;
     private VideoPageAdapter mVideoPageAdapter;
+    private int mCurPostiton;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.fragment_main_video);
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
     }
 
     @Override
@@ -70,7 +80,6 @@ public class MainVideoFragment extends HttpFrameFragment implements ViewPager.On
         mTabTipStripIndicator.setTabPaddingLeftRight(DensityUtil.dip2px(20));
         mTabTipStripIndicator.setUnderlineHoriPadding(DensityUtil.dip2px(20));
         addTitleMiddleView(mTabTipStripIndicator, VglpUtil.getLllpWM());
-        getTitleView().setBackgroundResource(R.color.app_white);
         setStatusbarView(getTitleView());
     }
 
@@ -93,11 +102,23 @@ public class MainVideoFragment extends HttpFrameFragment implements ViewPager.On
     @Override
     public void onPageSelected(int position) {
 
+        EventBusUtils.post(new VideoCateChangedEvent(position));
+        mCurPostiton = position;
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    /***
+     *  返回分类当前位置
+     *
+     * @return
+     */
+    public int getCurPostion() {
+
+        return mCurPostiton;
     }
 
     /***

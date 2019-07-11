@@ -3,7 +3,7 @@ package com.jzyd.lib.activity;
 import com.ex.android.http.params.HttpTaskParams;
 import com.ex.android.http.task.HttpTask;
 import com.jzyd.lib.httptask.JzydJsonListener;
-import com.jzyd.lib.httptask.JzydResponse;
+import com.jzyd.lib.httptask.ExResponse;
 import com.jzyd.lib.httptask.HttpFrameParams;
 
 public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
@@ -104,7 +104,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		}
 
 		@Override
-		public void onTaskSuccess(JzydResponse<T> resp) {
+		public void onTaskSuccess(ExResponse<T> resp) {
 
 			onTaskSuccessOnFrameRefresh(resp);
 			super.onTaskSuccess(resp);
@@ -120,7 +120,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		}
 
         @Override
-		public boolean onTaskSaveCache(JzydResponse<T> resp) {
+		public boolean onTaskSaveCache(ExResponse<T> resp) {
 
 			if(isFinishing())
 				return false;
@@ -146,7 +146,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		showLoading();
 	}
 
-	protected void onTaskSuccessOnFrameRefresh(JzydResponse<T> resp){
+	protected void onTaskSuccessOnFrameRefresh(ExResponse<T> resp){
 
 	}
 	
@@ -238,7 +238,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		}
 
 		@Override
-		public void onTaskSuccess(JzydResponse<T> resp) {
+		public void onTaskSuccess(ExResponse<T> resp) {
 
 			onTaskSuccessOnFrameCache(resp);
 			super.onTaskSuccess(resp);
@@ -305,7 +305,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		showLoading();
 	}
 
-	protected void onTaskSuccessOnFrameCache(JzydResponse<T> resp){
+	protected void onTaskSuccessOnFrameCache(ExResponse<T> resp){
 
 	}
 	
@@ -411,7 +411,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		}
 
 		@Override
-		public void onTaskSuccess(JzydResponse<T> resp) {
+		public void onTaskSuccess(ExResponse<T> resp) {
 
 			onTaskSuccessOnFrameCacheRefresh(resp);
 			super.onTaskSuccess(resp);
@@ -427,7 +427,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		}
 		
 		@Override
-		public boolean onTaskSaveCache(JzydResponse<T> resp) {
+		public boolean onTaskSaveCache(ExResponse<T> resp) {
 			
 			return isFinishing() ? false : onFrameSaveCache(resp);
 		}
@@ -442,7 +442,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 		}
 	}
 
-	protected void onTaskSuccessOnFrameCacheRefresh(JzydResponse<T> resp){
+	protected void onTaskSuccessOnFrameCacheRefresh(ExResponse<T> resp){
 
 	}
 	
@@ -531,7 +531,7 @@ public abstract class JzydHttpFrameFragment<T> extends JzydFragment {
 	 * @param resp
 	 * @return true:存储，false:不存储
 	 */
-	protected boolean onFrameSaveCache(JzydResponse<T> resp) {
+	protected boolean onFrameSaveCache(ExResponse<T> resp) {
 		
 		return resp != null && resp.isSuccess();
 	}

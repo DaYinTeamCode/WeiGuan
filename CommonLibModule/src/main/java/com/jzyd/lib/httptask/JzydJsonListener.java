@@ -16,13 +16,9 @@ import java.util.List;
 
 /**
  * 统一处理网络请求返回数据
- *
- * @param <T>
- * @author pzwwei
- * @version 1.0
- * @since 2014-12-16
+ * Create By DaYin(gaoyin_vip@126.com) on 2019/7/11 4:11 PM
  */
-public abstract class JzydJsonListener<T> implements HttpTaskStringListener<JzydResponse<T>>, HttpTaskStatus {
+public abstract class JzydJsonListener<T> implements HttpTaskStringListener<ExResponse<T>>, HttpTaskStatus {
 
     protected Class<?> mClazz;
     private static List<RespHandler> mRespHandlerList;
@@ -57,11 +53,11 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
      * @return
      */
     @Override
-    public JzydResponse<T> onTaskResponse(HttpTask ht, String jsonText) {
+    public ExResponse<T> onTaskResponse(HttpTask ht, String jsonText) {
 
         jsonText = callbackJzydHttpTaskResponse(ht, jsonText);
 
-        JzydResponse<T> resp = new JzydResponse<T>();
+        ExResponse<T> resp = new ExResponse<T>();
 
         if (LogMgr.isDebug())
             LogMgr.d("response : " + jsonText);
@@ -78,17 +74,11 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
             if (LogMgr.isDebug())
                 LogMgr.d(JzydJsonListener.class.getSimpleName(), "onTaskResponse = " + jsonObj.toString());
 
-            if (jsonObj.has("status_code"))
-                resp.setStatus_code(jsonObj.getInt("status_code"));
+            if (jsonObj.has("code"))
+                resp.setCode(jsonObj.getString("code"));
 
             if (jsonObj.has("message"))
                 resp.setMessage(jsonObj.getString("message"));
-
-            if (jsonObj.has("timestamp"))
-                resp.setTimestamp(jsonObj.getLong("timestamp"));
-
-            if (jsonObj.has("trace_id"))
-                resp.setTrace_id(jsonObj.getString("trace_id"));
 
             if (resp.isSuccess()) {
 
@@ -105,7 +95,7 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
 
                     if (jsonText.startsWith("["))
                         resp.setData(((T) JSON.parseArray(jsonText, mClazz)));// JsonArray
-                    else if(jsonText.startsWith("{"))
+                    else if (jsonText.startsWith("{"))
                         resp.setData((T) JSON.parseObject(jsonText, mClazz));// JsonObj
                     else
                         resp.setData((T) mClazz.newInstance());// new default obj
@@ -118,7 +108,7 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
             if (LogMgr.isDebug())
                 t.printStackTrace();
 
-            callbackJzydHttpTaskResponseError(ht, t, resp == null ? 0 : resp.getStatus_code());
+            callbackJzydHttpTaskResponseError(ht, t, resp == null ? 0 : resp.getIntCode());
         }
 
         //子线程回调
@@ -141,7 +131,7 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
         return resp;
     }
 
-    public void onTaskResultDoInBackground(JzydResponse<T> resp){
+    public void onTaskResultDoInBackground(ExResponse<T> resp) {
 
     }
 
@@ -150,13 +140,13 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
     }
 
     @Override
-    public boolean onTaskSaveCache(JzydResponse<T> resp) {
+    public boolean onTaskSaveCache(ExResponse<T> resp) {
 
         return false;
     }
 
     @Override
-    public void onTaskSuccess(JzydResponse<T> resp) {
+    public void onTaskSuccess(ExResponse<T> resp) {
 
         if (resp.isSuccess() && resp.getData() != null) {
 
@@ -179,7 +169,7 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
                 onTaskFailed(TASK_FAILED_RESPONSE_PARSE_ERROR, TextUtil.TEXT_EMPTY);
             } else {
 
-                onTaskFailed(resp.getStatus_code(), resp.getMessage());
+                onTaskFailed(resp.getIntCode(), resp.getMessage());
             }
         }
     }
@@ -208,7 +198,7 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
         return jsonText;
     }
 
-    private void callbabckJzydHttpTaskResponseSuccess(JzydResponse<?> resp) {
+    private void callbabckJzydHttpTaskResponseSuccess(ExResponse<?> resp) {
 
         for (RespHandler handler : mRespHandlerList) {
 
@@ -228,7 +218,7 @@ public abstract class JzydJsonListener<T> implements HttpTaskStringListener<Jzyd
 
         String onJzydHttpTaskResponse(HttpTask ht, String jsonText);
 
-        void onJzydHttpTaskResponseSuccess(JzydResponse<?> resp);
+        void onJzydHttpTaskResponseSuccess(ExResponse<?> resp);
 
         void onJzydHttpTaskResponseError(HttpTask ht, Throwable t, int statusCode);
     }

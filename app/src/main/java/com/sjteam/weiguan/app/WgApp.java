@@ -9,8 +9,11 @@ import com.androidex.util.StorageUtil;
 import com.ex.android.http.task.HttpTask;
 import com.ex.android.http.task.HttpTaskClient;
 import com.ex.umeng.UmengAgent;
+import com.jzyd.lib.httptask.JzydJsonListener;
 import com.meituan.android.walle.WalleChannelReader;
 import com.sjteam.weiguan.BuildConfig;
+import com.sjteam.weiguan.httptask.lisn.CpHttpTaskExeListener;
+import com.sjteam.weiguan.httptask.lisn.CpHttpTaskNetworkListener;
 import com.sjteam.weiguan.utils.FrescoInitUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -83,14 +86,19 @@ public class WgApp extends ExApplication {
     }
 
     /**
-     * 初始化网络框架、图片框架
+     * 初始化网络框架
      */
     private void initHttpTask() {
 
-        //设置网络请求框架 最大连接数10, 超时时间10s) 去除https
-        HttpTask.setHttpTaskClient(HttpTaskClient.newHttpTaskClient(10,
-                10 * 1000, null));
+        //设置网络请求框架
+        HttpTask.setHttpTaskClient(HttpTaskClient.newHttpTaskClient(5,
+                10 * 1000, null));//最大连接数3, 超时时间10s) 去除https
         HttpTask.setCacheDir(getAppCacheSubDir("httptask"));
+        HttpTask.setHttpTaskNetworkListener(new CpHttpTaskNetworkListener());
+        HttpTask.setDebug(BuildConfig.DEBUG);
+        CpHttpTaskExeListener exeLisn = new CpHttpTaskExeListener();
+        HttpTask.addHttpTaskExeListener(exeLisn);
+        JzydJsonListener.addRespHandler(exeLisn);
     }
 
     /**

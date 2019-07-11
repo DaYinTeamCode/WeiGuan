@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.androidex.util.LogMgr;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.CpHttpFrameRvFragment;
@@ -37,6 +38,29 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
     }
 
     @Override
+    public void onResume() {
+
+        super.onResume();
+        getTitleView().setBackgroundResource(R.color.app_white);
+    }
+
+    @Override
+    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
+
+        super.onSupportShowToUserChanged(isShowToUser, from);
+
+        if (LogMgr.isDebug()) {
+
+            LogMgr.i("FollowVideoFragment", "onSupportShowToUserChanged" + isShowToUser);
+        }
+
+        if (isShowToUser) {
+
+            getTitleView().setBackgroundResource(R.color.app_white);
+        }
+    }
+
+    @Override
     protected void initData() {
 
     }
@@ -44,6 +68,7 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
     @Override
     protected void initTitleView() {
 
+        getTitleView().setBackgroundResource(R.color.app_white);
     }
 
     @Override

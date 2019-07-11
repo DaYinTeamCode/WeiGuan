@@ -95,6 +95,14 @@ greendao {
     targetGenDir 'src/main/java'
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    flatDir {
+        dirs '../WGPlayerArmv7a/libs'
+    }
+}
 dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -112,9 +120,12 @@ dependencies {
     implementation project(':FrescoLibModule')
 //
     implementation project(':CommonLibModule')
-//    implementation project(':WGPlayerCore')
+    implementation project(':WGPlayerCore')
 //    implementation project(':WGPlayerArmv7a')
-//    implementation project(':WGPlayerUi')
+    implementation project(':WGPlayerUi')
+
+    //缓存
+    implementation 'com.danikula:videocache:2.7.1'
 
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner

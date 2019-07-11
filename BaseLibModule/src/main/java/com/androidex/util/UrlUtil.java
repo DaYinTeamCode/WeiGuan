@@ -203,4 +203,22 @@ public class UrlUtil {
             return false;
         }
     }
+
+    /***
+     *  获取Host
+     * @param url
+     * @return
+     */
+    public static String getPath(String url) {
+
+        try {
+
+            Uri uri = Uri.parse(url);
+
+            return String.format("%s://%s%s", uri.getScheme(), uri.getHost(), uri.getPath());
+        } catch (Exception ex) {
+
+            return TextUtil.TEXT_EMPTY;
+        }
+    }
 }

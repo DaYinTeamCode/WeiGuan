@@ -190,6 +190,11 @@
     @android.webkit.JavascriptInterface <methods>;
 }
 
+# Keep native methods
+-keepclassmembers class * {
+    native <methods>;
+}
+
 # okhttp
 
 -keepattributes Signature
@@ -219,6 +224,12 @@
 }
 #umeng analysis
 
+
+-keep public class android.webkit.**
+
+-keepattributes SetJavaScriptEnabled
+-keepattributes JavascriptInterface
+
 #GreenDao
 -keep class org.greenrobot.greendao.**{*;}
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
@@ -226,3 +237,20 @@ public static java.lang.String TABLENAME;
 }
 -keep class **$Properties
 #GreenDao
+
+#自定义的保持源码接口
+-keep interface com.ex.android.build.IKeepSource {*;}
+-keep interface com.ex.android.build.IKeepSource$* {
+    *;
+}
+-keep class * implements com.ex.android.build.IKeepSource {*;} #自定义的
+-keep class * implements com.ex.android.build.IKeepSource$* {
+    *;
+}
+
+-keep class android_serialport_api.*{ *;}
+
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
+-keep class com.dueeeke.videoplayer.** { *; }
+-dontwarn com.dueeeke.videoplayer.**

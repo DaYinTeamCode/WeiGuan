@@ -169,7 +169,7 @@ public class WaveBgView extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setColor(Color.parseColor("#FFEC5252"));
+        mPaint.setColor(Color.parseColor("#FF0C87F5"));
         mWavePath = new Path();
     }
 

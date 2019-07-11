@@ -12,6 +12,7 @@
         android:layout_height="match_parent" />
 
     <View
+        android:id="@+id/viewTabBg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cp_page_main_act_menu_bar_height"
         android:layout_gravity="bottom"
