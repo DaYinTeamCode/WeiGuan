@@ -18,7 +18,6 @@ import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
-import com.sjteam.weiguan.constants.ColorConstants;
 import com.sjteam.weiguan.page.aframe.CpHttpFrameXrvFragment;
 import com.sjteam.weiguan.page.video.discover.adapter.VideoDetailAdapter;
 import com.sjteam.weiguan.page.video.discover.bean.FeedsVideoListResult;
@@ -52,6 +51,8 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.onActivityCreated(savedInstanceState);
         setContentSwipeRefreshRecyclerView();
         getExDecorView().setBackgroundColor(0X00000000);
+        getExDecorView().setPadding(0, 0, 0, DensityUtil.dip2px(48f));
+        setPageLimit(30);
         executeFrameImpl();
     }
 
@@ -96,20 +97,32 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 mIjkVideoView.pause();
             }
+        } else {
+
+            if (mIjkVideoView != null) {
+
+                mIjkVideoView.resume();
+            }
         }
         super.onHiddenChanged(hidden);
     }
 
     @Override
-    protected void onSupportShowToUserChangedAfter(boolean isShowToUser, int from) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
 
-        super.onSupportShowToUserChangedAfter(isShowToUser, from);
-        if (isShowToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
 
-            mIjkVideoView.resume();
+            if (mIjkVideoView != null) {
+
+                mIjkVideoView.resume();
+            }
         } else {
 
-            mIjkVideoView.pause();
+            if (mIjkVideoView != null) {
+
+                mIjkVideoView.pause();
+            }
         }
     }
 
@@ -146,25 +159,39 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     @Override
     protected void initContentView() {
 
-//        int paddingTop = StatusBarManager.getInstance().getStatusbarHeight(getActivity());
-//        if (paddingTop != 0) {
-//
-//            getSwipeView().setPadding(DensityUtil.dip2px(0f)
-//                    , paddingTop + getTitleViewHeight()
-//                    , DensityUtil.dip2px(0f)
-//                    , DensityUtil.dip2px(0f));
-//        }
-//        getSwipeView().setEnabled(true);
-//        getSwipeView().setOnRefreshListener(this);
-//        getSwipeView().setColorSchemeColors(ColorConstants.PROGRESS_MAIN);
         getSwipeView().setProgressViewEndTarget(true, DensityUtil.dip2px(60) + getTitleViewHeight());
-
         setDisabledImageResId(R.mipmap.ic_page_tip_data_empty);
         setDisabledTextResId(R.string.common_data_none);
 
         initIjkVideoWidget();
+        initVideoAdapter();
+        initRecycleViewWidget();
+    }
+
+    /***
+     *  初始化播放器组件
+     */
+    private void initIjkVideoWidget() {
+
+        mIjkVideoView = new IjkVideoView(getActivity());
+        mIjkVideoView.setLooping(true);
+        mVideoController = new VideoController(getActivity());
+        mIjkVideoView.setVideoController(mVideoController);
+    }
+
+    /***
+     *  初始化视频适配器
+     */
+    private void initVideoAdapter() {
 
         mVideoDetailAdapter = new VideoDetailAdapter(getActivity());
+
+    }
+
+    /***
+     *  初始化列表组件
+     */
+    private void initRecycleViewWidget() {
 
         ViewPagerLayoutManager layoutManager = new ViewPagerLayoutManager(getActivity(), OrientationHelper.VERTICAL);
         getRecyclerView().setLayoutManager(layoutManager);
@@ -172,6 +199,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         statRecyclerViewNewAttacher.setDataItemListener(this);
         getRecyclerView().addOnChildAttachStateChangeListener(statRecyclerViewNewAttacher);
         getRecyclerView().setAdapter(mVideoDetailAdapter);
+
         layoutManager.setOnViewPagerListener(new OnViewPagerListener() {
             @Override
             public void onInitComplete() {
@@ -198,17 +226,6 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
                 mCurrentPosition = position;
             }
         });
-    }
-
-    /***
-     *  初始化播放器组件
-     */
-    private void initIjkVideoWidget() {
-
-        mIjkVideoView = new IjkVideoView(getActivity());
-        mIjkVideoView.setLooping(true);
-        mVideoController = new VideoController(getActivity());
-        mIjkVideoView.setVideoController(mVideoController);
     }
 
     /*------------------------------------ 网络相关请求 --------------------------------------------*/
@@ -354,6 +371,11 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         }
     }
 
+    /***
+     *  开始播放视频
+     *
+     * @param position
+     */
     private void startPlay(int position) {
 
         Object obj = mVideoDetailAdapter.getDataItem(position);
@@ -373,13 +395,9 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                     ((FrameLayout) parent).removeView(mIjkVideoView);
                 }
-
                 frameLayout.addView(mIjkVideoView);
-                String url = feedsVideoResult.getOpenUrls();
-                String[] urls = url.split("&t=");
-
-                mIjkVideoView.setUrl(urls[0]);
-                mIjkVideoView.setScreenScale(IjkVideoView.SCREEN_SCALE_16_9);
+                mIjkVideoView.setUrl(feedsVideoResult.getOpenUrls());
+                mIjkVideoView.setScreenScale(IjkVideoView.SCREEN_SCALE_CENTER_CROP);
                 mIjkVideoView.start();
             }
         }
