@@ -45,6 +45,17 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+
+            getTitleView().setBackgroundResource(R.color.app_white);
+            initStatusBar();
+        }
+    }
+
+    @Override
     protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
@@ -57,6 +68,7 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
         if (isShowToUser) {
 
             getTitleView().setBackgroundResource(R.color.app_white);
+            initStatusBar();
         }
     }
 

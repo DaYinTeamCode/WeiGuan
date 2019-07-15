@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
  */
 public class VideoDetailViewHolder extends ExRvItemViewHolderBase {
 
-    //1位小数格式
+    /*** 1位小数格式 */
     private static DecimalFormat mNumberFraction2Digitsformater = new DecimalFormat("#.#");
     //无小数格式
     private static DecimalFormat mNumberFractionNoDigitsformater = new DecimalFormat("#");

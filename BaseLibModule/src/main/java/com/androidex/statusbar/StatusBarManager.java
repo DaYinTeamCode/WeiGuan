@@ -226,7 +226,6 @@ public class StatusBarManager {
             if (view != null) {
 
                 immersionBar
-                        .reset()
                         .statusBarDarkFont(true, 0.2f)
                         .titleBar(view)
                         .fitsSystemWindows(true)

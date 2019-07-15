@@ -15,7 +15,8 @@ public class ViewPagerLayoutManager extends LinearLayoutManager {
     private PagerSnapHelper mPagerSnapHelper;
     private OnViewPagerListener mOnViewPagerListener;
     private RecyclerView mRecyclerView;
-    private int mDrift;//位移，用来判断移动方向
+    /*** 位移，用来判断移动方向*/
+    private int mDrift;
 
     public ViewPagerLayoutManager(Context context, int orientation) {
         super(context, orientation, false);
@@ -45,7 +46,6 @@ public class ViewPagerLayoutManager extends LinearLayoutManager {
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         super.onLayoutChildren(recycler, state);
-//
     }
 
     /**
@@ -58,6 +58,7 @@ public class ViewPagerLayoutManager extends LinearLayoutManager {
      */
     @Override
     public void onScrollStateChanged(int state) {
+
         switch (state) {
             case RecyclerView.SCROLL_STATE_IDLE:
                 View viewIdle = mPagerSnapHelper.findSnapView(this);
