@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.androidex.util.DensityUtil;
+import com.androidex.util.LogMgr;
 import com.androidex.util.VglpUtil;
 import com.androidex.view.pager.indicator.TabStripIndicator;
 import com.jzyd.lib.httptask.HttpFrameParams;
@@ -15,6 +16,7 @@ import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
 import com.sjteam.weiguan.page.main.VideoCateChangedEvent;
 import com.sjteam.weiguan.page.video.adapter.VideoPageAdapter;
+import com.sjteam.weiguan.page.video.discover.DiscoverVideoFragment;
 import com.sjteam.weiguan.syncer.EventBusUtils;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import java.util.List;
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
 public class MainVideoFragment extends HttpFrameFragment implements ViewPager.OnPageChangeListener {
+
+    private static final String TAG = MainVideoFragment.class.getName();
 
     /*** Tab Indicator 指示器*/
     private TabStripIndicator mTabTipStripIndicator;
@@ -44,6 +48,39 @@ public class MainVideoFragment extends HttpFrameFragment implements ViewPager.On
     public void onResume() {
 
         super.onResume();
+    }
+
+    @Override
+    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
+
+        super.onSupportShowToUserChanged(isShowToUser, from);
+
+        Fragment fragment = mVideoPageAdapter.getItem(mCurPostiton);
+        if (fragment instanceof DiscoverVideoFragment) {
+
+            DiscoverVideoFragment discoverVideoFragment = (DiscoverVideoFragment) fragment;
+            discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, from);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+
+        if (hidden) {
+
+            if (LogMgr.isDebug()) {
+
+                LogMgr.i(TAG, "onHiddenChanged isHiddenToUser");
+            }
+        } else {
+
+
+            if (LogMgr.isDebug()) {
+
+                LogMgr.i(TAG, "onHiddenChanged isShowToUser");
+            }
+        }
+        super.onHiddenChanged(hidden);
     }
 
     @Override

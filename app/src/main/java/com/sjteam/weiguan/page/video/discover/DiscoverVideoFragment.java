@@ -127,7 +127,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     }
 
     @Override
-    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
+    public void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
         if (isShowToUser) {
