@@ -20,14 +20,19 @@ import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.viewer.CpHttpFrameXrvFragmentViewer;
 import com.sjteam.weiguan.page.login.UserLoginActivity;
+import com.sjteam.weiguan.page.login.bean.WxBind;
 import com.sjteam.weiguan.page.me.adapter.MainUserAdapter;
 import com.sjteam.weiguan.page.me.bean.UserItemSet;
 import com.sjteam.weiguan.page.me.decoration.MainUserItemDecoration;
 import com.sjteam.weiguan.page.me.utils.MainUserDataUtil;
 import com.sjteam.weiguan.page.me.widget.MainUserHeaderWidget;
 import com.sjteam.weiguan.page.setting.AboutActivity;
+import com.sjteam.weiguan.syncer.EventBusUtils;
 import com.sjteam.weiguan.utils.CpFontUtil;
 import com.sjteam.weiguan.widget.TitleTransWidget;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -50,6 +55,14 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
 
         setContentRecyclerView();
         showContent();
+        EventBusUtils.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        EventBusUtils.unregister(this);
     }
 
     @Override
@@ -138,6 +151,20 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     @Override
     public void onRefreshFailed(int failedCode, String msg) {
 
+    }
+
+    /**
+     * 微信绑定
+     *
+     * @param wxBind
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWxBindEvent(WxBind wxBind) {
+
+        if (!isFinishing() && wxBind != null && mMainUserHeaderWidget != null) {
+
+            mMainUserHeaderWidget.invalidateContentView(wxBind);
+        }
     }
 
     /**

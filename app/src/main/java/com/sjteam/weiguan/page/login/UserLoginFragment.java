@@ -4,13 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.androidex.util.LogMgr;
 import com.androidex.util.TextUtil;
+import com.androidex.util.ToastUtil;
+import com.ex.android.http.task.HttpTask;
+import com.jzyd.lib.httptask.ExResponse;
 import com.jzyd.lib.httptask.HttpFrameParams;
+import com.jzyd.lib.httptask.JzydJsonListener;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.app.AppConfig;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
+import com.sjteam.weiguan.page.login.bean.WxBind;
+import com.sjteam.weiguan.page.login.prefs.AccountPrefs;
+import com.sjteam.weiguan.page.login.utils.LoginHttpUtils;
+import com.sjteam.weiguan.syncer.EventBusUtils;
+import com.sjteam.weiguan.view.toast.ExToast;
 import com.sjteam.weiguan.wxapi.WXEventListner;
 import com.sjteam.weiguan.wxapi.manager.WXManagerHandler;
 import com.sjteam.weiguan.wxapi.manager.WeChatUtils;
@@ -28,6 +38,7 @@ import butterknife.Unbinder;
 public class UserLoginFragment extends HttpFrameFragment {
 
     private Unbinder unbinder;
+    private static HttpTask mHttpTask;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -80,6 +91,11 @@ public class UserLoginFragment extends HttpFrameFragment {
     @OnClick(R.id.tvLogin)
     public void onLogin() {
 
+        startBindWx();
+    }
+
+    private void startBindWx() {
+
         // 微信回调
         WXManagerHandler.getInstance().register(new WXEventListner() {
 
@@ -91,6 +107,7 @@ public class UserLoginFragment extends HttpFrameFragment {
                     SendAuth.Resp resp = (SendAuth.Resp) baseResp;
                     if (resp != null && !TextUtil.isEmpty(resp.code)) {
 
+                        performWxBind(resp.code);
                         // 微信授权成功回调
                         LogMgr.i("UserLoginFragment", resp.code + " " + resp.country);
                     }
@@ -107,6 +124,75 @@ public class UserLoginFragment extends HttpFrameFragment {
     }
 
     /*---------------------------------------- 网络监听回调 ----------------------------------------*/
+
+    /**
+     * 用户微信绑定
+     *
+     * @param code
+     */
+    public void performWxBind(final String code) {
+
+        if (mHttpTask != null && mHttpTask.isRunning()) {
+
+            return;
+        }
+
+        final JzydJsonListener<WxBind> lisn = new JzydJsonListener<WxBind>(WxBind.class) {
+
+            @Override
+            public void onTaskSuccess(ExResponse<WxBind> resp) {
+
+                super.onTaskSuccess(resp);
+            }
+
+            @Override
+            public void onTaskResult(WxBind result) {
+
+                if (result != null) {
+
+                    saveWeixinInfo(result);
+                } else {
+
+                    ExToast.makeText("授权失败，请重试！");
+                }
+
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+
+                mHttpTask = null;
+                ExToast.makeText("授权失败，请重试！");
+            }
+        };
+
+        mHttpTask = new HttpTask();
+        mHttpTask.setHttpTaskParams(LoginHttpUtils.getWxchatBindParams(code));
+        mHttpTask.setListener(lisn);
+        mHttpTask.execute();
+    }
+
+    /***
+     *
+     * @param wxBind
+     */
+    private void saveWeixinInfo(WxBind wxBind) {
+
+        if (wxBind != null) {
+
+            AccountPrefs.getInstance(getActivity()).saveWechatInfo(wxBind.getToken()
+                    , wxBind.getUnionId()
+                    , wxBind.getNickName()
+                    , wxBind.getHeadImageUrl());
+
+            EventBusUtils.post(wxBind);
+
+            if (getActivity() != null) {
+
+                getActivity().finish();
+            }
+        }
+    }
 
     @Override
     protected HttpFrameParams getHttpParamsOnFrameExecute(Object... params) {

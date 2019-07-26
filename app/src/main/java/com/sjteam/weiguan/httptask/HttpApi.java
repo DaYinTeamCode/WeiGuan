@@ -11,4 +11,7 @@ public interface HttpApi {
 
     /*** 获取小视频Feeds流*/
     String URL_VIDEO_FEEDS = "/api/reptile/media/info/selectPage";
+
+    /*** 获取微信授权登录信息*/
+    String URL_WX_AUTH = "/api/user/weichat/login";
 }

@@ -17,6 +17,7 @@ import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.constants.DimenConstant;
+import com.sjteam.weiguan.page.login.bean.WxBind;
 
 /**
  * 个人中心头部组件
@@ -69,5 +70,19 @@ public class MainUserHeaderWidget extends ExLayoutWidget implements View.OnClick
     @Override
     public void onClick(View v) {
 
+    }
+
+    /**
+     * 刷新内容数据
+     *
+     * @param wxBind
+     */
+    public void invalidateContentView(WxBind wxBind) {
+
+        if (wxBind != null) {
+
+            mAivAvater.setImageUriByLp(wxBind.getHeadImageUrl());
+            mTvName.setText(wxBind.getNickName());
+        }
     }
 }
