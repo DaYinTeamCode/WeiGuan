@@ -1,7 +1,9 @@
 package com.sjteam.weiguan.httptask;
 
+import com.androidex.util.TextUtil;
 import com.ex.android.http.params.HttpTaskParams;
 import com.sjteam.weiguan.constants.CommonConstant;
+import com.sjteam.weiguan.page.login.prefs.AccountPrefs;
 
 /**
  * 网络帮助类
@@ -77,6 +79,7 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
 
     protected static void setCommonParams(HttpTaskParams params, boolean needToken) {
 
+        addHeaderToken(params, AccountPrefs.getInstance().getAccountToekn());
         //键值对
         params.addParam("app_version", APP_VERSION_NAME);
         params.addParam("os_version", OS_VERSION);
@@ -93,5 +96,22 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
         params.addParam("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
         params.addParam("sw", SCREEN_WIDTH);
         params.addParam("sh", SCREEN_HEIGHT);
+    }
+
+    /**
+     * header添加token
+     *
+     * @param params
+     * @param token
+     */
+    public static void addHeaderToken(HttpTaskParams params, String token) {
+
+        if (params != null) {
+
+            if (!TextUtil.isEmptyTrim(token)) {
+
+                params.addHeader("token", token);
+            }
+        }
     }
 }

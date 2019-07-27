@@ -1,11 +1,11 @@
 package com.sjteam.weiguan.page.login.prefs;
 
-import android.accounts.Account;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.androidex.prefs.ExSharedPrefs;
-import com.androidex.util.NumberUtil;
+import com.androidex.util.TextUtil;
+import com.sjteam.weiguan.app.WgApp;
+import com.sjteam.weiguan.page.login.bean.WxBind;
 
 /**
  * 账号相关存储
@@ -15,23 +15,21 @@ import com.androidex.util.NumberUtil;
 public class AccountPrefs {
 
     private final String KEY_ACCESS_TOKEN = "token";
-
     private final String KEY_WECHAT_UNION_ID = "wechat_union_id";
     private final String KEY_WECHAT_NICKNAME = "wechat_nickname";
     private final String KEY_WECHAT_AVATAR = "wechat_avatar";
     private static AccountPrefs mInstance;
     private ExSharedPrefs mExSharedPrefs;
-    private Account mAccountCache;
 
-    private AccountPrefs(Context context) {
+    private AccountPrefs() {
 
-        mExSharedPrefs = new ExSharedPrefs(context, "account");
+        mExSharedPrefs = new ExSharedPrefs(WgApp.getContext(), "account");
     }
 
-    public static AccountPrefs getInstance(Context context) {
+    public static AccountPrefs getInstance() {
 
         if (mInstance == null)
-            mInstance = new AccountPrefs(context);
+            mInstance = new AccountPrefs();
 
         return mInstance;
     }
@@ -49,10 +47,12 @@ public class AccountPrefs {
         }
     }
 
+    /**
+     * 登出操作
+     */
     public void logOut() {
 
-//        saveAccountToPrefs(null);
-//        initAccountCache();
+        saveWechatInfo(TextUtil.TEXT_EMPTY, TextUtil.TEXT_EMPTY, TextUtil.TEXT_EMPTY, TextUtil.TEXT_EMPTY);
     }
 
     /***
@@ -85,4 +85,43 @@ public class AccountPrefs {
         editor.commit();
     }
 
+    /***
+     *  获取用户信息
+     *
+     * @return
+     */
+    public WxBind getUserInfo() {
+
+        WxBind wxBind = new WxBind();
+        if (!isLogin()) {
+
+            return wxBind;
+        }
+
+        wxBind.setUnionId(mExSharedPrefs.getString(KEY_WECHAT_UNION_ID, TextUtil.TEXT_EMPTY));
+        wxBind.setNickName(mExSharedPrefs.getString(KEY_WECHAT_NICKNAME, TextUtil.TEXT_EMPTY));
+        wxBind.setHeadImageUrl(mExSharedPrefs.getString(KEY_WECHAT_AVATAR, TextUtil.TEXT_EMPTY));
+        wxBind.setToken(mExSharedPrefs.getString(KEY_ACCESS_TOKEN, TextUtil.TEXT_EMPTY));
+        return wxBind;
+    }
+
+    /***
+     *   判断用户是否登录
+     *
+     * @return
+     */
+    public boolean isLogin() {
+
+        return !TextUtil.isEmpty(mExSharedPrefs.getString(KEY_ACCESS_TOKEN, TextUtil.TEXT_EMPTY));
+    }
+
+    /***
+     *  获取登录Token
+     *
+     * @return
+     */
+    public String getAccountToekn() {
+
+        return mExSharedPrefs.getString(KEY_ACCESS_TOKEN, TextUtil.TEXT_EMPTY);
+    }
 }

@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.androidex.util.LogMgr;
 import com.androidex.util.TextUtil;
-import com.androidex.util.ToastUtil;
 import com.ex.android.http.task.HttpTask;
 import com.jzyd.lib.httptask.ExResponse;
 import com.jzyd.lib.httptask.HttpFrameParams;
@@ -180,13 +178,13 @@ public class UserLoginFragment extends HttpFrameFragment {
 
         if (wxBind != null) {
 
-            AccountPrefs.getInstance(getActivity()).saveWechatInfo(wxBind.getToken()
+            AccountPrefs.getInstance().saveWechatInfo(wxBind.getToken()
                     , wxBind.getUnionId()
                     , wxBind.getNickName()
                     , wxBind.getHeadImageUrl());
 
+            /*** 发送EventBus 事件 */
             EventBusUtils.post(wxBind);
-
             if (getActivity() != null) {
 
                 getActivity().finish();

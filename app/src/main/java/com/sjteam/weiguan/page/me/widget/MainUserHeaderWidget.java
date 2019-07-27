@@ -18,6 +18,7 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.constants.DimenConstant;
 import com.sjteam.weiguan.page.login.bean.WxBind;
+import com.sjteam.weiguan.page.login.prefs.AccountPrefs;
 
 /**
  * 个人中心头部组件
@@ -64,12 +65,17 @@ public class MainUserHeaderWidget extends ExLayoutWidget implements View.OnClick
 
         mTvName = view.findViewById(R.id.tvName);
         mTvName.setText("点击登录");
+        mTvName.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
 
+        if (v.getId() == R.id.tvName) {
+
+            callbackWidgetViewClickListener(v);
+        }
     }
 
     /**
@@ -82,7 +88,8 @@ public class MainUserHeaderWidget extends ExLayoutWidget implements View.OnClick
         if (wxBind != null) {
 
             mAivAvater.setImageUriByLp(wxBind.getHeadImageUrl());
-            mTvName.setText(wxBind.getNickName());
+            boolean isLogin = AccountPrefs.getInstance().isLogin();
+            mTvName.setText(isLogin ? wxBind.getNickName() : "登录");
         }
     }
 }

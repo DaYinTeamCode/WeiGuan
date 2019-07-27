@@ -13,14 +13,17 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.androidex.plugin.ExBaseWidget;
 import com.androidex.util.DensityUtil;
 import com.androidex.util.ExResUtil;
 import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
+import com.sjteam.weiguan.dialog.CpConfirmDialog;
 import com.sjteam.weiguan.page.aframe.viewer.CpHttpFrameXrvFragmentViewer;
 import com.sjteam.weiguan.page.login.UserLoginActivity;
 import com.sjteam.weiguan.page.login.bean.WxBind;
+import com.sjteam.weiguan.page.login.prefs.AccountPrefs;
 import com.sjteam.weiguan.page.me.adapter.MainUserAdapter;
 import com.sjteam.weiguan.page.me.bean.UserItemSet;
 import com.sjteam.weiguan.page.me.decoration.MainUserItemDecoration;
@@ -41,7 +44,7 @@ import java.util.List;
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
-public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements OnExRvItemViewClickListener {
+public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements OnExRvItemViewClickListener, ExBaseWidget.OnWidgetViewClickListener {
 
     private MainUserHeaderWidget mMainUserHeaderWidget;
     private TitleTransWidget mTitleWidget;
@@ -102,6 +105,9 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     protected void initContentView() {
 
         mMainUserHeaderWidget = new MainUserHeaderWidget(getActivity());
+        mMainUserHeaderWidget.setOnWidgetViewClickListener(this);
+        WxBind wxBind = AccountPrefs.getInstance().getUserInfo();
+        mMainUserHeaderWidget.invalidateContentView(wxBind);
         mAdapter.addHeaderView(mMainUserHeaderWidget.getContentView());
 
         mLayoutManager = new GridLayoutManager(getActivity(), 4);
@@ -167,6 +173,49 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
         }
     }
 
+    @Override
+    public void onWidgetViewClick(View v) {
+
+        if (v.getId() == R.id.tvName) {
+
+            onUserLoginOrLogOutClick();
+        }
+    }
+
+    /***
+     * 用户登录登录或者登出
+     */
+    private void onUserLoginOrLogOutClick() {
+
+        if (AccountPrefs.getInstance().isLogin()) {
+
+            showLogoutDialog();
+        } else {
+
+            UserLoginActivity.startActivity(getActivity());
+        }
+    }
+
+    private void showLogoutDialog() {
+
+        CpConfirmDialog dialog = new CpConfirmDialog(getActivity());
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setContentText(" 是否退出登录？");
+        dialog.setLeftButtonText("确定");
+        dialog.setLeftButtonClickListener(dialog12 -> {
+
+            AccountPrefs.getInstance().logOut();
+            EventBusUtils.post(new WxBind());
+            dialog12.dismiss();
+
+        });
+
+        dialog.setRightButtonText("取消");
+        dialog.setRightButtonClickListener(dialog1 -> dialog1.dismiss());
+        dialog.show();
+    }
+
     /**
      * 列表点击
      *
@@ -210,8 +259,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
      */
     private void smallGameClick() {
 
-        UserLoginActivity.startActivity(getActivity());
-//        showToast("小游戏");
+        showToast("小游戏");
     }
 
     private void onRecyclerViewScroll() {
