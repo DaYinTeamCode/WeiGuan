@@ -216,14 +216,17 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
             MainVideoFragment mainVideoFragment = (MainVideoFragment) fragment;
             if (mainVideoFragment.getCurPostion() == 0) {
 
-                mTabViewBg.setBackgroundResource(R.color.cp_text_transparent);
+                ntTab.setInactiveColor(0xFFFFFFFF);
+                flTabDiv.setBackgroundResource(R.color.cp_black);
             } else {
 
-                mTabViewBg.setBackgroundResource(R.drawable.bg_page_main_act_menu);
+                ntTab.setInactiveColor(0xFFB7B7B7);
+                flTabDiv.setBackgroundResource(R.color.cp_text_transparent);
             }
         } else {
 
-            mTabViewBg.setBackgroundResource(R.drawable.bg_page_main_act_menu);
+            ntTab.setInactiveColor(0xFFB7B7B7);
+            flTabDiv.setBackgroundResource(R.color.cp_text_transparent);
         }
     }
 
@@ -236,9 +239,9 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
         switch (index) {
 
             case 0:
-                return MainHomeFragment.newInstance(context);
-            case 1:
                 return MainVideoFragment.newInstance(context);
+            case 1:
+                return MainHomeFragment.newInstance(context);
             case 3:
                 return MainMessageFragment.newInstance(context);
             case 4:
@@ -311,10 +314,12 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         if (videoCateChangedEvent.getPostion() == 0) {
 
-            mTabViewBg.setBackgroundResource(R.color.cp_text_transparent);
+            ntTab.setInactiveColor(0xFFFFFFFF);
+            flTabDiv.setBackgroundResource(R.color.cp_black);
         } else {
 
-            mTabViewBg.setBackgroundResource(R.drawable.bg_page_main_act_menu);
+            ntTab.setInactiveColor(0xFFB7B7B7);
+            flTabDiv.setBackgroundResource(R.color.cp_text_transparent);
         }
     }
 

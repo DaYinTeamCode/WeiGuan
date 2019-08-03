@@ -91,7 +91,7 @@ public class WgApp extends ExApplication {
     private void initHttpTask() {
 
         //设置网络请求框架
-        HttpTask.setHttpTaskClient(HttpTaskClient.newHttpTaskClient(5,
+        HttpTask.setHttpTaskClient(HttpTaskClient.newHttpTaskClient(10,
                 10 * 1000, null));//最大连接数3, 超时时间10s) 去除https
         HttpTask.setCacheDir(getAppCacheSubDir("httptask"));
         HttpTask.setHttpTaskNetworkListener(new CpHttpTaskNetworkListener());

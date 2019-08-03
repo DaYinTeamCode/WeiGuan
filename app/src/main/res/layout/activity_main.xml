@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/cp_page_main_act_menu_bar_height"
         android:layout_gravity="bottom"
-        android:background="@android:color/transparent"
+        android:background="#FF000000"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 

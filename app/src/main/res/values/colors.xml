@@ -22,4 +22,5 @@
     <color name="cp_text_subtitle">#FF999999</color>
 
     <color name="cp_text_transparent">@android:color/transparent</color>
+    <color name="cp_black">#FF000000</color>
 </resources>

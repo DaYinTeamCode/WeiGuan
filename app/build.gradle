@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'com.antfortune.freeline'
 
 android {
     useLibrary 'org.apache.http.legacy'
@@ -149,4 +148,7 @@ dependencies {
 
     //美团打包工具
     implementation deps.meituan_library_walle
+
+    // permissions library
+    implementation 'com.ex.sdk.android:sqkb-easy-permissions:1.1.8'
 }

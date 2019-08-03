@@ -30,6 +30,7 @@ import com.sjteam.weiguan.page.me.decoration.MainUserItemDecoration;
 import com.sjteam.weiguan.page.me.utils.MainUserDataUtil;
 import com.sjteam.weiguan.page.me.widget.MainUserHeaderWidget;
 import com.sjteam.weiguan.page.setting.AboutActivity;
+import com.sjteam.weiguan.page.web.activity.BrowserActivity;
 import com.sjteam.weiguan.syncer.EventBusUtils;
 import com.sjteam.weiguan.utils.CpFontUtil;
 import com.sjteam.weiguan.widget.TitleTransWidget;
@@ -259,7 +260,8 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
      */
     private void smallGameClick() {
 
-        showToast("小游戏");
+        String path = "https://m.fawulu.com/dist/welfareAT02/private/V/V021/index.html?business=money-16&appkey=fbca14bb5bb74d5a9b5fa165ad78a15a&uid=2935E7845817D9E3C69BA754B494C145&activityid=16553&spm=lti.2019042814194990305099126869&from=groupmessage&isappinstalled=0";
+        BrowserActivity.startActivity(getContext(), path);
     }
 
     private void onRecyclerViewScroll() {
