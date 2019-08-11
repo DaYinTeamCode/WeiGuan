@@ -9,10 +9,13 @@ import android.support.v7.widget.OrientationHelper;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.androidex.util.CollectionUtil;
 import com.androidex.util.DensityUtil;
 import com.androidex.util.DeviceUtil;
+import com.androidex.util.ViewUtil;
+import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.jzyd.lib.httptask.HttpFrameParams;
@@ -31,19 +34,22 @@ import com.sjteam.weiguan.widget.video.VideoController;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 /**
  * 发现视频Fragment
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
 public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResult>
-        implements SqkbSwipeRefreshLayout.OnRefreshListener, StatRecyclerViewNewAttacher.DataItemListener {
+        implements SqkbSwipeRefreshLayout.OnRefreshListener, StatRecyclerViewNewAttacher.DataItemListener, OnExRvItemViewClickListener {
 
     private IjkVideoView mIjkVideoView;
     private VideoController mVideoController;
     private int mCurrentPosition;
     private VideoDetailAdapter mVideoDetailAdapter;
     private boolean mIsPullRefresh;
+    private ImageView mIvVideoPlay;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -175,6 +181,25 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
         mIjkVideoView = new IjkVideoView(getActivity());
         mIjkVideoView.setLooping(true);
+        mIjkVideoView.setPlayOnMobileNetwork(true);
+        mIjkVideoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mIjkVideoView == null || mIvVideoPlay == null) {
+                    return;
+                }
+                if (mIjkVideoView.isPlaying()) {
+
+                    mIjkVideoView.pause();
+                    ViewUtil.showView(mIvVideoPlay);
+                } else {
+
+                    ViewUtil.hideView(mIvVideoPlay);
+                    mIjkVideoView.resume();
+                }
+            }
+        });
         mVideoController = new VideoController(getActivity());
         mIjkVideoView.setVideoController(mVideoController);
     }
@@ -185,7 +210,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     private void initVideoAdapter() {
 
         mVideoDetailAdapter = new VideoDetailAdapter(getActivity());
-
+        mVideoDetailAdapter.setOnExRvItemViewClickListener(this);
     }
 
     /***
@@ -361,6 +386,15 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     }
 
     @Override
+    public void onExRvItemViewClick(View view, int dataPos) {
+
+        Object object = mVideoDetailAdapter.getDataItem(dataPos);
+        if (object instanceof FeedsVideoResult) {
+
+        }
+    }
+
+    @Override
     public void onRecyclerViewDataItemStatShow(int dataPos) {
 
         if (dataPos == 0) {
@@ -388,7 +422,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 VideoDetailViewHolder viewHolder = (VideoDetailViewHolder) childViewHolder;
                 FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.container);
-
+                mIvVideoPlay = viewHolder.itemView.findViewById(R.id.ivPlay);
                 mVideoController.getThumb().setImageUriByLp(feedsVideoResult.getShowUrls());
 
                 CardView cardView = new CardView(getActivity());
@@ -408,6 +442,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
             }
         }
     }
+
 
     /***
      *   发现视频

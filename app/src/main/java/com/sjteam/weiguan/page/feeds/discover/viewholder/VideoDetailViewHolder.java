@@ -33,6 +33,7 @@ public class VideoDetailViewHolder extends ExRvItemViewHolderBase {
     @Override
     protected void initConvertView(View convertView) {
 
+        convertView.setOnClickListener(this);
         thumb = itemView.findViewById(R.id.thumb);
         mTvTitle = itemView.findViewById(R.id.tvTitle);
         mTvDesc = itemView.findViewById(R.id.tvDesc);
