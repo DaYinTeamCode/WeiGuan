@@ -1,10 +1,10 @@
-package com.sjteam.weiguan.page.video.discover;
+package com.sjteam.weiguan.page.feeds.discover;
 
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.OrientationHelper;
 import android.view.View;
 import android.view.ViewParent;
@@ -19,13 +19,13 @@ import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.CpHttpFrameXrvFragment;
-import com.sjteam.weiguan.page.video.discover.adapter.VideoDetailAdapter;
-import com.sjteam.weiguan.page.video.discover.bean.FeedsVideoListResult;
-import com.sjteam.weiguan.page.video.discover.bean.FeedsVideoResult;
-import com.sjteam.weiguan.page.video.discover.impl.OnViewPagerListener;
-import com.sjteam.weiguan.page.video.discover.impl.ViewPagerLayoutManager;
-import com.sjteam.weiguan.page.video.discover.utils.FeedsVideoHttpUtils;
-import com.sjteam.weiguan.page.video.discover.viewholder.VideoDetailViewHolder;
+import com.sjteam.weiguan.page.feeds.discover.adapter.VideoDetailAdapter;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoListResult;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoResult;
+import com.sjteam.weiguan.page.feeds.discover.impl.OnViewPagerListener;
+import com.sjteam.weiguan.page.feeds.discover.impl.ViewPagerLayoutManager;
+import com.sjteam.weiguan.page.feeds.discover.utils.FeedsVideoHttpUtils;
+import com.sjteam.weiguan.page.feeds.discover.viewholder.VideoDetailViewHolder;
 import com.sjteam.weiguan.stat.StatRecyclerViewNewAttacher;
 import com.sjteam.weiguan.widget.video.VideoController;
 
@@ -199,7 +199,6 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         statRecyclerViewNewAttacher.setDataItemListener(this);
         getRecyclerView().addOnChildAttachStateChangeListener(statRecyclerViewNewAttacher);
         getRecyclerView().setAdapter(mVideoDetailAdapter);
-
         layoutManager.setOnViewPagerListener(new OnViewPagerListener() {
             @Override
             public void onInitComplete() {
@@ -389,13 +388,20 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 VideoDetailViewHolder viewHolder = (VideoDetailViewHolder) childViewHolder;
                 FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.container);
-                mVideoController.getThumb().setImageUriByLp(feedsVideoResult.getShowUrls());
-                ViewParent parent = mIjkVideoView.getParent();
-                if (parent instanceof FrameLayout) {
 
-                    ((FrameLayout) parent).removeView(mIjkVideoView);
+                mVideoController.getThumb().setImageUriByLp(feedsVideoResult.getShowUrls());
+
+                CardView cardView = new CardView(getActivity());
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameLayout.getLayoutParams();
+                cardView.setBackgroundColor(0X00000000);
+                cardView.setRadius(DensityUtil.dip2px(8f));
+                frameLayout.addView(cardView, layoutParams);
+                ViewParent parent = mIjkVideoView.getParent();
+                if (parent instanceof CardView) {
+
+                    ((CardView) parent).removeView(mIjkVideoView);
                 }
-                frameLayout.addView(mIjkVideoView);
+                cardView.addView(mIjkVideoView);
                 mIjkVideoView.setUrl(feedsVideoResult.getOpenUrls());
                 mIjkVideoView.setScreenScale(IjkVideoView.SCREEN_SCALE_CENTER_CROP);
                 mIjkVideoView.start();
@@ -403,6 +409,12 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         }
     }
 
+    /***
+     *   发现视频
+     *
+     * @param context
+     * @return
+     */
     public static DiscoverVideoFragment newInstance(Context context) {
 
         return (DiscoverVideoFragment) Fragment.instantiate(context, DiscoverVideoFragment.class.getName());

@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.discover.viewholder;
+package com.sjteam.weiguan.page.video.viewholder;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,39 +8,46 @@ import com.androidex.imageloader.fresco.FrescoImageView;
 import com.androidex.util.TextUtil;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
 import com.sjteam.weiguan.R;
-import com.sjteam.weiguan.page.video.discover.bean.FeedsVideoResult;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoResult;
 
 import java.text.DecimalFormat;
 
 /**
+ * 短视频双排卡片
+ * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/7/9 9:29 PM
  */
-public class VideoDetailViewHolder extends ExRvItemViewHolderBase {
+public class VideoDcViewHolder extends ExRvItemViewHolderBase {
 
     /*** 1位小数格式 */
     private static DecimalFormat mNumberFraction2Digitsformater = new DecimalFormat("#.#");
     //无小数格式
     private static DecimalFormat mNumberFractionNoDigitsformater = new DecimalFormat("#");
 
-    private FrescoImageView thumb, mFiHeaderImageUrl;
-    private TextView mTvTitle, mTvDesc, mTvLikes, mTvComment, mTvShare;
+    private FrescoImageView mAivCover, mFiAuthorIcon;
+    private TextView mTvDesc, mTvLikes, mTvComment, mTvShare;
+    private int mImageLength;
 
-    public VideoDetailViewHolder(ViewGroup viewGroup) {
+    public VideoDcViewHolder(ViewGroup viewGroup, int imageLength) {
 
-        super(viewGroup, R.layout.item_video_vh);
+        super(viewGroup, R.layout.page_item_video_dc_vh);
+        mImageLength = imageLength;
     }
 
     @Override
     protected void initConvertView(View convertView) {
 
-        thumb = itemView.findViewById(R.id.thumb);
-        mTvTitle = itemView.findViewById(R.id.tvTitle);
-        mTvDesc = itemView.findViewById(R.id.tvDesc);
+        convertView.setOnClickListener(this);
+        View cDiv = convertView.findViewById(R.id.cDiv);
+        cDiv.getLayoutParams().width = mImageLength;
 
-        mTvLikes = itemView.findViewById(R.id.tvLikeCount);
-        mTvComment = itemView.findViewById(R.id.tvCommentCount);
-        mTvShare = itemView.findViewById(R.id.tvShareCount);
-        mFiHeaderImageUrl = itemView.findViewById(R.id.fiHeaderImageUrl);
+        mAivCover = convertView.findViewById(R.id.aivCover);
+        mAivCover.getLayoutParams().width = mImageLength;
+        mAivCover.getLayoutParams().height = (int) (mImageLength * 1.7);
+
+        mTvLikes = convertView.findViewById(R.id.tvLikes);
+        mTvDesc = convertView.findViewById(R.id.tvDesc);
+        mFiAuthorIcon = convertView.findViewById(R.id.fiAuthorIcon);
     }
 
     /***
@@ -54,15 +61,10 @@ public class VideoDetailViewHolder extends ExRvItemViewHolderBase {
 
             return;
         }
-
-        thumb.setImageUriByLp(feedsVideoResult.getShowUrls());
-        mTvTitle.setText(String.format("@%s", replaceText(feedsVideoResult.getAuthorNickname())));
+        mAivCover.setImageUriByLp(feedsVideoResult.getShowUrls());
         mTvDesc.setText(replaceText(feedsVideoResult.getContent()));
-
         mTvLikes.setText(formatSalesNumber(feedsVideoResult.getLikesCount()));
-        mTvComment.setText(formatSalesNumber(feedsVideoResult.getCommentsCount()));
-        mTvShare.setText(formatSalesNumber(feedsVideoResult.getSharesCount()));
-        mFiHeaderImageUrl.setImageUriByLp(feedsVideoResult.getAuthorIcon());
+        mFiAuthorIcon.setImageUriByLp(feedsVideoResult.getAuthorIcon());
     }
 
     /***

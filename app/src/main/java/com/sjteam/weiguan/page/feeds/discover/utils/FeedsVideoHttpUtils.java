@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.discover.utils;
+package com.sjteam.weiguan.page.feeds.discover.utils;
 
 import com.ex.android.http.params.HttpTaskParams;
 import com.sjteam.weiguan.httptask.BaseHttpParamsUtil;

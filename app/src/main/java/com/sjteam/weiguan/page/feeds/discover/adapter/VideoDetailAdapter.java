@@ -1,12 +1,12 @@
-package com.sjteam.weiguan.page.video.discover.adapter;
+package com.sjteam.weiguan.page.feeds.discover.adapter;
 
 import android.content.Context;
 import android.view.ViewGroup;
 
 import com.androidex.widget.rv.adapter.ExRvAdapterMulti;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
-import com.sjteam.weiguan.page.video.discover.bean.FeedsVideoResult;
-import com.sjteam.weiguan.page.video.discover.viewholder.VideoDetailViewHolder;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoResult;
+import com.sjteam.weiguan.page.feeds.discover.viewholder.VideoDetailViewHolder;
 
 /**
  * 视频适配器

@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.detail;
+package com.sjteam.weiguan.page.feeds.detail;
 
 import android.app.Activity;
 import android.content.Intent;

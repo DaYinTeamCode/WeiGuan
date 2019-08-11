@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.discover.bean;
+package com.sjteam.weiguan.page.feeds.discover.bean;
 
 import com.androidex.zbuild.IKeepSource;
 

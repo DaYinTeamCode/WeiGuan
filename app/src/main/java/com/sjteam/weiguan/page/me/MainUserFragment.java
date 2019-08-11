@@ -260,7 +260,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
      */
     private void smallGameClick() {
 
-        String path = "https://m.fawulu.com/dist/welfareAT02/private/V/V021/index.html?business=money-16&appkey=fbca14bb5bb74d5a9b5fa165ad78a15a&uid=2935E7845817D9E3C69BA754B494C145&activityid=16553&spm=lti.2019042814194990305099126869&from=groupmessage&isappinstalled=0";
+        String path = "https://m.cudaojia.com/distt/welfareAT02/private/T/T094/index.html?business=money-1&appkey=45cc2d9c0d144632b96f73231e48117f&uid=96196731327A1B11F5B2F11741194B07&activityid=15025";
         BrowserActivity.startActivity(getContext(), path);
     }
 

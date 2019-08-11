@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.follow;
+package com.sjteam.weiguan.page.feeds.follow;
 
 
 import android.content.Context;

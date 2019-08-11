@@ -8,4 +8,9 @@
 
     <string name="common_data_empty_msg">没有收到任何消息</string>
     <string name="common_data_none">暂无数据</string>
+
+
+    <string name="sqkb_core_permission_read_phone_state" translatable="false">为安全使用微观短视频，需要您允许我们获取手机识别码权限。</string>
+
+    <string name="sqkb_core_permission_read_phone_permanently" translatable="false">未获得您的电话(实际为读取本机识别码)使用权限，微观短视频无法开启。请前往应用设置打开权限。</string>
 </resources>

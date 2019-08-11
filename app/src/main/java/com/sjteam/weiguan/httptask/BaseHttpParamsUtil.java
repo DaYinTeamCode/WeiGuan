@@ -1,5 +1,6 @@
 package com.sjteam.weiguan.httptask;
 
+import com.androidex.util.DeviceUtil;
 import com.androidex.util.TextUtil;
 import com.ex.android.http.params.HttpTaskParams;
 import com.sjteam.weiguan.constants.CommonConstant;
@@ -59,7 +60,7 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
     public static HttpTaskParams getBasePostHttpTaskParamsWithoutToken(String url) {
 
         HttpTaskParams ht = HttpTaskParams.newPost(sApiDomain, url);
-        setCommonParams(ht, false);
+        setCommonParams(ht);
         return ht;
     }
 
@@ -72,14 +73,12 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
         return ht;
     }
 
-    public static void setCommonParams(HttpTaskParams params) {
+    protected static void setCommonParams(HttpTaskParams params) {
 
-        setCommonParams(params, true);
-    }
-
-    protected static void setCommonParams(HttpTaskParams params, boolean needToken) {
-
+        params.addHeader("Content-Type", "application/json");
+        addHeaderDeviceId(params, DeviceUtil.getDeviceId());
         addHeaderToken(params, AccountPrefs.getInstance().getAccountToekn());
+
         //键值对
         params.addParam("app_version", APP_VERSION_NAME);
         params.addParam("os_version", OS_VERSION);
@@ -98,6 +97,7 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
         params.addParam("sh", SCREEN_HEIGHT);
     }
 
+
     /**
      * header添加token
      *
@@ -111,6 +111,23 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
             if (!TextUtil.isEmptyTrim(token)) {
 
                 params.addHeader("token", token);
+            }
+        }
+    }
+
+    /**
+     * header添加deviceId
+     *
+     * @param params
+     * @param deviceId
+     */
+    public static void addHeaderDeviceId(HttpTaskParams params, String deviceId) {
+
+        if (params != null) {
+
+            if (!TextUtil.isEmptyTrim(deviceId)) {
+
+                params.addHeader("deviceId", deviceId);
             }
         }
     }

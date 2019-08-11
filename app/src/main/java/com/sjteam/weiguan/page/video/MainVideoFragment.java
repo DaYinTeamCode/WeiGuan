@@ -2,24 +2,31 @@ package com.sjteam.weiguan.page.video;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.androidex.statusbar.StatusBarManager;
+import com.androidex.util.CollectionUtil;
 import com.androidex.util.DensityUtil;
-import com.androidex.util.LogMgr;
-import com.androidex.util.VglpUtil;
-import com.androidex.view.pager.indicator.TabStripIndicator;
+import com.androidex.util.DeviceUtil;
+import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.jzyd.lib.httptask.HttpFrameParams;
+import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
-import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
-import com.sjteam.weiguan.page.main.VideoCateChangedEvent;
-import com.sjteam.weiguan.page.video.adapter.VideoPageAdapter;
-import com.sjteam.weiguan.page.video.discover.DiscoverVideoFragment;
-import com.sjteam.weiguan.syncer.EventBusUtils;
+import com.sjteam.weiguan.page.aframe.CpHttpFrameXrvFragment;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoListResult;
+import com.sjteam.weiguan.page.feeds.discover.utils.FeedsVideoHttpUtils;
+import com.sjteam.weiguan.page.video.adapter.MainVideoAdapter;
+import com.sjteam.weiguan.page.video.decoration.VideoDcCardGridDecoration;
+import com.sjteam.weiguan.stat.StatRecyclerViewNewAttacher;
+import com.sjteam.weiguan.utils.CpResUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,150 +34,232 @@ import java.util.List;
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2019/6/11 4:34 PM
  */
-public class MainVideoFragment extends HttpFrameFragment implements ViewPager.OnPageChangeListener {
+public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResult> implements SqkbSwipeRefreshLayout.OnRefreshListener
+        , StatRecyclerViewNewAttacher.DataItemListener, OnExRvItemViewClickListener {
 
-    private static final String TAG = MainVideoFragment.class.getName();
-
-    /*** Tab Indicator 指示器*/
-    private TabStripIndicator mTabTipStripIndicator;
-    private ViewPager mViewPager;
-    private VideoPageAdapter mVideoPageAdapter;
-    private int mCurPostiton;
+    private boolean mIsPullRefresh;
+    private MainVideoAdapter mMainVideoAdapter;
+    private GridLayoutManager mRvGridLayoutMgr;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setContentView(R.layout.fragment_main_video);
-    }
-
-    @Override
-    public void onResume() {
-
-        super.onResume();
-    }
-
-    @Override
-    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
-
-        super.onSupportShowToUserChanged(isShowToUser, from);
-
-        Fragment fragment = mVideoPageAdapter.getItem(mCurPostiton);
-        if (fragment instanceof DiscoverVideoFragment) {
-
-            DiscoverVideoFragment discoverVideoFragment = (DiscoverVideoFragment) fragment;
-            discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, from);
-        }
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-
-        if (hidden) {
-
-            if (LogMgr.isDebug()) {
-
-                LogMgr.i(TAG, "onHiddenChanged isHiddenToUser");
-            }
-        } else {
-
-
-            if (LogMgr.isDebug()) {
-
-                LogMgr.i(TAG, "onHiddenChanged isShowToUser");
-            }
-        }
-        super.onHiddenChanged(hidden);
-    }
-
-    @Override
-    protected HttpFrameParams getHttpParamsOnFrameExecute(Object... params) {
-
-        return null;
-    }
-
-    @Override
-    protected boolean invalidateContent(Object result) {
-
-        return true;
+        setContentSwipeRefreshRecyclerView();
+        setPageLimit(30);
+        executeFrameImpl();
     }
 
     @Override
     protected void initData() {
 
-        mVideoPageAdapter = new VideoPageAdapter(getActivity(), getActivity().getSupportFragmentManager());
-        mVideoPageAdapter.setData(getTabData());
     }
 
     @Override
     protected void initTitleView() {
 
-        mTabTipStripIndicator = new TabStripIndicator(getActivity());
-        mTabTipStripIndicator.setShouldExpand(true);
-        mTabTipStripIndicator.setColorTabTextSelected(getResources().getColor(R.color.cp_tab_text_selected));
-        mTabTipStripIndicator.setColorTabTextDefault(getResources().getColor(R.color.cp_tab_text_def));
-        mTabTipStripIndicator.setTextSize(DensityUtil.dip2px(15));
-        mTabTipStripIndicator.setIndicatorHeight(DensityUtil.dip2px(3));
-        mTabTipStripIndicator.setIndicatorRoundRect(true);
-        mTabTipStripIndicator.setTextBold(true);
-        mTabTipStripIndicator.setIndicatorMarginBottom(DensityUtil.dip2px(6));
-        mTabTipStripIndicator.setTabPaddingLeftRight(DensityUtil.dip2px(20));
-        mTabTipStripIndicator.setUnderlineHoriPadding(DensityUtil.dip2px(20));
-        addTitleMiddleView(mTabTipStripIndicator, VglpUtil.getLllpWM());
+        TextView textView = addTitleMiddleTextView("小视频");
+        textView.setTextColor(0XFF0C87F5);
+        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        getTitleView().setBackgroundResource(R.color.app_white);
         setStatusbarView(getTitleView());
     }
 
     @Override
     protected void initContentView() {
 
-        mViewPager = (ViewPager) this.findViewById(R.id.vp);
-        mViewPager.setAdapter(mVideoPageAdapter);
-        mViewPager.addOnPageChangeListener(this);
-        /*** 默认发现页面*/
-        mViewPager.setCurrentItem(0);
-        mTabTipStripIndicator.setViewPager(mViewPager);
-    }
+        getSwipeView().setProgressViewEndTarget(true, DensityUtil.dip2px(40) + getTitleViewHeight());
+        setDisabledImageResId(R.mipmap.ic_page_tip_data_empty);
+        setDisabledTextResId(R.string.common_data_none);
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        mMainVideoAdapter = new MainVideoAdapter();
+        mMainVideoAdapter.setCardWidth(VideoDcCardGridDecoration.ITEM_WIDTH);
+        mMainVideoAdapter.setOnExRvItemViewClickListener(this);
+        mRvGridLayoutMgr = new GridLayoutManager(getContext(), 2);
+        getRecyclerView().setLayoutManager(mRvGridLayoutMgr);
+        getRecyclerView().addItemDecoration(new VideoDcCardGridDecoration());
+        StatRecyclerViewNewAttacher statRecyclerViewNewAttacher = new StatRecyclerViewNewAttacher(getRecyclerView());
+        statRecyclerViewNewAttacher.setDataItemListener(this);
+        getRecyclerView().addOnChildAttachStateChangeListener(statRecyclerViewNewAttacher);
+        getRecyclerView().setAdapter(mMainVideoAdapter);
 
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-        EventBusUtils.post(new VideoCateChangedEvent(position));
-        mCurPostiton = position;
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    /***
-     *  返回分类当前位置
-     *
-     * @return
-     */
-    public int getCurPostion() {
-
-        return mCurPostiton;
+        setLoadMoreNoDataTipAttr("已经到底了",
+                R.mipmap.ic_brand_index_list_item_title_pop_left,
+                R.mipmap.ic_brand_index_list_item_title_pop_right);
+        /** 修改内容的头部底部，将标题栏距离和底部tab距离留出来 */
+        setContentViewMargin(CpResUtil.getTitleBarHeight() + StatusBarManager.getInstance().getStatusbarHeight(getActivity())
+                , CpResUtil.getMainTabHeight());
     }
 
     /***
-     * 获取指示器数据
+     *  修改内容的头部底部，将标题栏距离和底部tab距离留出来
      *
-     * @return
+     * @param top
+     * @param btm
      */
-    private List<String> getTabData() {
+    protected void setContentViewMargin(int top, int btm) {
 
-        List<String> data = new ArrayList<>();
-        data.add("发现");
-        data.add("关注");
-        return data;
+        if (getSwipeView() != null) {
+
+            ViewGroup.MarginLayoutParams vgmlp = (ViewGroup.MarginLayoutParams) getSwipeView().getLayoutParams();
+            vgmlp.topMargin = top;
+            vgmlp.bottomMargin = btm;
+            getSwipeView().requestLayout();
+        }
     }
 
+    /*------------------------------------ 网络相关请求 --------------------------------------------*/
+
+    protected void executeFrameImpl() {
+
+        executeFrameRefresh();
+    }
+
+    protected void executePullImpl() {
+
+        executeFrameRefresh();
+    }
+
+    protected void executeFailedRetryImpl() {
+
+        executeFrameRefresh();
+    }
+
+    @Override
+    protected HttpFrameParams getPageHttpParams(int nextPageStartIndex, int pageLimit) {
+
+        return new HttpFrameParams(FeedsVideoHttpUtils.getFeedsVideoParams(nextPageStartIndex, pageLimit)
+                , FeedsVideoListResult.class);
+    }
+
+    /***
+     *   刷新Loading
+     */
+    @Override
+    protected void switchLoadingOnFrameRefresh() {
+
+        if (mIsPullRefresh) {
+
+            switchContent();
+        } else {
+
+            super.switchLoadingOnFrameCache();
+        }
+    }
+
+    @Override
+    protected void switchFailedOnFrameRefresh(int failedCode, String msg) {
+
+        if (mIsPullRefresh) {
+
+            if (getSwipeView() != null) {
+
+                getSwipeView().setRefreshing(false);
+            }
+        } else {
+
+            super.switchFailedOnFrameRefresh(failedCode, msg);
+        }
+    }
+
+    /*-------------------------------下拉刷新相关回调-----------------------------*/
+
+    @Override
+    protected void onTipViewClick() {
+
+        if (DeviceUtil.isNetworkDisable()) {
+
+            showToast(R.string.toast_network_none);
+        } else {
+
+            executeFailedRetryImpl();
+        }
+    }
+
+    /*-------------------------------下拉刷新相关回调-----------------------------*/
+
+    @Override
+    public void onRefresh() {
+
+        if (DeviceUtil.isNetworkEnable()) {
+
+            mIsPullRefresh = true;
+            executePullImpl();
+        } else {
+
+            showToast(R.string.toast_network_none);
+            if (getSwipeView() != null) {
+
+                getSwipeView().setRefreshing(false);
+            }
+        }
+    }
+
+    @Override
+    public void onRefreshCompleted() {
+
+        mIsPullRefresh = false;
+    }
+
+    @Override
+    protected boolean invalidateContent(FeedsVideoListResult result) {
+
+        if (getSwipeView() != null) {
+
+            getSwipeView().setRefreshing(false);
+        }
+
+        if (result == null) {
+
+            return false;
+        }
+
+        if (CollectionUtil.isEmpty(result.getList())) {
+
+            return false;
+        }
+        super.invalidateContent(result);
+        return true;
+    }
+
+    @Override
+    protected void onLoadMoreFailed(int failedCode, String msg) {
+
+        super.onLoadMoreFailed(failedCode, msg);
+    }
+
+    /***
+     * 刷新列表数据
+     *
+     * @param result
+     * @return
+     */
+    @Override
+    protected List<?> invalidateContentGetList(FeedsVideoListResult result) {
+
+        return result != null ? result.getList() : null;
+    }
+
+    @Override
+    protected void showContent() {
+
+        super.showContent();
+    }
+
+    @Override
+    public void onRecyclerViewDataItemStatShow(int dataPos) {
+
+    }
+
+    @Override
+    public void onExRvItemViewClick(View view, int dataPos) {
+
+    }
+
+    /**
+     * @param context
+     * @return
+     */
     public static MainVideoFragment newInstance(Context context) {
 
         return (MainVideoFragment) Fragment.instantiate(context, MainVideoFragment.class.getName());

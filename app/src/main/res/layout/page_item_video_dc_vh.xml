@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cDiv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_video_dc_bg">
+
+    <com.androidex.imageloader.fresco.FrescoImageView
+        android:id="@+id/aivCover"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/cp_cover_placeholder"
+        fresco:roundBottomLeft="false"
+        fresco:roundBottomRight="false"
+        fresco:roundedCornerRadius="8dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/ivVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="7dp"
+        android:src="@mipmap/page_item_dc_video_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/aivCover"
+        app:layout_constraintRight_toRightOf="@+id/aivCover" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="1.5dp"
+        android:lines="2"
+        android:textColor="@color/text_video_title"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toLeftOf="@+id/aivCover"
+        app:layout_constraintRight_toRightOf="@+id/aivCover"
+        app:layout_constraintTop_toBottomOf="@+id/aivCover" />
+
+    <com.androidex.imageloader.fresco.FrescoImageView
+        android:id="@+id/fiAuthorIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintLeft_toLeftOf="@+id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/cp_cover_placeholder"
+        fresco:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:drawableLeft="@mipmap/page_item_video_dc_give_up_vh"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:textColor="@color/text_video_title"
+        android:textSize="10dp"
+        app:layout_constraintRight_toRightOf="@+id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+</android.support.constraint.ConstraintLayout>

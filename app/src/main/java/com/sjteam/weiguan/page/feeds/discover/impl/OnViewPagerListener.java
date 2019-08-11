@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.discover.impl;
+package com.sjteam.weiguan.page.feeds.discover.impl;
 
 /**
  * 用于ViewPagerLayoutManager的监听

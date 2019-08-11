@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.discover.impl;
+package com.sjteam.weiguan.page.feeds.discover.impl;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

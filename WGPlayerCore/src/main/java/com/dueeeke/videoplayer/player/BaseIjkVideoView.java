@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -766,5 +767,11 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
      */
     public boolean onBackPressed() {
         return mVideoController != null && mVideoController.onBackPressed();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+
+        super.onDraw(canvas);
     }
 }

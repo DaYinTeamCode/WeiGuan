@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.video.adapter;
+package com.sjteam.weiguan.page.feeds.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -7,8 +7,8 @@ import android.support.v4.view.ViewPager;
 
 import com.androidex.activity.ExFragment;
 import com.androidex.adapter.ExFragmentPagerAdapter;
-import com.sjteam.weiguan.page.video.discover.DiscoverVideoFragment;
-import com.sjteam.weiguan.page.video.follow.FollowVideoFragment;
+import com.sjteam.weiguan.page.feeds.discover.DiscoverVideoFragment;
+import com.sjteam.weiguan.page.feeds.follow.FollowVideoFragment;
 
 /**
  * 视频模块Adapter

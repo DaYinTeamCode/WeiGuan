@@ -19,10 +19,10 @@ import com.jzyd.lib.util.MD5Util;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.dialog.PusblishDialog;
 import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
-import com.sjteam.weiguan.page.home.MainHomeFragment;
+import com.sjteam.weiguan.page.video.MainVideoFragment;
 import com.sjteam.weiguan.page.me.MainUserFragment;
 import com.sjteam.weiguan.page.news.MainMessageFragment;
-import com.sjteam.weiguan.page.video.MainVideoFragment;
+import com.sjteam.weiguan.page.feeds.MainFeedsFragment;
 import com.sjteam.weiguan.syncer.EventBusUtils;
 import com.sjteam.weiguan.view.toast.ExToast;
 
@@ -211,10 +211,10 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
             return;
         }
-        if (fragment instanceof MainVideoFragment) {
+        if (fragment instanceof MainFeedsFragment) {
 
-            MainVideoFragment mainVideoFragment = (MainVideoFragment) fragment;
-            if (mainVideoFragment.getCurPostion() == 0) {
+            MainFeedsFragment mainFeedsFragment = (MainFeedsFragment) fragment;
+            if (mainFeedsFragment.getCurPostion() == 0) {
 
                 ntTab.setInactiveColor(0xFFFFFFFF);
                 flTabDiv.setBackgroundResource(R.color.cp_black);
@@ -239,9 +239,9 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
         switch (index) {
 
             case 0:
-                return MainVideoFragment.newInstance(context);
+                return MainFeedsFragment.newInstance(context);
             case 1:
-                return MainHomeFragment.newInstance(context);
+                return MainVideoFragment.newInstance(context);
             case 3:
                 return MainMessageFragment.newInstance(context);
             case 4:
