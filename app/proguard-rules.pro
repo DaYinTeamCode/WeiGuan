@@ -254,3 +254,8 @@ public static java.lang.String TABLENAME;
 -dontwarn tv.danmaku.ijk.**
 -keep class com.dueeeke.videoplayer.** { *; }
 -dontwarn com.dueeeke.videoplayer.**
+
+#Bugly 升级
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}

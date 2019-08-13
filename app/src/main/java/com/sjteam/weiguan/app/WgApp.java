@@ -1,6 +1,7 @@
 package com.sjteam.weiguan.app;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.multidex.MultiDex;
 
 import com.androidex.context.ExApplication;
@@ -12,9 +13,12 @@ import com.ex.umeng.UmengAgent;
 import com.jzyd.lib.httptask.JzydJsonListener;
 import com.meituan.android.walle.WalleChannelReader;
 import com.sjteam.weiguan.BuildConfig;
+import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.httptask.lisn.CpHttpTaskExeListener;
 import com.sjteam.weiguan.httptask.lisn.CpHttpTaskNetworkListener;
 import com.sjteam.weiguan.utils.FrescoInitUtil;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -75,6 +79,8 @@ public class WgApp extends ExApplication {
         initUmengSdk();
         /*** 初始化存储数据 */
         initStorage();
+        /*** 初始化更新Apk配置*/
+        initUpdateApkConfig();
     }
 
     /***
@@ -124,6 +130,55 @@ public class WgApp extends ExApplication {
         UmengAgent.setIsDeubg(BuildConfig.DEBUG);
         UmengAgent.startWithConfigure(this
                 , AppConfig.umengKey, getApkChannelName());
+    }
+
+    /***
+     *  初始化更新Apk配置
+     *
+     */
+    private void initUpdateApkConfig() {
+
+        Beta.autoInit = true;
+        /**
+         * true表示初始化时自动检查升级;
+         * false表示不会自动检查升级,需要手动调用Beta.checkUpgrade()方法;
+         */
+        Beta.autoCheckUpgrade = true;
+
+        /**
+         * 设置启动延时为1s（默认延时3s），APP启动1s后初始化SDK，避免影响APP启动速度;
+         */
+        Beta.initDelay = 1 * 1000;
+
+        /**
+         * 设置通知栏大图标，largeIconId为项目中的图片资源;
+         */
+        Beta.largeIconId = R.mipmap.ic_launcher;
+
+        /**
+         * 设置状态栏小图标，smallIconId为项目中的图片资源Id;
+         */
+        Beta.smallIconId = R.mipmap.ic_launcher;
+
+        /**
+         * 设置更新弹窗默认展示的banner，defaultBannerId为项目中的图片资源Id;
+         * 当后台配置的banner拉取失败时显示此banner，默认不设置则展示“loading“;
+         */
+        Beta.defaultBannerId = R.mipmap.ic_launcher;
+        /**
+         * 设置sd卡的Download为更新资源保存目录;
+         * 后续更新资源会保存在此目录，需要在manifest中添加WRITE_EXTERNAL_STORAGE权限;
+         */
+        Beta.storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+        /**
+         * 点击过确认的弹窗在APP下次启动自动检查更新时会再次显示;
+         */
+        Beta.showInterruptedStrategy = true;
+
+        Beta.enableHotfix = true;
+
+        Bugly.init(this, AppConfig.buglyKey, BuildConfig.DEBUG);
     }
 
     /**

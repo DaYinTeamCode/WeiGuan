@@ -215,7 +215,7 @@ public class SqkbDeviceIdManager extends Observable<SqkbDeviceIdManager.SqkbDevi
                     .appSettingRationale(activity.getString(R.string.sqkb_core_permission_read_phone_permanently))
                     .showCloseButton(false)
                     .requestCode(RC_READ_PHONE_STATE_PERM)
-                    .permission(Manifest.permission.READ_PHONE_STATE)
+                    .permission(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                     .showAppSettingsDialogWhenNeverAskAgain(true)
                     .permissionCallbacks(new DeviceIdPermissionCallback(callback) {
                         @Override

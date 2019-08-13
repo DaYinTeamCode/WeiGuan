@@ -80,21 +80,20 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
         addHeaderToken(params, AccountPrefs.getInstance().getAccountToekn());
 
         //键值对
-        params.addParam("app_version", APP_VERSION_NAME);
-        params.addParam("os_version", OS_VERSION);
-        params.addParam("imei", IMEI);
-        params.addParam("imei_2", IMEI2);
-        params.addParam("android_id", ANDROID_ID);
-        params.addParam("imsi", IMSI);
-        params.addParam("device_id", CommonConstant.DEVICE_ID);
-        params.addParam("device_info", DEVICE_MODEL);
-        params.addParam("device_brand", DEVICE_BRAND);
-        params.addParam("client_channel", CommonConstant.APK_CHANNEL_NAME);
-        params.addParam("app_installtime", APP_INSTALL_TIME);
-        params.addParam("network", NETWORK_TYPE);
-        params.addParam("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
-        params.addParam("sw", SCREEN_WIDTH);
-        params.addParam("sh", SCREEN_HEIGHT);
+        params.addHeader("app_version", APP_VERSION_NAME);
+        params.addHeader("os_version", OS_VERSION);
+        params.addHeader("imei", IMEI);
+        params.addHeader("imei_2", IMEI2);
+        params.addHeader("android_id", ANDROID_ID);
+        params.addHeader("imsi", IMSI);
+        params.addHeader("device_info", DEVICE_MODEL);
+        params.addHeader("device_brand", DEVICE_BRAND);
+        params.addHeader("client_channel", CommonConstant.APK_CHANNEL_NAME);
+        params.addHeader("app_installtime", APP_INSTALL_TIME);
+        params.addHeader("network", NETWORK_TYPE);
+        params.addHeader("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
+        params.addHeader("sw", SCREEN_WIDTH);
+        params.addHeader("sh", SCREEN_HEIGHT);
     }
 
 
@@ -127,7 +126,7 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
 
             if (!TextUtil.isEmptyTrim(deviceId)) {
 
-                params.addHeader("deviceId", deviceId);
+                params.addHeader("device_id", deviceId);
             }
         }
     }

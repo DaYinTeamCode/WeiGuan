@@ -151,4 +151,13 @@ dependencies {
 
     // permissions library
     implementation 'com.ex.sdk.android:sqkb-easy-permissions:1.1.8'
+
+    // 网络库
+    implementation 'com.lzy.net:okgo:3.0.4'
+    // RxJava 依赖库
+    implementation 'com.lzy.net:okrx2:2.0.2'
+
+    // Bugly 升级
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.2.0'
 }
+

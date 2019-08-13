@@ -34,6 +34,7 @@ import com.sjteam.weiguan.page.web.activity.BrowserActivity;
 import com.sjteam.weiguan.syncer.EventBusUtils;
 import com.sjteam.weiguan.utils.CpFontUtil;
 import com.sjteam.weiguan.widget.TitleTransWidget;
+import com.tencent.bugly.beta.Beta;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -241,9 +242,26 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
                 case UserItemSet.SMALL_GAME_TYPE:
                     smallGameClick();
                     break;
+                case UserItemSet.CHECK_UPDATE_APP:
+                    onCheckUpdateApp();
+                    break;
                 default:
                     break;
             }
+        }
+    }
+
+    /***
+     *  检测更新
+     */
+    private void onCheckUpdateApp() {
+
+        /*** 检测更新版本 */
+        try {
+
+            Beta.checkUpgrade(true, false);
+        } catch (Exception ex) {
+
         }
     }
 
