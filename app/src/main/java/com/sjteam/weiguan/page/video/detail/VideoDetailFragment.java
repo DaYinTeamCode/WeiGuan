@@ -379,19 +379,19 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
     public void onExRvItemViewClick(View view, int dataPos) {
 
         Object object = mVideoDetailAdapter.getDataItem(dataPos);
-        if (object instanceof FeedsVideoResult) {
 
-        }
     }
 
     @Override
     public void onRecyclerViewDataItemStatShow(int dataPos) {
 
-        if (dataPos == 0) {
+//        if (dataPos == 0) {
+//
+//            //自动播放第一条
+//            startPlay(0);
+//        }
 
-            //自动播放第一条
-            startPlay(0);
-        }
+        startPlay(dataPos);
     }
 
     /***
@@ -407,6 +407,10 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
 
             FeedsVideoResult feedsVideoResult = (FeedsVideoResult) obj;
             View itemView = getRecyclerView().getChildAt(0);
+            if (itemView == null) {
+
+                return;
+            }
             ExRvItemViewHolderBase childViewHolder = getRecyclerView().getChildViewHolder(itemView);
             if (childViewHolder instanceof VideoDetailViewHolder) {
 
@@ -416,7 +420,6 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
 
                 CardView cardView = new CardView(getActivity());
                 FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameLayout.getLayoutParams();
-                cardView.setBackgroundColor(0X00000000);
                 cardView.setRadius(DensityUtil.dip2px(8f));
                 frameLayout.addView(cardView, layoutParams);
                 ViewParent parent = mIjkVideoView.getParent();
