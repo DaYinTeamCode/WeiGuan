@@ -84,6 +84,7 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
         StatRecyclerViewNewAttacher statRecyclerViewNewAttacher = new StatRecyclerViewNewAttacher(getRecyclerView());
         statRecyclerViewNewAttacher.setDataItemListener(this);
         getRecyclerView().addOnChildAttachStateChangeListener(statRecyclerViewNewAttacher);
+        getRecyclerView().setFocusableInTouchMode(false);
         getRecyclerView().setAdapter(mMainVideoAdapter);
 
         setLoadMoreNoDataTipAttr("已经到底了",
@@ -257,6 +258,10 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
     @Override
     public void onExRvItemViewClick(View view, int dataPos) {
 
+        if (mMainVideoAdapter == null) {
+
+            return;
+        }
         Object object = mMainVideoAdapter.getDataItem(dataPos);
 
         if (object instanceof FeedsVideoResult) {

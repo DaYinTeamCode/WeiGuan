@@ -33,7 +33,6 @@ import com.sjteam.weiguan.stat.StatRecyclerViewNewAttacher;
 import com.sjteam.weiguan.widget.video.VideoController;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -228,7 +227,10 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
             executeFrameImpl();
         } else if (mVideoDetailAdapter != null && getRecyclerView() != null) {
 
+            mVideoDetailAdapter.clearData();
+            mVideoDetailAdapter.notifyDataSetChanged();
             mVideoDetailAdapter.setData(mFeedsVideoResult);
+            mVideoDetailAdapter.notifyDataSetChanged();
             getRecyclerView().scrollToPosition(mPostion);
         }
     }
@@ -384,12 +386,6 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
 
     @Override
     public void onRecyclerViewDataItemStatShow(int dataPos) {
-
-//        if (dataPos == 0) {
-//
-//            //自动播放第一条
-//            startPlay(0);
-//        }
 
         startPlay(dataPos);
     }

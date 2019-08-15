@@ -13,7 +13,8 @@ import com.sjteam.weiguan.constants.DimenConstant;
 import com.sjteam.weiguan.page.video.viewholder.VideoDcViewHolder;
 
 /**
- * 类目B样式 间隔线
+ * 视频间隔线
+ *
  * <p>
  * Create By DaYin(gaoyin_vip@126.com) on 2018/8/3 下午3:34
  */

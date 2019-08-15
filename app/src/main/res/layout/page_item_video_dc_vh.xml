@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cDiv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,8 +15,7 @@
         fresco:placeholderImage="@color/cp_cover_placeholder"
         fresco:roundBottomLeft="false"
         fresco:roundBottomRight="false"
-        fresco:roundedCornerRadius="8dp"
-        tools:ignore="MissingConstraints" />
+        fresco:roundedCornerRadius="8dp" />
 
     <ImageView
         android:id="@+id/ivVideo"
