@@ -2,13 +2,16 @@ package com.sjteam.weiguan.page.feeds.discover.bean;
 
 import com.androidex.zbuild.IKeepSource;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 视频流列表
  * Create By DaYin(gaoyin_vip@126.com) on 2019/7/11 4:14 PM
+ *
+ * @author gaoyin
  */
-public class FeedsVideoListResult implements IKeepSource {
+public class FeedsVideoListResult implements IKeepSource, Serializable {
 
     /*** 视频总数 */
     private int total;

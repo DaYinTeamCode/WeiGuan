@@ -7,5 +7,4 @@ package com.sjteam.weiguan.page.main;
  */
 public class MainTabHelper {
 
-
 }

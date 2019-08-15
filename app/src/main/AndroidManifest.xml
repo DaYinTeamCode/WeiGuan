@@ -155,6 +155,12 @@
                 android:resource="@xml/provider_paths"
                 tools:replace="name,resource" />
         </provider>
+        <!--视频详情页-->
+        <activity
+            android:name=".page.video.detail.VideoDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/cp_theme_title_main_float" />
     </application>
 
 </manifest>

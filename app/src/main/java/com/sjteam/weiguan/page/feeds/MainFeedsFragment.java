@@ -13,7 +13,7 @@ import com.androidex.view.pager.indicator.TabStripIndicator;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
-import com.sjteam.weiguan.page.main.VideoCateChangedEvent;
+import com.sjteam.weiguan.page.main.event.VideoCateChangedEvent;
 import com.sjteam.weiguan.page.feeds.adapter.VideoPageAdapter;
 import com.sjteam.weiguan.page.feeds.discover.DiscoverVideoFragment;
 import com.sjteam.weiguan.syncer.EventBusUtils;

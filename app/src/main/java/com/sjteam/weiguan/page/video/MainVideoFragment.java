@@ -21,12 +21,15 @@ import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.CpHttpFrameXrvFragment;
 import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoListResult;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoResult;
 import com.sjteam.weiguan.page.feeds.discover.utils.FeedsVideoHttpUtils;
 import com.sjteam.weiguan.page.video.adapter.MainVideoAdapter;
 import com.sjteam.weiguan.page.video.decoration.VideoDcCardGridDecoration;
+import com.sjteam.weiguan.page.video.detail.VideoDetailActivity;
 import com.sjteam.weiguan.stat.StatRecyclerViewNewAttacher;
 import com.sjteam.weiguan.utils.CpResUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -254,6 +257,13 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
     @Override
     public void onExRvItemViewClick(View view, int dataPos) {
 
+        Object object = mMainVideoAdapter.getDataItem(dataPos);
+
+        if (object instanceof FeedsVideoResult) {
+
+            List<FeedsVideoResult> feedsVideoResults = (ArrayList) mMainVideoAdapter.getData();
+            VideoDetailActivity.startActivity(getActivity(), feedsVideoResults, dataPos);
+        }
     }
 
     /**

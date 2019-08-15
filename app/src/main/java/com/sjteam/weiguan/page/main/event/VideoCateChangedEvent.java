@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.main;
+package com.sjteam.weiguan.page.main.event;
 
 import com.androidex.zbuild.IKeepSource;
 

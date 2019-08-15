@@ -3,11 +3,13 @@ package com.sjteam.weiguan.page.feeds.discover.bean;
 import com.androidex.util.TextUtil;
 import com.androidex.zbuild.IKeepSource;
 
+import java.io.Serializable;
+
 /**
  * 视频流结果
  * Create By DaYin(gaoyin_vip@126.com) on 2019/7/11 4:15 PM
  */
-public class FeedsVideoResult implements IKeepSource {
+public class FeedsVideoResult implements IKeepSource, Serializable {
 
     private String id;
 
@@ -72,7 +74,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setAuthorNickname(String authorNickname) {
 
-        this.authorNickname =  TextUtil.filterNull(authorNickname);
+        this.authorNickname = TextUtil.filterNull(authorNickname);
     }
 
     public String getAuthorIcon() {
@@ -82,7 +84,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setAuthorIcon(String authorIcon) {
 
-        this.authorIcon =  TextUtil.filterNull(authorIcon);
+        this.authorIcon = TextUtil.filterNull(authorIcon);
     }
 
     public String getAuthorType() {
@@ -112,7 +114,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setShowType(String showType) {
 
-        this.showType =  TextUtil.filterNull(showType);
+        this.showType = TextUtil.filterNull(showType);
     }
 
     public String getContent() {
@@ -132,7 +134,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setShowUrls(String showUrls) {
 
-        this.showUrls =  TextUtil.filterNull(showUrls);
+        this.showUrls = TextUtil.filterNull(showUrls);
     }
 
     public String getOpenUrls() {
@@ -141,7 +143,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setOpenUrls(String openUrls) {
 
-        this.openUrls =  TextUtil.filterNull(openUrls);
+        this.openUrls = TextUtil.filterNull(openUrls);
     }
 
     public int getLikesCount() {
@@ -191,7 +193,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setChannelId(String channelId) {
 
-        this.channelId =  TextUtil.filterNull(channelId);
+        this.channelId = TextUtil.filterNull(channelId);
     }
 
     public String getChannelType() {
@@ -201,7 +203,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setChannelType(String channelType) {
 
-        this.channelType =  TextUtil.filterNull(channelType);
+        this.channelType = TextUtil.filterNull(channelType);
     }
 
     public String getCoverPicSize() {
@@ -211,7 +213,7 @@ public class FeedsVideoResult implements IKeepSource {
 
     public void setCoverPicSize(String coverPicSize) {
 
-        this.coverPicSize =  TextUtil.filterNull(coverPicSize);
+        this.coverPicSize = TextUtil.filterNull(coverPicSize);
     }
 
     public int getVideoTotalTime() {

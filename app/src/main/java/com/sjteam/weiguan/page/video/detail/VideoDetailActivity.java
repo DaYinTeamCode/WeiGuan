@@ -1,4 +1,4 @@
-package com.sjteam.weiguan.page.feeds.detail;
+package com.sjteam.weiguan.page.video.detail;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,10 @@ import android.os.Bundle;
 
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
-import com.sjteam.weiguan.page.login.UserLoginFragment;
+import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoResult;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 视频播放详情页
@@ -19,7 +22,9 @@ public class VideoDetailActivity extends CpFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentFragment(UserLoginFragment.newInstance(this));
+        List<FeedsVideoResult> feedsVideoResults = (List<FeedsVideoResult>) getIntent().getSerializableExtra("feedsVideo");
+        int postion = getIntent().getIntExtra("postion", 0);
+        setContentFragment(VideoDetailFragment.newInstance(this, feedsVideoResults, postion));
     }
 
     @Override
@@ -44,9 +49,11 @@ public class VideoDetailActivity extends CpFragmentActivity {
         overridePendingTransition(R.anim.push_exit_stop, R.anim.alpha_out);
     }
 
-    public static void startActivity(Activity activity) {
+    public static void startActivity(Activity activity, List<FeedsVideoResult> feedsVideoResults, int postion) {
 
         Intent intent = new Intent();
+        intent.putExtra("feedsVideo", (Serializable) feedsVideoResults);
+        intent.putExtra("postion", postion);
         intent.setClass(activity, VideoDetailActivity.class);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.alpha_in, R.anim.push_exit_stop);

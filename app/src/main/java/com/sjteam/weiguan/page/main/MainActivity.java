@@ -19,6 +19,7 @@ import com.jzyd.lib.util.MD5Util;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.dialog.PusblishDialog;
 import com.sjteam.weiguan.page.aframe.CpFragmentActivity;
+import com.sjteam.weiguan.page.main.event.VideoCateChangedEvent;
 import com.sjteam.weiguan.page.video.MainVideoFragment;
 import com.sjteam.weiguan.page.me.MainUserFragment;
 import com.sjteam.weiguan.page.news.MainMessageFragment;
