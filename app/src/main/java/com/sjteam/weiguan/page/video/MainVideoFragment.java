@@ -46,7 +46,7 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
 
         super.onActivityCreated(savedInstanceState);
         setContentSwipeRefreshRecyclerView();
-        setPageLimit(30);
+        setPageLimit(10);
         executeFrameImpl();
     }
 

@@ -31,6 +31,7 @@ import javax.annotation.Nullable;
 public class MainFeedsFragment extends HttpFrameFragment implements ViewPager.OnPageChangeListener {
 
     private static final String TAG = MainFeedsFragment.class.getName();
+    public static final int FROM_MAIN_FEEDS = 200;
 
     /*** Tab Indicator 指示器*/
     private TabStripIndicator mTabTipStripIndicator;
@@ -60,7 +61,7 @@ public class MainFeedsFragment extends HttpFrameFragment implements ViewPager.On
         if (fragment instanceof DiscoverVideoFragment) {
 
             DiscoverVideoFragment discoverVideoFragment = (DiscoverVideoFragment) fragment;
-            discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, from);
+            discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, FROM_MAIN_FEEDS);
         }
     }
 

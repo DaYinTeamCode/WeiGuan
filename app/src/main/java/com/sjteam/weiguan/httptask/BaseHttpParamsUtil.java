@@ -75,27 +75,28 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
 
     protected static void setCommonParams(HttpTaskParams params) {
 
-        params.addHeader("Content-Type", "application/json");
+        params.addHeader("Content-Type", "application/json;charset=UTF-8");
+        params.addHeader("Acceot-Encoding", "gzip");
+        params.addHeader("User-Agent", "okhttp/3.10.0.1");
         addHeaderDeviceId(params, DeviceUtil.getDeviceId());
         addHeaderToken(params, AccountPrefs.getInstance().getAccountToekn());
 
         //键值对
-        params.addHeader("app_version", APP_VERSION_NAME);
-        params.addHeader("os_version", OS_VERSION);
+        params.addHeader("appVersion", APP_VERSION_NAME);
+        params.addHeader("osVersion", OS_VERSION);
         params.addHeader("imei", IMEI);
-        params.addHeader("imei_2", IMEI2);
-        params.addHeader("android_id", ANDROID_ID);
+        params.addHeader("imei2", IMEI2);
+        params.addHeader("androidId", ANDROID_ID);
         params.addHeader("imsi", IMSI);
-        params.addHeader("device_info", DEVICE_MODEL);
-        params.addHeader("device_brand", DEVICE_BRAND);
-        params.addHeader("client_channel", CommonConstant.APK_CHANNEL_NAME);
-        params.addHeader("app_installtime", APP_INSTALL_TIME);
+        params.addHeader("deviceInfo", DEVICE_MODEL);
+        params.addHeader("deviceBrand", DEVICE_BRAND);
+        params.addHeader("clientChannel", CommonConstant.APK_CHANNEL_NAME);
+        params.addHeader("appInstalltime", APP_INSTALL_TIME);
         params.addHeader("network", NETWORK_TYPE);
         params.addHeader("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
         params.addHeader("sw", SCREEN_WIDTH);
         params.addHeader("sh", SCREEN_HEIGHT);
     }
-
 
     /**
      * header添加token
@@ -126,7 +127,7 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
 
             if (!TextUtil.isEmptyTrim(deviceId)) {
 
-                params.addHeader("device_id", deviceId);
+                params.addHeader("deviced", deviceId);
             }
         }
     }

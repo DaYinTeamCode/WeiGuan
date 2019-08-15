@@ -22,6 +22,7 @@ import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.CpHttpFrameXrvFragment;
+import com.sjteam.weiguan.page.feeds.MainFeedsFragment;
 import com.sjteam.weiguan.page.feeds.discover.adapter.VideoDetailAdapter;
 import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoListResult;
 import com.sjteam.weiguan.page.feeds.discover.bean.FeedsVideoResult;
@@ -44,12 +45,13 @@ import javax.annotation.Nullable;
 public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResult>
         implements SqkbSwipeRefreshLayout.OnRefreshListener, StatRecyclerViewNewAttacher.DataItemListener, OnExRvItemViewClickListener {
 
-    private IjkVideoView mIjkVideoView;
+    private static IjkVideoView mIjkVideoView;
     private VideoController mVideoController;
     private int mCurrentPosition;
     private VideoDetailAdapter mVideoDetailAdapter;
     private boolean mIsPullRefresh;
-    private ImageView mIvVideoPlay;
+    private static ImageView mIvVideoPlay;
+    private FrameLayout mFlController;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         setContentSwipeRefreshRecyclerView();
         getExDecorView().setBackgroundColor(0X00000000);
         getExDecorView().setPadding(0, 0, 0, DensityUtil.dip2px(48f));
-        setPageLimit(30);
+        setPageLimit(10);
         executeFrameImpl();
     }
 
@@ -66,10 +68,6 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     public void onPause() {
 
         super.onPause();
-        if (mIjkVideoView != null) {
-
-            mIjkVideoView.pause();
-        }
     }
 
     @Override
@@ -78,10 +76,6 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.onResume();
         /*** 设置标题栏为透明状态 */
         getTitleView().setBackgroundResource(R.color.cp_text_transparent);
-        if (mIjkVideoView != null) {
-
-            mIjkVideoView.resume();
-        }
     }
 
     @Override
@@ -90,27 +84,9 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.onDestroy();
         if (mIjkVideoView != null) {
 
+            mIjkVideoView.setVideoController(null);
             mIjkVideoView.release();
         }
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-
-        if (hidden) {
-
-            if (mIjkVideoView != null) {
-
-                mIjkVideoView.pause();
-            }
-        } else {
-
-            if (mIjkVideoView != null) {
-
-                mIjkVideoView.resume();
-            }
-        }
-        super.onHiddenChanged(hidden);
     }
 
     @Override
@@ -119,7 +95,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
 
-            if (mIjkVideoView != null) {
+            if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay)) {
 
                 mIjkVideoView.resume();
             }
@@ -136,9 +112,10 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     public void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
-        if (isShowToUser) {
 
-            if (mIjkVideoView != null) {
+        if (isShowToUser && from == MainFeedsFragment.FROM_MAIN_FEEDS) {
+
+            if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay)) {
 
                 mIjkVideoView.resume();
             }
@@ -182,24 +159,6 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         mIjkVideoView = new IjkVideoView(getActivity());
         mIjkVideoView.setLooping(true);
         mIjkVideoView.setPlayOnMobileNetwork(true);
-        mIjkVideoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (mIjkVideoView == null || mIvVideoPlay == null) {
-                    return;
-                }
-                if (mIjkVideoView.isPlaying()) {
-
-                    mIjkVideoView.pause();
-                    ViewUtil.showView(mIvVideoPlay);
-                } else {
-
-                    ViewUtil.hideView(mIvVideoPlay);
-                    mIjkVideoView.resume();
-                }
-            }
-        });
         mVideoController = new VideoController(getActivity());
         mIjkVideoView.setVideoController(mVideoController);
     }
@@ -311,10 +270,13 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     @Override
     protected void onTipViewClick() {
 
-        if (DeviceUtil.isNetworkDisable())
+        if (DeviceUtil.isNetworkDisable()) {
+
             showToast(R.string.toast_network_none);
-        else
+        } else {
+
             executeFailedRetryImpl();
+        }
     }
 
     /*-------------------------------下拉刷新相关回调-----------------------------*/
@@ -329,8 +291,10 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         } else {
 
             showToast(R.string.toast_network_none);
-            if (getSwipeView() != null)
+            if (getSwipeView() != null) {
+
                 getSwipeView().setRefreshing(false);
+            }
         }
     }
 
@@ -351,12 +315,15 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
             getSwipeView().setRefreshing(false);
         }
 
-        if (result == null)
-            return false;
+        if (result == null) {
 
-        if (CollectionUtil.isEmpty(result.getList()))
             return false;
+        }
 
+        if (CollectionUtil.isEmpty(result.getList())) {
+
+            return false;
+        }
         super.invalidateContent(result);
         return true;
     }
@@ -422,7 +389,6 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 VideoDetailViewHolder viewHolder = (VideoDetailViewHolder) childViewHolder;
                 FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.container);
-                mIvVideoPlay = viewHolder.itemView.findViewById(R.id.ivPlay);
                 mVideoController.getThumb().setImageUriByLp(feedsVideoResult.getShowUrls());
 
                 CardView cardView = new CardView(getActivity());
@@ -439,10 +405,45 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
                 mIjkVideoView.setUrl(feedsVideoResult.getOpenUrls());
                 mIjkVideoView.setScreenScale(IjkVideoView.SCREEN_SCALE_CENTER_CROP);
                 mIjkVideoView.start();
+
+                mIvVideoPlay = viewHolder.itemView.findViewById(R.id.ivPlay);
+                if (ViewUtil.isShow(mIvVideoPlay)) {
+
+                    ViewUtil.hideView(mIvVideoPlay);
+                }
+                mFlController = viewHolder.itemView.findViewById(R.id.flController);
+                onControllerWidget(mFlController);
             }
         }
     }
 
+    /***
+     *
+     * @param frameLayout
+     */
+    private void onControllerWidget(FrameLayout frameLayout) {
+
+        if (frameLayout == null) {
+
+            return;
+        }
+
+        frameLayout.setOnClickListener(v -> {
+
+            if (mIjkVideoView == null || mIvVideoPlay == null) {
+                return;
+            }
+            if (mIjkVideoView.isPlaying()) {
+
+                mIjkVideoView.pause();
+                ViewUtil.showView(mIvVideoPlay);
+            } else {
+
+                ViewUtil.hideView(mIvVideoPlay);
+                mIjkVideoView.resume();
+            }
+        });
+    }
 
     /***
      *   发现视频

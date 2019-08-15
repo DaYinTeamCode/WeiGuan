@@ -15,15 +15,9 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_feeds_video_bg">
 
-        <ImageView
-            android:id="@+id/ivPlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_page_main_video_stop_icon"
-            android:visibility="gone" />
     </FrameLayout>
 
     <FrameLayout
@@ -117,6 +111,15 @@
                 android:textSize="12dp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_page_main_video_stop_icon"
+            android:visibility="invisible" />
+
     </FrameLayout>
 
 </FrameLayout>

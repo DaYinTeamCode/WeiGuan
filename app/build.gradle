@@ -140,8 +140,8 @@ dependencies {
     implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:+'
 
     // Bugly 日志上报
-    implementation deps.bugly_crashreport
-    implementation deps.nativecrashreport
+//    implementation deps.bugly_crashreport
+//    implementation deps.nativecrashreport
 
     //微信 支付，登录，分享
     implementation 'com.ex.sdk.android:wxalipayclient:1.0.1'
@@ -159,5 +159,6 @@ dependencies {
 
     // Bugly 升级
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 }
 
