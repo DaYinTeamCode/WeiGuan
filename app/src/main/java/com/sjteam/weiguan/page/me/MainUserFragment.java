@@ -260,7 +260,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
         try {
 
             Beta.checkUpgrade(true, false);
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
 
         }
     }

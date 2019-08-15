@@ -73,14 +73,14 @@ public class WgApp extends ExApplication {
         initAsyncImageLoader();
         /*** 初始化网络请求 */
         initHttpTask();
+        /*** 初始化更新Apk配置*/
+        initUpdateApkConfig();
         /*** 初始化Bugly */
         initBugly();
         /*** 初始化Umeng */
         initUmengSdk();
         /*** 初始化存储数据 */
         initStorage();
-        /*** 初始化更新Apk配置*/
-        initUpdateApkConfig();
     }
 
     /***
@@ -148,7 +148,7 @@ public class WgApp extends ExApplication {
         /**
          * 设置启动延时为1s（默认延时3s），APP启动1s后初始化SDK，避免影响APP启动速度;
          */
-        Beta.initDelay = 1 * 1000;
+        Beta.initDelay = 3 * 1000;
 
         /**
          * 设置通知栏大图标，largeIconId为项目中的图片资源;
@@ -176,7 +176,7 @@ public class WgApp extends ExApplication {
          */
         Beta.showInterruptedStrategy = true;
 
-        Beta.enableHotfix = true;
+        Beta.enableHotfix = false;
 
         Bugly.init(this, AppConfig.buglyKey, BuildConfig.DEBUG);
     }
