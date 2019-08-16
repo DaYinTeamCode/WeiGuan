@@ -127,7 +127,7 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
 
             if (!TextUtil.isEmptyTrim(deviceId)) {
 
-                params.addHeader("deviced", deviceId);
+                params.addHeader("deviceId", deviceId);
             }
         }
     }
