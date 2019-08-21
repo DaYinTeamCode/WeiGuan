@@ -57,7 +57,7 @@ public class MainUserHeaderWidget extends ExLayoutWidget implements View.OnClick
                 }
             }
         });
-        mAivBgPic.setBackgroundColor(0xFFFFFFFF);
+        mAivBgPic.setBackgroundResource(R.drawable.cp_title_bar_bg);
         mAivAvater = view.findViewById(R.id.aivAvater);
         mAivAvater.setRoundingParams(RoundingParams.asCircle());
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) mAivAvater.getLayoutParams();
@@ -89,7 +89,7 @@ public class MainUserHeaderWidget extends ExLayoutWidget implements View.OnClick
 
             mAivAvater.setImageUriByLp(wxBind.getHeadImageUrl());
             boolean isLogin = AccountPrefs.getInstance().isLogin();
-            mTvName.setText(isLogin ? wxBind.getNickName() : "登录");
+            mTvName.setText(isLogin ? wxBind.getNickName() : "点击登录");
         }
     }
 }

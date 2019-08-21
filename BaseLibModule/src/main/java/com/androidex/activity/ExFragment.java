@@ -973,6 +973,7 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
     private void callbackSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         if (mIsSupportShowToUser != isShowToUser) {
+            initStatusBar();
             mIsSupportShowToUser = isShowToUser;
             onSupportShowToUserChanged(isShowToUser, from);
             onSupportShowToUserChangedAfter(isShowToUser, from);

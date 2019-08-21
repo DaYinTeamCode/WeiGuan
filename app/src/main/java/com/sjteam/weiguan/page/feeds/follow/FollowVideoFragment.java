@@ -23,6 +23,7 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
 
         super.onActivityCreated(savedInstanceState);
         setContentView(R.layout.fragment_main_follow);
+        getExDecorView().setBackgroundColor(R.drawable.cp_title_bar_bg);
     }
 
     @Override
@@ -38,37 +39,23 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
     }
 
     @Override
-    public void onResume() {
-
-        super.onResume();
-        getTitleView().setBackgroundResource(R.color.app_white);
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
 
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
 
-            getTitleView().setBackgroundResource(R.color.app_white);
             initStatusBar();
         }
     }
 
     @Override
-    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
+    public void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
 
         if (LogMgr.isDebug()) {
 
             LogMgr.i("FollowVideoFragment", "onSupportShowToUserChanged" + isShowToUser);
-        }
-
-        if (isShowToUser) {
-
-            getTitleView().setBackgroundResource(R.color.app_white);
-            initStatusBar();
         }
     }
 
@@ -80,7 +67,8 @@ public class FollowVideoFragment extends CpHttpFrameRvFragment {
     @Override
     protected void initTitleView() {
 
-        getTitleView().setBackgroundResource(R.color.app_white);
+        getTitleView().setBackgroundColor(0Xff161723);
+        setStatusbarView(getTitleView());
     }
 
     @Override

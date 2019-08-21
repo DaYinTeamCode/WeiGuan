@@ -197,7 +197,8 @@ public class SqkbDeviceIdManager extends Observable<SqkbDeviceIdManager.SqkbDevi
      */
     private boolean hasPhoneStatePermission() {
 
-        return ExEasyPermissions.hasPermissions(mDevicePrefs.getContext(), Manifest.permission.READ_PHONE_STATE);
+        return ExEasyPermissions.hasPermissions(mDevicePrefs.getContext(), Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 
     /**
@@ -215,7 +216,7 @@ public class SqkbDeviceIdManager extends Observable<SqkbDeviceIdManager.SqkbDevi
                     .appSettingRationale(activity.getString(R.string.sqkb_core_permission_read_phone_permanently))
                     .showCloseButton(false)
                     .requestCode(RC_READ_PHONE_STATE_PERM)
-                    .permission(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .permission(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                     .showAppSettingsDialogWhenNeverAskAgain(true)
                     .permissionCallbacks(new DeviceIdPermissionCallback(callback) {
                         @Override
@@ -230,8 +231,6 @@ public class SqkbDeviceIdManager extends Observable<SqkbDeviceIdManager.SqkbDevi
         } catch (Exception e) {
 
             onPhoneStatePermissionsGranted(hasPhoneStatePermission());
-
-            throw new IllegalStateException("ExEasyPermissions ERROR!!! , msg : " + e.getMessage());
         }
     }
 

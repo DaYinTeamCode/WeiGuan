@@ -106,13 +106,13 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
      */
     public static void addHeaderToken(HttpTaskParams params, String token) {
 
-        if (params != null) {
-
-            if (!TextUtil.isEmptyTrim(token)) {
-
-                params.addHeader("token", token);
-            }
-        }
+//        if (params != null) {
+//
+//            if (!TextUtil.isEmptyTrim(token)) {
+//
+//                params.addHeader("token", token);
+//            }
+//        }
     }
 
     /**
@@ -123,12 +123,12 @@ public class BaseHttpParamsUtil implements HttpApi, CommonConstant {
      */
     public static void addHeaderDeviceId(HttpTaskParams params, String deviceId) {
 
-        if (params != null) {
-
-            if (!TextUtil.isEmptyTrim(deviceId)) {
-
-                params.addHeader("deviceId", deviceId);
-            }
-        }
+//        if (params != null) {
+//
+//            if (!TextUtil.isEmptyTrim(deviceId)) {
+//
+//                params.addHeader("deviceId", deviceId);
+//            }
+//        }
     }
 }

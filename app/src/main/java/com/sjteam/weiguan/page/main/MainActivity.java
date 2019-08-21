@@ -83,7 +83,6 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
         mDelayBackHandler = new DelayBackHandler();
         mDelayBackHandler.setOnDelayBackListener(this);
         mTabFragments = new LinkedHashMap<>();
-
         EventBusUtils.register(this);
     }
 
@@ -193,7 +192,7 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
         if (fragment != null) {
 
-            setMainTabBackground(fragment);
+//            setMainTabBackground(fragment);
             switchFragment(fragment, isAddFragment);
             if (isAddFragment) {
 
@@ -312,16 +311,16 @@ public class MainActivity extends CpFragmentActivity implements DelayBackHandler
 
             return;
         }
-
-        if (videoCateChangedEvent.getPostion() == 0) {
-
-            ntTab.setInactiveColor(0xFFFFFFFF);
-            flTabDiv.setBackgroundResource(R.color.cp_black);
-        } else {
-
-            ntTab.setInactiveColor(0xFFB7B7B7);
-            flTabDiv.setBackgroundResource(R.color.cp_text_transparent);
-        }
+//
+//        if (videoCateChangedEvent.getPostion() == 0) {
+//
+//            ntTab.setInactiveColor(0xFFFFFFFF);
+//            flTabDiv.setBackgroundResource(R.color.cp_black);
+//        } else {
+//
+//            ntTab.setInactiveColor(0xFFB7B7B7);
+//            flTabDiv.setBackgroundResource(R.color.cp_text_transparent);
+//        }
     }
 
     /***

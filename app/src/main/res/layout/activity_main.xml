@@ -15,15 +15,14 @@
         android:id="@+id/viewTabBg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cp_page_main_act_menu_bar_height"
-        android:layout_gravity="bottom"
-        android:background="@drawable/bg_page_main_act_menu" />
+        android:layout_gravity="bottom" />
 
     <FrameLayout
         android:id="@+id/flTabDiv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cp_page_main_act_menu_bar_height"
         android:layout_gravity="bottom"
-        android:background="#FF000000"
+        android:background="#ff161723"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -36,12 +35,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            app:nts_active_color="#0C87F5"
-            app:nts_color="#0C87F5"
+            app:nts_active_color="#FFFFFF"
+            app:nts_color="#FFFFFF"
             app:nts_corners_radius="4dp"
             app:nts_factor="0.6"
             app:nts_gravity="bottom"
-            app:nts_inactive_color="#B7B7B7"
+            app:nts_inactive_color="#A3A3A6"
             app:nts_size="15dp"
             app:nts_titles="@array/titles"
             app:nts_type="point"

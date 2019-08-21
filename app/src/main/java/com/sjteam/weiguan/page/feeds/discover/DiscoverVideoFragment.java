@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.OrientationHelper;
+import android.util.MalformedJsonException;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
@@ -17,6 +18,8 @@ import com.androidex.util.DeviceUtil;
 import com.androidex.util.ViewUtil;
 import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
+import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
+import com.dueeeke.videoplayer.player.BaseIjkVideoView;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
@@ -52,13 +55,14 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     private boolean mIsPullRefresh;
     private static ImageView mIvVideoPlay;
     private FrameLayout mFlController;
+    private boolean mIsCurrPageVisible;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         setContentSwipeRefreshRecyclerView();
-        getExDecorView().setBackgroundColor(0X00000000);
+        getExDecorView().setBackgroundColor(0Xff161723);
         getExDecorView().setPadding(0, 0, 0, DensityUtil.dip2px(48f));
         setPageLimit(10);
         executeFrameImpl();
@@ -68,6 +72,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     public void onPause() {
 
         super.onPause();
+        mIsCurrPageVisible = false;
     }
 
     @Override
@@ -76,6 +81,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.onResume();
         /*** 设置标题栏为透明状态 */
         getTitleView().setBackgroundResource(R.color.cp_text_transparent);
+        mIsCurrPageVisible = true;
     }
 
     @Override
@@ -99,12 +105,14 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 mIjkVideoView.resume();
             }
+            mIsCurrPageVisible = true;
         } else {
 
             if (mIjkVideoView != null) {
 
                 mIjkVideoView.pause();
             }
+            mIsCurrPageVisible = false;
         }
     }
 
@@ -119,11 +127,13 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 mIjkVideoView.resume();
             }
+            mIsCurrPageVisible = true;
         } else {
 
             if (mIjkVideoView != null) {
 
                 mIjkVideoView.pause();
+                mIsCurrPageVisible = false;
             }
         }
     }
@@ -137,6 +147,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     protected void initTitleView() {
 
         getTitleView().setBackgroundResource(R.color.cp_text_transparent);
+        setStatusbarView(getTitleView());
     }
 
     @Override
@@ -161,6 +172,28 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         mIjkVideoView.setPlayOnMobileNetwork(true);
         mVideoController = new VideoController(getActivity());
         mIjkVideoView.setVideoController(mVideoController);
+        mIjkVideoView.addOnVideoViewStateChangeListener(new OnVideoViewStateChangeListener() {
+            @Override
+            public void onPlayerStateChanged(int playerState) {
+
+            }
+
+            @Override
+            public void onPlayStateChanged(int playState) {
+
+                if (mIjkVideoView == null) {
+
+                    return;
+                }
+                if (playState == BaseIjkVideoView.STATE_PLAYING && mIsCurrPageVisible) {
+
+                    mIjkVideoView.resume();
+                } else {
+
+                    mIjkVideoView.pause();
+                }
+            }
+        });
     }
 
     /***

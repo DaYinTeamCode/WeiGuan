@@ -1,6 +1,7 @@
 package com.androidex.statusbar;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -17,27 +18,24 @@ import com.gyf.immersionbar.ImmersionBar;
 public class StatusBarManager {
 
     /*** 单列实例对象 */
-    private volatile static StatusBarManager mInstance;
+    private static StatusBarManager mInstance;
 
-    /*** 沉淀式状态栏是否可用 ，全局控制 默认为true */
+    /*** 沉淀式状态栏是否可用 ，全局控制 默认为false */
     private boolean isStatusbarEnable = true;
 
     /***
      *  获取沉淀式状态栏单例
      *
-     * @return
+     * @returnAN
      */
     public static StatusBarManager getInstance() {
 
-        if (mInstance == null) {
+        return Instance.INSTANCE;
+    }
 
-            synchronized (StatusBarManager.class) {
-                if (mInstance == null) {
-                    mInstance = new StatusBarManager();
-                }
-            }
-        }
-        return mInstance;
+    public static class Instance {
+
+        public static final StatusBarManager INSTANCE = new StatusBarManager();
     }
 
     /***
@@ -54,7 +52,10 @@ public class StatusBarManager {
      */
     public boolean isIsStatusbarEnable() {
 
-        return isStatusbarEnable;
+        /*** 针对Android 6.0以下手机 不做任何改变 */
+        return isStatusbarEnable
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+        /** 去掉判断手机支不支持状态栏字体变色 与导航栏图标是否支持变色 */
 //                && ImmersionBar.isSupportStatusBarDarkFont()
 //                && ImmersionBar.isSupportNavigationIconDark();
     }
@@ -70,6 +71,23 @@ public class StatusBarManager {
     }
 
     /***
+     *  获取导航栏高度
+     *
+     * @param activity
+     * @return 返回导航栏高度
+     */
+    public int getNavigationBarHeight(Activity activity) {
+
+        if (activity == null
+                || !isIsStatusbarEnable()) {
+
+            return 0;
+        }
+
+        return ImmersionBar.getNavigationBarHeight(activity);
+    }
+
+    /***
      *  获取状态栏高度
      *
      * @param activity Activity
@@ -77,9 +95,7 @@ public class StatusBarManager {
      */
     public int getStatusbarHeight(Activity activity) {
 
-        /*** 针对Android 4.4以下手机 不做任何改变 */
         if (activity == null
-                || Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT
                 || !isIsStatusbarEnable()) {
 
             return 0;
@@ -88,8 +104,23 @@ public class StatusBarManager {
         return ImmersionBar.getStatusBarHeight(activity);
     }
 
+    /***
+     *  获取导航栏高度在闪屏页
+     *
+     * @param activity
+     * @return 返回导航栏高度
+     */
+    public int getStatusbarHeightInSplash(Activity activity) {
+
+        if (activity == null) {
+            return 0;
+        }
+        /*** 获取StatusBar区域高度 */
+        return ImmersionBar.getStatusBarHeight(activity);
+    }
+
     /**
-     * 初始化状态栏样式
+     * 初始化状态栏样式，默认不做与Statusbar高度间距，外部自行处理
      *
      * @param activity
      */
@@ -100,7 +131,81 @@ public class StatusBarManager {
 
             return;
         }
-        initStatusbar(activity, null);
+        try {
+
+            ImmersionBar.with(activity)
+                    .reset()
+//                    .statusBarDarkFont(true, 0.2f)
+                    .keyboardEnable(false)
+                    .autoDarkModeEnable(true)
+                    .init();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    /***
+     *  初始化全屏模式沉浸式状态栏样式，默认不做Statusbar高度间距，外部自行处理
+     *
+     * @param activity
+     */
+    public void initStatusbarByNoTitle(Activity activity) {
+
+        if (activity == null
+                || !isIsStatusbarEnable()) {
+
+            return;
+        }
+        try {
+
+            ImmersionBar.with(activity)
+                    .reset()
+                    .statusBarDarkFont(true, 0.2f)
+                    .autoDarkModeEnable(true)
+                    .keyboardEnable(false)
+                    .init();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    /***
+     *  初始化全屏模式沉浸式状态栏样式，默认不做Statusbar高度间距，外部自行处理
+     *
+     * @param activity
+     */
+    public void initStatusbarBySplash(Activity activity) {
+
+        if (activity == null) {
+            return;
+        }
+        try {
+            ImmersionBar.with(activity)
+                    .reset()
+                    .statusBarDarkFont(true, 0.2f)
+                    .autoDarkModeEnable(true)
+                    .keyboardEnable(false)
+                    .init();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    /***
+     *  初始化搜索Bar状态栏
+     *
+     * @param activity
+     * @param view
+     */
+    public void initSearchBarStatusbar(Activity activity, View view) {
+
+        if (activity == null
+                || !isIsStatusbarEnable()) {
+
+            return;
+        }
+        ImmersionBar immersionBar = ImmersionBar.with(activity);
+        initStatusbar(immersionBar, view);
     }
 
     /***
@@ -119,7 +224,7 @@ public class StatusBarManager {
         try {
 
             ImmersionBar.with(activity)
-                    .statusBarDarkFont(true, 0.2f)
+//                    .statusBarDarkFont(true, 0.2f)
                     .statusBarColor(color)
                     .autoDarkModeEnable(true)
                     .fitsSystemWindows(true)
@@ -146,7 +251,7 @@ public class StatusBarManager {
         try {
 
             ImmersionBar immersionBar = ImmersionBar.with(activity)
-                    .statusBarDarkFont(true, 0.2f)
+//                    .statusBarDarkFont(true, 0.2f)
                     .keyboardEnable(false)
                     .fitsSystemWindows(true);
 
@@ -210,6 +315,53 @@ public class StatusBarManager {
     }
 
     /***
+     *  初始化状态栏样式
+     *
+     * @param activity
+     * @param dialog
+     */
+    public void initStatusbarDialog(Activity activity, Dialog dialog) {
+
+        if (activity == null
+                || dialog == null
+                || !isIsStatusbarEnable()) {
+
+            return;
+        }
+        try {
+
+            ImmersionBar.with(activity, dialog)
+                    .fitsSystemWindows(true)
+                    .autoDarkModeEnable(true)
+                    .statusBarDarkFont(true, 0.2f)
+                    .keyboardEnable(false)
+                    .init();
+        } catch (Exception ex) {
+        }
+    }
+
+    /***
+     *  回收Dialog
+     *
+     * @param activity
+     * @param dialog
+     */
+    public void destroyStatusbarDialog(Activity activity, Dialog dialog) {
+
+        if (activity == null
+                || dialog == null
+                || !isIsStatusbarEnable()) {
+
+            return;
+        }
+        try {
+
+            ImmersionBar.destroy(activity, dialog);
+        } catch (Exception ex) {
+        }
+    }
+
+    /***
      *  初始化Statusbar相关配置
      *
      * @param immersionBar
@@ -226,14 +378,13 @@ public class StatusBarManager {
             if (view != null) {
 
                 immersionBar
-                        .statusBarDarkFont(true, 0.2f)
+//                        .statusBarDarkFont(true, 0.2f)
                         .titleBar(view)
                         .fitsSystemWindows(true)
                         .keyboardEnable(false)
                         .autoDarkModeEnable(true)
                         .init();
             }
-
 //            else {
 //
 //                /***判断手机支不支持状态栏字体变色 */
@@ -260,6 +411,17 @@ public class StatusBarManager {
 //            }
         } catch (Exception ex) {
 
+        }
+    }
+
+    /***
+     *  回收实例
+     */
+    public static void releaseInstance() {
+
+        if (mInstance != null) {
+
+            mInstance = null;
         }
     }
 }

@@ -60,6 +60,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
 
         setContentRecyclerView();
         showContent();
+        getExDecorView().setBackgroundResource(R.color.cp_title_bar_bg);
         EventBusUtils.register(this);
     }
 
@@ -93,14 +94,14 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     protected void initTitleView() {
 
         mTitleWidget = new TitleTransWidget(getActivity(), getExDecorView(), false);
-        mTitleWidget.setTitleViewBg(new ColorDrawable(Color.TRANSPARENT), ExResUtil.getDrawable(R.drawable.cp_white));
+        mTitleWidget.setTitleViewBg(new ColorDrawable(Color.TRANSPARENT), ExResUtil.getDrawable(R.drawable.cp_title_bar_bg));
         mTitleWidget.setAlpha(0);
 
         TextView tvTitle = addTitleMiddleTextView("我的");
-        getTitleView().setBackgroundResource(R.color.app_white);
+        tvTitle.setTextColor(R.drawable.cp_white);
         CpFontUtil.setFont(tvTitle);
         getTitleView().setClickable(false);
-        setStatusbarView(getTitleView());
+        setStatusbarView(mTitleWidget.getContentView());
     }
 
     @Override
@@ -116,7 +117,6 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
         getRecyclerView().setLayoutManager(mLayoutManager);
         getRecyclerView().setGridSpanSizeLookUp(this::getGridSpanCount);
         getRecyclerView().addItemDecoration(new MainUserItemDecoration());
-        getRecyclerView().setBackgroundColor(0xFFFFFFFF);
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override

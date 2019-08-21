@@ -13,6 +13,7 @@ import com.androidex.view.pager.indicator.TabStripIndicator;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.page.aframe.HttpFrameFragment;
+import com.sjteam.weiguan.page.feeds.follow.FollowVideoFragment;
 import com.sjteam.weiguan.page.main.event.VideoCateChangedEvent;
 import com.sjteam.weiguan.page.feeds.adapter.VideoPageAdapter;
 import com.sjteam.weiguan.page.feeds.discover.DiscoverVideoFragment;
@@ -61,6 +62,10 @@ public class MainFeedsFragment extends HttpFrameFragment implements ViewPager.On
         if (fragment instanceof DiscoverVideoFragment) {
 
             DiscoverVideoFragment discoverVideoFragment = (DiscoverVideoFragment) fragment;
+            discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, FROM_MAIN_FEEDS);
+        }else if(fragment instanceof FollowVideoFragment){
+
+            FollowVideoFragment discoverVideoFragment = (FollowVideoFragment) fragment;
             discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, FROM_MAIN_FEEDS);
         }
     }

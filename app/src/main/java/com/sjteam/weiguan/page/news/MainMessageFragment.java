@@ -1,7 +1,6 @@
 package com.sjteam.weiguan.page.news;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -45,12 +44,26 @@ public class MainMessageFragment extends HttpFrameFragment {
     }
 
     @Override
+    protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
+        super.onSupportShowToUserChanged(isShowToUser, from);
+
+        if (isShowToUser) {
+
+            if (getExDecorView() != null) {
+
+                getTitleView().setBackgroundResource(R.color.cp_page_bg);
+                initStatusBar();
+            }
+        }
+    }
+
+    @Override
     protected void initTitleView() {
 
         TextView textView = addTitleMiddleTextView("全部消息");
-        textView.setTextColor(0XFF0C87F5);
+        textView.setTextColor(0XFFFFFFFF);
         textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        getTitleView().setBackgroundResource(R.color.app_white);
+        getTitleView().setBackgroundResource(R.color.cp_page_bg);
         setStatusbarView(getTitleView());
     }
 

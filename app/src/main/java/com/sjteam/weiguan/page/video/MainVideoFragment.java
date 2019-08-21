@@ -1,6 +1,7 @@
 package com.sjteam.weiguan.page.video;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -62,9 +63,9 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
     protected void initTitleView() {
 
         TextView textView = addTitleMiddleTextView("小视频");
-        textView.setTextColor(0XFF0C87F5);
+        textView.setTextColor(0XFFFFFFFF);
         textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        getTitleView().setBackgroundResource(R.color.app_white);
+        getTitleView().setBackgroundResource(R.color.cp_page_bg);
         setStatusbarView(getTitleView());
     }
 
