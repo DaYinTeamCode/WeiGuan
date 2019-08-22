@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.OrientationHelper;
-import android.util.MalformedJsonException;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
@@ -19,7 +18,6 @@ import com.androidex.util.ViewUtil;
 import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
 import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
-import com.dueeeke.videoplayer.player.BaseIjkVideoView;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
@@ -34,6 +32,7 @@ import com.sjteam.weiguan.page.feeds.discover.impl.ViewPagerLayoutManager;
 import com.sjteam.weiguan.page.feeds.discover.utils.FeedsVideoHttpUtils;
 import com.sjteam.weiguan.page.feeds.discover.viewholder.VideoDetailViewHolder;
 import com.sjteam.weiguan.stat.StatRecyclerViewNewAttacher;
+import com.sjteam.weiguan.view.load.LoadingView;
 import com.sjteam.weiguan.widget.video.VideoController;
 
 import java.util.List;
@@ -54,6 +53,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     private VideoDetailAdapter mVideoDetailAdapter;
     private boolean mIsPullRefresh;
     private static ImageView mIvVideoPlay;
+    private static LoadingView mVideoLoadingView;
     private FrameLayout mFlController;
     private boolean mIsCurrPageVisible;
 
@@ -72,7 +72,10 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     public void onPause() {
 
         super.onPause();
-        mIsCurrPageVisible = false;
+        if (mIjkVideoView != null && !mIsCurrPageVisible) {
+
+            mIjkVideoView.pause();
+        }
     }
 
     @Override
@@ -81,7 +84,11 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.onResume();
         /*** 设置标题栏为透明状态 */
         getTitleView().setBackgroundResource(R.color.cp_text_transparent);
-        mIsCurrPageVisible = true;
+
+        if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay) && mIsCurrPageVisible) {
+
+            mIjkVideoView.resume();
+        }
     }
 
     @Override
@@ -185,12 +192,15 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                     return;
                 }
-                if (playState == BaseIjkVideoView.STATE_PLAYING && mIsCurrPageVisible) {
+                if (mIjkVideoView.isPlaying()) {
 
-                    mIjkVideoView.resume();
+                    ViewUtil.hideView(mVideoLoadingView);
+                } else if (ViewUtil.isShow(mIvVideoPlay)) {
+
+                    ViewUtil.hideView(mVideoLoadingView);
                 } else {
 
-                    mIjkVideoView.pause();
+                    ViewUtil.showView(mVideoLoadingView);
                 }
             }
         });
@@ -440,6 +450,8 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
                 mIjkVideoView.start();
 
                 mIvVideoPlay = viewHolder.itemView.findViewById(R.id.ivPlay);
+
+                mVideoLoadingView = viewHolder.itemView.findViewById(R.id.videoLoadingView);
                 if (ViewUtil.isShow(mIvVideoPlay)) {
 
                     ViewUtil.hideView(mIvVideoPlay);

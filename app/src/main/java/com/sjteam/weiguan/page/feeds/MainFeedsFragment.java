@@ -54,6 +54,12 @@ public class MainFeedsFragment extends HttpFrameFragment implements ViewPager.On
     }
 
     @Override
+    public void onPause() {
+
+        super.onPause();
+    }
+
+    @Override
     protected void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
@@ -63,7 +69,7 @@ public class MainFeedsFragment extends HttpFrameFragment implements ViewPager.On
 
             DiscoverVideoFragment discoverVideoFragment = (DiscoverVideoFragment) fragment;
             discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, FROM_MAIN_FEEDS);
-        }else if(fragment instanceof FollowVideoFragment){
+        } else if (fragment instanceof FollowVideoFragment) {
 
             FollowVideoFragment discoverVideoFragment = (FollowVideoFragment) fragment;
             discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, FROM_MAIN_FEEDS);

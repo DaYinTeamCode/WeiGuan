@@ -1,7 +1,6 @@
 package com.sjteam.weiguan.page.video;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -79,14 +78,15 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
         mMainVideoAdapter = new MainVideoAdapter();
         mMainVideoAdapter.setCardWidth(VideoDcCardGridDecoration.ITEM_WIDTH);
         mMainVideoAdapter.setOnExRvItemViewClickListener(this);
+
         mRvGridLayoutMgr = new GridLayoutManager(getContext(), 2);
         getRecyclerView().setLayoutManager(mRvGridLayoutMgr);
         getRecyclerView().addItemDecoration(new VideoDcCardGridDecoration());
         StatRecyclerViewNewAttacher statRecyclerViewNewAttacher = new StatRecyclerViewNewAttacher(getRecyclerView());
         statRecyclerViewNewAttacher.setDataItemListener(this);
         getRecyclerView().addOnChildAttachStateChangeListener(statRecyclerViewNewAttacher);
-        getRecyclerView().setFocusableInTouchMode(false);
         getRecyclerView().setAdapter(mMainVideoAdapter);
+        mMainVideoAdapter.notifyDataSetChanged();
 
         setLoadMoreNoDataTipAttr("已经到底了",
                 R.mipmap.ic_brand_index_list_item_title_pop_left,
@@ -109,7 +109,6 @@ public class MainVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoListResu
             ViewGroup.MarginLayoutParams vgmlp = (ViewGroup.MarginLayoutParams) getSwipeView().getLayoutParams();
             vgmlp.topMargin = top;
             vgmlp.bottomMargin = btm;
-            getSwipeView().requestLayout();
         }
     }
 

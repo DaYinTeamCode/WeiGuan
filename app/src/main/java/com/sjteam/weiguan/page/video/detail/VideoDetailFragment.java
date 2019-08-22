@@ -227,8 +227,6 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
             executeFrameImpl();
         } else if (mVideoDetailAdapter != null && getRecyclerView() != null) {
 
-            mVideoDetailAdapter.clearData();
-            mVideoDetailAdapter.notifyDataSetChanged();
             mVideoDetailAdapter.setData(mFeedsVideoResult);
             mVideoDetailAdapter.notifyDataSetChanged();
             getRecyclerView().scrollToPosition(mPostion);

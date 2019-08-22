@@ -197,7 +197,7 @@ public class StatusBarManager {
      * @param activity
      * @param view
      */
-    public void initSearchBarStatusbar(Activity activity, View view) {
+    public void initSearchBarStatusbar(Activity activity,boolean isDarkFot, View view) {
 
         if (activity == null
                 || !isIsStatusbarEnable()) {
@@ -205,7 +205,7 @@ public class StatusBarManager {
             return;
         }
         ImmersionBar immersionBar = ImmersionBar.with(activity);
-        initStatusbar(immersionBar, view);
+        initStatusbar(immersionBar,isDarkFot, view);
     }
 
     /***
@@ -271,14 +271,14 @@ public class StatusBarManager {
      * @param fragment
      * @param view
      */
-    public void initStatusbar(Fragment fragment, View view) {
+    public void initStatusbar(Fragment fragment,boolean isDarkFot, View view) {
 
         if (fragment == null
                 || !isIsStatusbarEnable()) {
 
             return;
         }
-        initStatusbar(ImmersionBar.with(fragment), view);
+        initStatusbar(ImmersionBar.with(fragment),isDarkFot, view);
     }
 
     /**
@@ -287,14 +287,14 @@ public class StatusBarManager {
      * @param fragment
      * @param view
      */
-    public void initStatusbar(android.support.v4.app.Fragment fragment, View view) {
+    public void initStatusbar(android.support.v4.app.Fragment fragment,boolean isDarkFot, View view) {
 
         if (fragment == null
                 || !isIsStatusbarEnable()) {
 
             return;
         }
-        initStatusbar(ImmersionBar.with(fragment), view);
+        initStatusbar(ImmersionBar.with(fragment),isDarkFot, view);
     }
 
     /**
@@ -303,7 +303,7 @@ public class StatusBarManager {
      * @param dialogFragment
      * @param view
      */
-    public void initStatusbar(android.app.DialogFragment dialogFragment, View view) {
+    public void initStatusbar(android.app.DialogFragment dialogFragment,boolean isDarkFot, View view) {
 
         if (dialogFragment == null
                 || !isIsStatusbarEnable()) {
@@ -311,7 +311,7 @@ public class StatusBarManager {
             return;
         }
 
-        initStatusbar(ImmersionBar.with(dialogFragment), view);
+        initStatusbar(ImmersionBar.with(dialogFragment),isDarkFot, view);
     }
 
     /***
@@ -367,7 +367,7 @@ public class StatusBarManager {
      * @param immersionBar
      * @param view
      */
-    private void initStatusbar(ImmersionBar immersionBar, View view) {
+    private void initStatusbar(ImmersionBar immersionBar,boolean isDarkFot, View view) {
 
         if (immersionBar == null) {
 
@@ -378,7 +378,7 @@ public class StatusBarManager {
             if (view != null) {
 
                 immersionBar
-//                        .statusBarDarkFont(true, 0.2f)
+                        .statusBarDarkFont(isDarkFot, 0.2f)
                         .titleBar(view)
                         .fitsSystemWindows(true)
                         .keyboardEnable(false)

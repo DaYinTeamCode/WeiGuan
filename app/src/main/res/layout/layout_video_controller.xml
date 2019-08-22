@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@android:color/transparent"
+        fresco:placeholderImage="@color/cp_title_bar_bg"
         fresco:roundedCornerRadius="8dp" />
 
 </LinearLayout>

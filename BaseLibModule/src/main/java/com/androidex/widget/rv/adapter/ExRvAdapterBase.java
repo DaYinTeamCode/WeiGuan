@@ -238,7 +238,9 @@ public abstract class ExRvAdapterBase<T, K extends ExRvItemViewHolderBase> exten
     public void setData(List<T> data) {
 
         clearData();
+        notifyDataSetChanged();
         addDataAll(data);
+        notifyDataSetChanged();
     }
 
     public void addData(T item) {
@@ -266,6 +268,7 @@ public abstract class ExRvAdapterBase<T, K extends ExRvItemViewHolderBase> exten
 
             initDataIfNull();
             mData.addAll(data);
+            notifyDataSetChanged();
         }
     }
 
@@ -575,9 +578,9 @@ public abstract class ExRvAdapterBase<T, K extends ExRvItemViewHolderBase> exten
             mFooter.setEnable(enable);
     }
 
-    public void setLoadMoreAttachWindowRetry(boolean retry){
+    public void setLoadMoreAttachWindowRetry(boolean retry) {
 
-        if(mFooter != null)
+        if (mFooter != null)
             mFooter.setAttachedToWindowRetryLoadMore(retry);
     }
 
@@ -674,13 +677,13 @@ public abstract class ExRvAdapterBase<T, K extends ExRvItemViewHolderBase> exten
     }
 
     public void setHeaderIsRecyclable(boolean recyclable) {
-        if(mHeader != null) {
+        if (mHeader != null) {
             mHeader.setIsRecyclable(recyclable);
         }
     }
 
     public void setFooterIsRecyclable(boolean recyclable) {
-        if(mFooter != null) {
+        if (mFooter != null) {
             mFooter.setIsRecyclable(recyclable);
         }
     }

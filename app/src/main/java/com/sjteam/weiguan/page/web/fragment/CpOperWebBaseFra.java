@@ -125,6 +125,7 @@ public abstract class CpOperWebBaseFra extends CpWebBaseFra implements DimenCons
 
         if (getExDecorView().getTitleView() != null) {
 
+            setIsStatusBarDarkFot(true);
             setStatusbarView(getExDecorView().getTitleView());
         }
     }

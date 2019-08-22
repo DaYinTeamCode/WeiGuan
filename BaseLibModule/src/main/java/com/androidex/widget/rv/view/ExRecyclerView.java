@@ -54,13 +54,13 @@ public class ExRecyclerView extends RecyclerView {
         setHeaderFooterSpan(layout);
     }
 
-    private void setHeaderFooterSpan(final LayoutManager layout){
+    private void setHeaderFooterSpan(final LayoutManager layout) {
 
-        if(layout instanceof StaggeredGridLayoutManager){
+        if (layout instanceof StaggeredGridLayoutManager) {
 
             addOnChildAttachStateChangeListener(new ExRvHfStaggeredAttacher(this));
 
-        }else if(layout instanceof GridLayoutManager){
+        } else if (layout instanceof GridLayoutManager) {
 
             //暂没支持header footer 自动布局 待整理
             ((GridLayoutManager) layout).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -112,6 +112,7 @@ public class ExRecyclerView extends RecyclerView {
 
     /**
      * 级联滑动时，是否需要拦截Touch事件
+     *
      * @param interceptTouchEvent
      */
     public void setInterceptTouchEventIfNeeded(boolean interceptTouchEvent) {
@@ -140,7 +141,7 @@ public class ExRecyclerView extends RecyclerView {
 
     public int getItemCount() {
 
-        return super.getAdapter().getItemCount();
+        return super.getAdapter() == null ? 0 : super.getAdapter().getItemCount();
     }
 
     public int getItemViewType(int position) {
@@ -191,9 +192,9 @@ public class ExRecyclerView extends RecyclerView {
             getAdapter().setHeaderPaddingBottom(paddingBottom);
     }
 
-    public boolean hasHeader(){
+    public boolean hasHeader() {
 
-        if(getAdapter() == null)
+        if (getAdapter() == null)
             return false;
         else
             return getAdapter().hasHeader();
@@ -207,9 +208,9 @@ public class ExRecyclerView extends RecyclerView {
             return getAdapter().getHeaderChildCount();
     }
 
-    public ExRvItemViewHolderHeader getHeader(){
+    public ExRvItemViewHolderHeader getHeader() {
 
-        if(getAdapter() == null)
+        if (getAdapter() == null)
             return null;
         else
             return getAdapter().getHeader();
@@ -219,17 +220,17 @@ public class ExRecyclerView extends RecyclerView {
     //***************************** footer api ****************************
 
 
-    public boolean hasFooter(){
+    public boolean hasFooter() {
 
-        if(getAdapter() == null)
+        if (getAdapter() == null)
             return false;
         else
             return getAdapter().hasFooter();
     }
 
-    public ExRvItemViewHolderFooter getFooter(){
+    public ExRvItemViewHolderFooter getFooter() {
 
-        if(getAdapter() == null)
+        if (getAdapter() == null)
             return null;
         else
             return getAdapter().getFooter();
@@ -280,35 +281,35 @@ public class ExRecyclerView extends RecyclerView {
         }
     }
 
-    public ExRvItemViewHolderFooter.ILoadMorer getLoadMorer(){
+    public ExRvItemViewHolderFooter.ILoadMorer getLoadMorer() {
 
-        if(mTempLoadMorer != null)
+        if (mTempLoadMorer != null)
             return mTempLoadMorer;
         else
             return getAdapter() == null ? null : getAdapter().getLoadMorer();
     }
 
-    public void stopLoadMore(){
+    public void stopLoadMore() {
 
-        if(getAdapter() != null)
+        if (getAdapter() != null)
             getAdapter().stopLoadMore();
     }
 
-    public void stopLoadMoreFail(){
+    public void stopLoadMoreFail() {
 
-        if(getAdapter() != null)
+        if (getAdapter() != null)
             getAdapter().stopLoadMoreFail();
     }
 
     public void setLoadMoreEnable(boolean enable) {
 
-        if(getAdapter() != null)
+        if (getAdapter() != null)
             getAdapter().setLoadMoreEnable(enable);
     }
 
-    public boolean isLoadMoreEnable(){
+    public boolean isLoadMoreEnable() {
 
-        if(getAdapter() == null)
+        if (getAdapter() == null)
             return false;
         else
             return getAdapter().isLoadMoreEnable();

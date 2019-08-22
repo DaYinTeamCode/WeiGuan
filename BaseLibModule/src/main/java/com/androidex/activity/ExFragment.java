@@ -50,6 +50,7 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
     private HttpTaskExecuter mHttpTaskExecuter;
     private View mStatusBarView;
     protected Unbinder unbinder;
+    protected boolean mIsDarkFot;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -195,7 +196,8 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
         if (isStatusbarEnabled()) {
 
             StatusBarManager.getInstance()
-                    .initStatusbar(this, getStatusBarView());
+                    .initStatusbar(this, mIsDarkFot
+                            , getStatusBarView());
         }
     }
 
@@ -211,6 +213,11 @@ public abstract class ExFragment extends Fragment implements HttpTaskExecuterHos
             return;
         }
         mStatusBarView = view;
+    }
+
+    protected void setIsStatusBarDarkFot(boolean isStatusBarDarkFot) {
+
+        mIsDarkFot = isStatusBarDarkFot;
     }
 
     /***

@@ -32,7 +32,6 @@ public class VideoDcCardGridDecoration extends ExRvDecoration {
         if (viewHolder instanceof VideoDcViewHolder) {
 
             outRect.top = ITEM_VERTICAL_SPLIT;
-
             GridLayoutManager.LayoutParams sglm = (GridLayoutManager.LayoutParams) viewHolder.getConvertView().getLayoutParams();
             int spanIndex = sglm.getSpanIndex();
 

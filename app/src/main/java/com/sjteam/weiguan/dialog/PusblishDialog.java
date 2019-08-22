@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidex.util.DensityUtil;
-import com.androidex.util.ToastUtil;
 import com.sjteam.weiguan.R;
 import com.sjteam.weiguan.view.toast.ExToast;
 
@@ -58,11 +57,7 @@ public class PusblishDialog extends CpBaseDialog implements View.OnClickListener
 
         TextView textView = findViewById(R.id.tvVideo);
         textView.setOnClickListener(this);
-
-        textView = findViewById(R.id.tvImage);
-        textView.setOnClickListener(this);
-
-        textView = findViewById(R.id.tvText);
+        textView = findViewById(R.id.tvUpload);
         textView.setOnClickListener(this);
     }
 

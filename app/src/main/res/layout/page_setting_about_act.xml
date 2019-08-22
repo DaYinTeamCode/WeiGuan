@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableTop="@mipmap/ic_page_lacunher_logo"
+            android:drawableTop="@mipmap/ic_launcher_logo"
+            android:drawablePadding="13dp"
             android:gravity="center"
             android:text="微观短视频"
             android:textColor="@color/cp_text_title"
@@ -28,7 +29,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="V2.5.9"
             android:textColor="@color/cp_text_subtitle"
             android:textSize="11dp"
             android:textStyle="bold" />
