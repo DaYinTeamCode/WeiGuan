@@ -2,8 +2,10 @@ package com.sjteam.weiguan.page.me;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.androidex.plugin.ExBaseWidget;
 import com.androidex.util.DensityUtil;
 import com.androidex.util.ExResUtil;
+import com.androidex.util.ToastUtil;
 import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
@@ -234,7 +237,7 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
             switch (((UserItemSet) object).getItemType()) {
 
                 case UserItemSet.ABOUT_APP_TYPE:
-                    AboutActivity.startActivity(getActivity());
+                    onUserAboutAppClick();
                     break;
                 case UserItemSet.SHREAD_APP_TYPE:
                     shreadAppClick();
@@ -243,7 +246,10 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
                     smallGameClick();
                     break;
                 case UserItemSet.CHECK_UPDATE_APP:
-                    onCheckUpdateApp();
+                    onCheckUpdateAppClick();
+                    break;
+                case UserItemSet.HELP_FEED_BACK_TYPE:
+                    onUserFeedBackClick();
                     break;
                 default:
                     break;
@@ -252,17 +258,11 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     }
 
     /***
-     *  检测更新
+     *   APP关于
      */
-    private void onCheckUpdateApp() {
+    private void onUserAboutAppClick() {
 
-        /*** 检测更新版本 */
-        try {
-
-            Beta.checkUpgrade(true, false);
-        } catch (Throwable ex) {
-
-        }
+        AboutActivity.startActivity(getActivity());
     }
 
     /***
@@ -271,6 +271,43 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
     private void shreadAppClick() {
 
         showToast("分享app给好友");
+    }
+
+    /***
+     * /*  用户反馈
+     *  *
+     *  * 发起添加群流程。群号：微观短视频(421711174) 的 key 为： 6P5YFAOM7muXE0lENugMHGQ2cHfm3ucG
+     *  * 调用 joinQQGroup(6P5YFAOM7muXE0lENugMHGQ2cHfm3ucG) 即可发起手Q客户端申请加群 微观短视频(421711174)
+     *  *
+     *  * @param key 由官网生成的key
+     *  * @return 返回true表示呼起手Q成功，返回fals表示呼起失败
+     * ***/
+    private void onUserFeedBackClick() {
+
+        Intent intent = new Intent();
+        intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + "6P5YFAOM7muXE0lENugMHGQ2cHfm3ucG"));
+        // 此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+
+            // 未安装手Q或安装的版本不支持
+            ToastUtil.showToast("未安装手Q或安装的版本不支持");
+        }
+    }
+
+    /***
+     *  检测更新
+     */
+    private void onCheckUpdateAppClick() {
+
+        /*** 检测更新版本 */
+        try {
+
+            Beta.checkUpgrade(true, false);
+        } catch (Throwable ex) {
+
+        }
     }
 
     /***
