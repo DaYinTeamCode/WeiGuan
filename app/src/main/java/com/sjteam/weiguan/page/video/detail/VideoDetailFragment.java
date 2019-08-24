@@ -233,7 +233,6 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
 
                     return;
                 }
-                startPlay(position);
                 mCurrentPosition = position;
             }
         });
@@ -496,9 +495,14 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
      */
     public static VideoDetailFragment newInstance(Context context, List<FeedsVideoResult> feedsVideoResults, int postion) {
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("feedsVideoResult", (Serializable) feedsVideoResults);
-        bundle.putInt("postion", postion);
-        return (VideoDetailFragment) Fragment.instantiate(context, VideoDetailFragment.class.getName(), bundle);
+        try {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("feedsVideoResult", (Serializable) feedsVideoResults);
+            bundle.putInt("postion", postion);
+            return (VideoDetailFragment) Fragment.instantiate(context, VideoDetailFragment.class.getName(), bundle);
+        } catch (Exception ex) {
+
+            return null;
+        }
     }
 }

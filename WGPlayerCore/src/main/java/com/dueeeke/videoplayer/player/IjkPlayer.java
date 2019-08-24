@@ -79,7 +79,8 @@ public class IjkPlayer extends AbstractPlayer {
 
         mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "http-detect-range-support", 0);
 
-        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "fflags", "fastseek");//设置seekTo能够快速seek到指定位置并播放
+        //设置seekTo能够快速seek到指定位置并播放
+        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "fflags", "fastseek");
     }
 
     @Override
@@ -211,7 +212,7 @@ public class IjkPlayer extends AbstractPlayer {
     public void setEnableMediaCodec(boolean isEnable) {
         mIsEnableMediaCodec = isEnable;
         int value = isEnable ? 1 : 0;
-        // TODO 注释解码配置 ，默认采用硬解码 
+        // TODO 注释解码配置 ，默认采用硬解码
 //        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", value);//开启硬解码
 //        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-auto-rotate", value);
 //        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-handle-resolution-change", value);

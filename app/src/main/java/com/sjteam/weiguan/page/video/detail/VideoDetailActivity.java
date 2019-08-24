@@ -50,12 +50,16 @@ public class VideoDetailActivity extends CpFragmentActivity {
     }
 
     public static void startActivity(Activity activity, List<FeedsVideoResult> feedsVideoResults, int postion) {
+        try {
 
-        Intent intent = new Intent();
-        intent.putExtra("feedsVideo", (Serializable) feedsVideoResults);
-        intent.putExtra("postion", postion);
-        intent.setClass(activity, VideoDetailActivity.class);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.alpha_in, R.anim.push_exit_stop);
+            Intent intent = new Intent();
+            intent.putExtra("feedsVideo", (Serializable) feedsVideoResults);
+            intent.putExtra("postion", postion);
+            intent.setClass(activity, VideoDetailActivity.class);
+            activity.startActivity(intent);
+            activity.overridePendingTransition(R.anim.alpha_in, R.anim.push_exit_stop);
+        } catch (Exception ex) {
+
+        }
     }
 }
