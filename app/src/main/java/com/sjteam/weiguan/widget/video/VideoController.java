@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.widget.LinearLayout;
 
 import com.androidex.imageloader.fresco.FrescoImageView;
 import com.dueeeke.videoplayer.controller.BaseVideoController;
@@ -17,6 +18,7 @@ import com.sjteam.weiguan.R;
  */
 public class VideoController extends BaseVideoController {
 
+    private LinearLayout mLlthumb;
     private FrescoImageView thumb;
 
     public VideoController(@NonNull Context context) {
@@ -33,13 +35,14 @@ public class VideoController extends BaseVideoController {
 
     @Override
     protected int getLayoutId() {
+
         return R.layout.layout_video_controller;
     }
 
     @Override
     protected void initView() {
         super.initView();
-        thumb = mControllerView.findViewById(R.id.iv_thumb);
+        mLlthumb = mControllerView.findViewById(R.id.ll_thumb);
     }
 
     @Override
@@ -49,11 +52,11 @@ public class VideoController extends BaseVideoController {
         switch (playState) {
             case IjkVideoView.STATE_IDLE:
                 L.e("STATE_IDLE");
-                thumb.setVisibility(VISIBLE);
+                mLlthumb.setVisibility(VISIBLE);
                 break;
             case IjkVideoView.STATE_PLAYING:
                 L.e("STATE_PLAYING");
-                thumb.setVisibility(GONE);
+                mLlthumb.setVisibility(GONE);
                 break;
             case IjkVideoView.STATE_PREPARED:
                 L.e("STATE_PREPARED");
@@ -61,8 +64,8 @@ public class VideoController extends BaseVideoController {
         }
     }
 
-    public FrescoImageView getThumb() {
-
-        return thumb;
-    }
+//    public FrescoImageView getThumb() {
+//
+//        return thumb;
+//    }
 }

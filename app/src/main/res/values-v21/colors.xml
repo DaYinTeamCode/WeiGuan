@@ -3,4 +3,8 @@
     <!--水波纹颜色-->
     <color name="ripple_color_f2f2f2">#f2f2f2</color>
     <color name="app_white">#FFFFFF</color>
+    <color name="cp_cover_placeholder">#ff161723</color>
+    <drawable name="cp_title_bar_bg">#ff161723</drawable>
+
+    <color name="cp_title_bar_bg">#ff161723</color>
 </resources>

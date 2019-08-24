@@ -15,7 +15,10 @@
     <drawable name="cp_title_bar_bg">#ff161723</drawable>
 
     <color name="cp_title_bar_bg">#ff161723</color>
+
     <color name="cp_cover_placeholder">#FFE6E6E6</color>
+
+    <color name="cp_nomal_placeholder">#FF555555</color>
 
     <color name="cp_progress_color">#FFEC5252</color>
 

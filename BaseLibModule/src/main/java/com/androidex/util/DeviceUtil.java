@@ -189,6 +189,27 @@ public class DeviceUtil {
     }
 
     /**
+     * 获取产商自己的应用商店
+     *
+     * @return
+     */
+    public static String getBrandMarketPkg() {
+
+        if (DeviceUtil.isOppoBrand())
+            return "com.oppo.market";
+        else if (DeviceUtil.isXiaoMiBrand())
+            return "com.xiaomi.market";
+        else if (DeviceUtil.isHuaWei())
+            return "com.huawei.appmarket";
+        else if (DeviceUtil.isVivoBrand())
+            return "com.bbk.appstore";
+        else if (DeviceUtil.isMeizu())
+            return "com.meizu.mstore";
+        else
+            return TextUtil.TEXT_EMPTY;
+    }
+
+    /**
      * 获取系统能给当前能给app分配的最大内存
      *
      * @return
@@ -257,7 +278,7 @@ public class DeviceUtil {
 
         //在一些设备上无imei号返回的是0，而不是空串
         //这里认为只要imei号大于1的长度，就认为是合法的
-        if(TextUtil.trimSize(imei) > 1)
+        if (TextUtil.trimSize(imei) > 1)
             return imei;
         else
             return TextUtil.TEXT_EMPTY;
@@ -299,7 +320,7 @@ public class DeviceUtil {
 
         //在一些设备上无imei号返回的是0，而不是空串
         //这里认为只要imei号大于1的长度，就认为是合法的
-        if(TextUtil.trimSize(imei) > 1)
+        if (TextUtil.trimSize(imei) > 1)
             return imei;
         else
             return TextUtil.TEXT_EMPTY;
@@ -687,7 +708,7 @@ public class DeviceUtil {
 
     public static boolean isHuaWei() {
 
-        return isBrand("huawei")||isBrand("honor");
+        return isBrand("huawei") || isBrand("honor");
     }
 
     public static boolean isMeizu() {
@@ -951,7 +972,7 @@ public class DeviceUtil {
      */
     public static String getMacAddress() {
 
-        try{
+        try {
 
             WifiManager wifi = (WifiManager) ExApplication.getContext()
                     .getSystemService(Context.WIFI_SERVICE);
@@ -959,7 +980,7 @@ public class DeviceUtil {
             String mac = info.getMacAddress();
             return TextUtil.filterNull(info.getMacAddress());
 
-        }catch (Throwable t){
+        } catch (Throwable t) {
 
         }
 

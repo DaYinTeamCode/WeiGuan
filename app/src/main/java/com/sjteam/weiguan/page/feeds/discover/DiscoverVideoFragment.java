@@ -11,6 +11,8 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.androidex.imageloader.fresco.FrescoImageView;
+import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.CollectionUtil;
 import com.androidex.util.DensityUtil;
 import com.androidex.util.DeviceUtil;
@@ -19,6 +21,7 @@ import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
 import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
 import com.dueeeke.videoplayer.player.IjkVideoView;
+import com.dueeeke.videoplayer.util.L;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
@@ -55,6 +58,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     private static ImageView mIvVideoPlay;
     private static LoadingView mVideoLoadingView;
     private FrameLayout mFlController;
+    private FrescoImageView mCoverImg;
     private boolean mIsCurrPageVisible;
 
     @Override
@@ -63,7 +67,9 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
         super.onActivityCreated(savedInstanceState);
         setContentSwipeRefreshRecyclerView();
         getExDecorView().setBackgroundColor(0Xff161723);
-        getExDecorView().setPadding(0, 0, 0, DensityUtil.dip2px(48f));
+        getExDecorView().setPadding(0
+                , StatusBarManager.getInstance().getStatusbarHeight(getActivity())
+                , 0, DensityUtil.dip2px(48f));
         setPageLimit(10);
         executeFrameImpl();
     }
@@ -72,10 +78,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     public void onPause() {
 
         super.onPause();
-        if (mIjkVideoView != null && !mIsCurrPageVisible) {
 
-            mIjkVideoView.pause();
-        }
     }
 
     @Override
@@ -83,12 +86,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
         super.onResume();
         /*** 设置标题栏为透明状态 */
-        getTitleView().setBackgroundResource(R.color.cp_text_transparent);
-
-        if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay) && mIsCurrPageVisible) {
-
-            mIjkVideoView.resume();
-        }
+        getTitleView().setBackgroundColor(0x02000000);
     }
 
     @Override
@@ -127,6 +125,9 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     public void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
+    }
+
+    public void onSupporUserChanged(boolean isShowToUser, int from) {
 
         if (isShowToUser && from == MainFeedsFragment.FROM_MAIN_FEEDS) {
 
@@ -153,7 +154,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
     @Override
     protected void initTitleView() {
 
-        getTitleView().setBackgroundResource(R.color.cp_text_transparent);
+        getTitleView().setBackgroundColor(0x02000000);
         setStatusbarView(getTitleView());
     }
 
@@ -192,15 +193,24 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                     return;
                 }
-                if (mIjkVideoView.isPlaying()) {
 
-                    ViewUtil.hideView(mVideoLoadingView);
-                } else if (ViewUtil.isShow(mIvVideoPlay)) {
+                if (!mIsCurrPageVisible && mIjkVideoView.isPlaying()) {
 
-                    ViewUtil.hideView(mVideoLoadingView);
-                } else {
-
-                    ViewUtil.showView(mVideoLoadingView);
+                    mIjkVideoView.pause();
+                }
+                switch (playState) {
+                    case IjkVideoView.STATE_IDLE:
+                        L.e("STATE_IDLE");
+                        ViewUtil.showView(mVideoLoadingView);
+                        ViewUtil.showView(mCoverImg);
+                        break;
+                    case IjkVideoView.STATE_PLAYING:
+                        ViewUtil.goneView(mCoverImg);
+                        ViewUtil.goneView(mVideoLoadingView);
+                        break;
+                    case IjkVideoView.STATE_PREPARED:
+                        L.e("STATE_PREPARED");
+                        break;
                 }
             }
         });
@@ -432,11 +442,9 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
 
                 VideoDetailViewHolder viewHolder = (VideoDetailViewHolder) childViewHolder;
                 FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.container);
-                mVideoController.getThumb().setImageUriByLp(feedsVideoResult.getShowUrls());
 
                 CardView cardView = new CardView(getActivity());
                 FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameLayout.getLayoutParams();
-                cardView.setBackgroundColor(0X00000000);
                 cardView.setRadius(DensityUtil.dip2px(8f));
                 frameLayout.addView(cardView, layoutParams);
                 ViewParent parent = mIjkVideoView.getParent();
@@ -449,6 +457,7 @@ public class DiscoverVideoFragment extends CpHttpFrameXrvFragment<FeedsVideoList
                 mIjkVideoView.setScreenScale(IjkVideoView.SCREEN_SCALE_CENTER_CROP);
                 mIjkVideoView.start();
 
+                mCoverImg = viewHolder.itemView.findViewById(R.id.thumb);
                 mIvVideoPlay = viewHolder.itemView.findViewById(R.id.ivPlay);
 
                 mVideoLoadingView = viewHolder.itemView.findViewById(R.id.videoLoadingView);

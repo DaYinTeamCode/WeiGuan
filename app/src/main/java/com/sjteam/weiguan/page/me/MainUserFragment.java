@@ -7,21 +7,27 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidex.plugin.ExBaseWidget;
 import com.androidex.util.DensityUtil;
+import com.androidex.util.DeviceUtil;
 import com.androidex.util.ExResUtil;
 import com.androidex.util.ToastUtil;
 import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.sjteam.weiguan.R;
+import com.sjteam.weiguan.app.WgApp;
 import com.sjteam.weiguan.dialog.CpConfirmDialog;
 import com.sjteam.weiguan.page.aframe.viewer.CpHttpFrameXrvFragmentViewer;
 import com.sjteam.weiguan.page.login.UserLoginActivity;
@@ -251,10 +257,43 @@ public class MainUserFragment extends CpHttpFrameXrvFragmentViewer implements On
                 case UserItemSet.HELP_FEED_BACK_TYPE:
                     onUserFeedBackClick();
                     break;
+                case UserItemSet.PRAISE_TYPE:
+                    onMarketpRraiseClick();
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+    /***
+     *  五星好评
+     */
+    private void onMarketpRraiseClick() {
+
+        new Handler(Looper.getMainLooper()).post(() -> {
+
+            String packageName = WgApp.getContext().getPackageName();
+            if (TextUtils.isEmpty(packageName.trim())) {
+
+                packageName = "com.sjteam.weiguan";
+            }
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+
+                intent.setPackage(DeviceUtil.getBrandMarketPkg());
+                WgApp.getContext().startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    WgApp.getContext().startActivity(intent);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                    Toast.makeText(WgApp.getContext(), "未发现应用市场", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     /***

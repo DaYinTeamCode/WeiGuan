@@ -11,13 +11,17 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.androidex.imageloader.fresco.FrescoImageView;
+import com.androidex.statusbar.StatusBarManager;
 import com.androidex.util.CollectionUtil;
 import com.androidex.util.DensityUtil;
 import com.androidex.util.DeviceUtil;
 import com.androidex.util.ViewUtil;
 import com.androidex.widget.rv.lisn.item.OnExRvItemViewClickListener;
 import com.androidex.widget.rv.vh.ExRvItemViewHolderBase;
+import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
 import com.dueeeke.videoplayer.player.IjkVideoView;
+import com.dueeeke.videoplayer.util.L;
 import com.jzyd.lib.httptask.HttpFrameParams;
 import com.jzyd.lib.refresh.sqkbswipe.SqkbSwipeRefreshLayout;
 import com.sjteam.weiguan.R;
@@ -30,6 +34,7 @@ import com.sjteam.weiguan.page.feeds.discover.impl.ViewPagerLayoutManager;
 import com.sjteam.weiguan.page.feeds.discover.utils.FeedsVideoHttpUtils;
 import com.sjteam.weiguan.page.feeds.discover.viewholder.VideoDetailViewHolder;
 import com.sjteam.weiguan.stat.StatRecyclerViewNewAttacher;
+import com.sjteam.weiguan.view.load.LoadingView;
 import com.sjteam.weiguan.widget.video.VideoController;
 
 import java.io.Serializable;
@@ -52,15 +57,20 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
     private boolean mIsPullRefresh;
     private static ImageView mIvVideoPlay;
     private FrameLayout mFlController;
-
     private List<Object> mFeedsVideoResult;
     private int mPostion;
+    private static LoadingView mVideoLoadingView;
+    private FrescoImageView mCoverImg;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         setContentSwipeRefreshRecyclerView();
+        getExDecorView().setBackgroundColor(0Xff161723);
+        getExDecorView().setPadding(0
+                , StatusBarManager.getInstance().getStatusbarHeight(getActivity())
+                , 0, 0);
         setPageLimit(10);
     }
 
@@ -68,6 +78,10 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
     public void onPause() {
 
         super.onPause();
+        if (mIjkVideoView != null) {
+
+            mIjkVideoView.pause();
+        }
     }
 
     @Override
@@ -76,6 +90,10 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
         super.onResume();
         /*** 设置标题栏为透明状态 */
         getTitleView().setBackgroundResource(R.color.cp_text_transparent);
+        if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay)) {
+
+            mIjkVideoView.resume();
+        }
     }
 
     @Override
@@ -93,39 +111,13 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
 
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
 
-            if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay)) {
-
-                mIjkVideoView.resume();
-            }
-        } else {
-
-            if (mIjkVideoView != null) {
-
-                mIjkVideoView.pause();
-            }
-        }
     }
 
     @Override
     public void onSupportShowToUserChanged(boolean isShowToUser, int from) {
 
         super.onSupportShowToUserChanged(isShowToUser, from);
-
-        if (isShowToUser) {
-
-            if (mIjkVideoView != null && !ViewUtil.isShow(mIvVideoPlay)) {
-
-                mIjkVideoView.resume();
-            }
-        } else {
-
-            if (mIjkVideoView != null) {
-
-                mIjkVideoView.pause();
-            }
-        }
     }
 
     @Override
@@ -167,6 +159,36 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
         mIjkVideoView.setPlayOnMobileNetwork(true);
         mVideoController = new VideoController(getActivity());
         mIjkVideoView.setVideoController(mVideoController);
+        mIjkVideoView.addOnVideoViewStateChangeListener(new OnVideoViewStateChangeListener() {
+            @Override
+            public void onPlayerStateChanged(int playerState) {
+
+            }
+
+            @Override
+            public void onPlayStateChanged(int playState) {
+
+                if (mIjkVideoView == null) {
+
+                    return;
+                }
+
+                switch (playState) {
+                    case IjkVideoView.STATE_IDLE:
+                        L.e("STATE_IDLE");
+                        ViewUtil.showView(mVideoLoadingView);
+                        ViewUtil.showView(mCoverImg);
+                        break;
+                    case IjkVideoView.STATE_PLAYING:
+                        ViewUtil.goneView(mCoverImg);
+                        ViewUtil.goneView(mVideoLoadingView);
+                        break;
+                    case IjkVideoView.STATE_PREPARED:
+                        L.e("STATE_PREPARED");
+                        break;
+                }
+            }
+        });
     }
 
     /***
@@ -410,7 +432,6 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
 
                 VideoDetailViewHolder viewHolder = (VideoDetailViewHolder) childViewHolder;
                 FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.container);
-                mVideoController.getThumb().setImageUriByLp(feedsVideoResult.getShowUrls());
 
                 CardView cardView = new CardView(getActivity());
                 FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameLayout.getLayoutParams();
@@ -426,7 +447,9 @@ public class VideoDetailFragment extends CpHttpFrameXrvFragment<FeedsVideoListRe
                 mIjkVideoView.setScreenScale(IjkVideoView.SCREEN_SCALE_CENTER_CROP);
                 mIjkVideoView.start();
 
+                mCoverImg = viewHolder.itemView.findViewById(R.id.thumb);
                 mIvVideoPlay = viewHolder.itemView.findViewById(R.id.ivPlay);
+                mVideoLoadingView = viewHolder.itemView.findViewById(R.id.videoLoadingView);
                 if (ViewUtil.isShow(mIvVideoPlay)) {
 
                     ViewUtil.hideView(mIvVideoPlay);

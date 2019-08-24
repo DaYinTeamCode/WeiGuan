@@ -85,10 +85,10 @@ public class VideoDcViewHolder extends ExRvItemViewHolderBase {
 
         if (sales >= 10000 && sales < 100000) {
 
-            return mNumberFraction2Digitsformater.format(sales / 10000d) + "w";
+            return mNumberFraction2Digitsformater.format(sales / 10000d) + "万";
         } else if (sales >= 100000) {
 
-            return mNumberFractionNoDigitsformater.format(sales / 10000d) + "w";
+            return mNumberFractionNoDigitsformater.format(sales / 10000d) + "万";
         } else {
             return String.valueOf(sales);
         }

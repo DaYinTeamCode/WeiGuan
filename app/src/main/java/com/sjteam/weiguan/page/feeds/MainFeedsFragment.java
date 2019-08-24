@@ -68,7 +68,7 @@ public class MainFeedsFragment extends HttpFrameFragment implements ViewPager.On
         if (fragment instanceof DiscoverVideoFragment) {
 
             DiscoverVideoFragment discoverVideoFragment = (DiscoverVideoFragment) fragment;
-            discoverVideoFragment.onSupportShowToUserChanged(isShowToUser, FROM_MAIN_FEEDS);
+            discoverVideoFragment.onSupporUserChanged(isShowToUser, FROM_MAIN_FEEDS);
         } else if (fragment instanceof FollowVideoFragment) {
 
             FollowVideoFragment discoverVideoFragment = (FollowVideoFragment) fragment;

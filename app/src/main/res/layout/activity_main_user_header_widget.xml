@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginLeft="14dp"
         fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@color/cp_cover_placeholder" />
+        fresco:placeholderImage="@color/cp_nomal_placeholder" />
 
     <com.sjteam.weiguan.view.CpTextView
         android:id="@+id/tvName"
